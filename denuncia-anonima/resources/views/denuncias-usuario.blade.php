@@ -52,9 +52,7 @@
                         <img src="logo.png"  >
                  </div>
                     <div style="text-align: center;" class="card-body">
-                        <p>Se você já tem um login, por favor, insira suas <br>
-                         credenciais abaixo. Caso contrário, você pode <br> fazer uma denûncia
-                        anônima clicando no botão "Denunciar anonimamente"</p>
+                        <p>DENUNCIASSSSSSSSSSS</p>
                         <form>
                             <div class="form-group">
                                 <input type="email" class="form-control" id="inputEmail" placeholder="Login">
