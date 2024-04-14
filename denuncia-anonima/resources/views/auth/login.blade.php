@@ -44,32 +44,36 @@
     </style>
     </head>
     <body >
-    <div class="container ">
-        <div class="row ">
-            <div class="col-sm-12 col-md-6 offset-md-3 ">
-                <div class="card">
-                    <div class=" logo">
-                        <img src="logo.png"  >
-                 </div>
-                    <div style="text-align: center;" class="card-body">
-                        <p>DENUNCIASSSSSSSSSSS</p>
-                        <form>
-                            <div class="form-group">
-                                <input type="email" class="form-control" id="inputEmail" placeholder="Login">
-                            </div>
-                            <div class="form-group">
-                                <input type="password" class="form-control" id="inputPassword" placeholder="Senha">
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-block">Entrar</button>
-                            <br>
-                            <p style="text-align: center;" >Ou</p>
-                            <br>
-                            <button type="submit" class="btn btn-primary btn-block">Denunciar anonimamente</button>
-                        </form>
+        <div class="container ">
+            <div class="row ">
+                <div class="col-sm-12 col-md-6 offset-md-3 ">
+                    <div class="card">
+                        <div class=" logo">
+                            <img src="logo.png"  >
+                    </div>
+                        <div style="text-align: center;" class="card-body">
+                            <p>Se você já tem um login, por favor, insira suas <br>
+                            credenciais abaixo. Caso contrário, você pode <br> fazer uma denûncia
+                            anônima clicando no botão "Denunciar anonimamente"</p>
+                            <form method="POST" action="{{ route('login') }}">
+                                @csrf
+
+                                <input id="login" class="form-control" type="login" name="login" :value="old('login')" required autofocus autocomplete="login" id="inputEmail" placeholder="Login">
+                                <input id="password" class="form-control"
+                                    type="password"
+                                    name="password"
+                                    required autocomplete="current-password">
+                                <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                                <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+                                <br>
+                                <p style="text-align: center;" >Ou</p>
+                                <br>
+                                <button type="submit" class="btn btn-primary btn-block">Denunciar anonimamente</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     </body>
 </html>
