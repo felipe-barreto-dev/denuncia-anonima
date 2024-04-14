@@ -84,10 +84,9 @@
         .form-label{
             color: black;            
         }
-
     /*Alerta do rodapé*/
         .alert-footer{
-            width: 40vw;
+            width: 30vw;
             margin-top: 20px;
             font-size: 12px;
             text-align: justify;
@@ -106,7 +105,7 @@
                 <h2 style="padding-top: 70px">Muito Obrigado!</h2>
                 <h5>O protocolo da sua denúncia é:</h5>
             </div>
-
+        <!--Numero do protocolo--> 
             <div class="container-wrapper">
                 <div class="container">
                     <div class="input-wrapper">
@@ -115,12 +114,12 @@
                     </div>
                 </div>
             </div>
-
+        <!--Login-->
             <div style="margin-top: 20px;" class="formulario mb-3">
                 <label class="form-label">Login:</label>
                 <input type="email" class="form-control" id="exampleInputEmail1" value="Subst p/ Login Aleatorio" readonly>
             </div>
-            
+        <!--Senha-->
             <div class="formulario mb-3">
                 <label class="form-label">Senha:</label>
                     <div class="container-wrapper">
