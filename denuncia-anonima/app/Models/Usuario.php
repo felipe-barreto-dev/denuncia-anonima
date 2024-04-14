@@ -1,19 +1,31 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 
-class Usuario extends Model
+class Usuario extends Model implements AuthenticatableContract
 {
+    use AuthenticatableTrait;
     protected $table = 'usuarios'; // Define o nome da tabela
 
     protected $fillable = [
-        'login', 'senha', 'id_perfil'
+        'login', 'password', 'id_perfil'
     ];
+
+    protected $casts = [
+        'password' => 'hashed',
+    ];
+
+    public function username()
+    {
+        return 'login';
+    }
 
     public function perfil()
     {
-        return $this->belongsTo('App\Perfil', 'id_perfil');
+        return $this->belongsTo('App\Models\Perfil', 'id_perfil');
     }
 }
