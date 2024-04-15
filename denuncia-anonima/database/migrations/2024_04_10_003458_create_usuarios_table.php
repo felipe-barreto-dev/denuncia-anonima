@@ -16,7 +16,7 @@ class CreateUsuariosTable extends Migration
         Schema::create('usuarios', function (Blueprint $table) {
             $table->id();
             $table->string('login')->unique();
-            $table->string('senha');
+            $table->string('password');
             $table->unsignedBigInteger('id_perfil');
             
             // Chave estrangeira
