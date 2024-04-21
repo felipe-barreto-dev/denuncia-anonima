@@ -14,3 +14,15 @@ use Illuminate\Support\Facades\Route;
 // });
 
 require __DIR__.'/auth.php';
+
+// Rotas para as telas acessíveis apenas após o login
+//Route::middleware(['auth'])->group(function () {
+    Route::get('/', 'IndexController@index')->name('index');
+    Route::get('/create', 'App\Http\Controllers\CreateController@create')->name('denuncia.create');
+    Route::post('/create', 'App\Http\Controllers\CreateController@store')->name('denuncia.store');
+    Route::get('/confirmation', 'App\Http\Controllers\ConfirmationController@confirmation')->name('confirmation');
+
+    //Como ainda não temos o banco de dados populado, não temos denúncia cadastrada para ter um id AINDA
+    //Route::get('/show/{id}', 'App\Http\Controllers\ShowController@show')->name('denuncia.show');
+    Route::get('/show', 'App\Http\Controllers\ShowController@show')->name('denuncia.show');
+//});
