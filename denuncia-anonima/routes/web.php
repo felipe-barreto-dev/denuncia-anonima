@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\IndexController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/dashboard', function () {
@@ -17,7 +18,6 @@ require __DIR__.'/auth.php';
 
 // Rotas para as telas acessíveis apenas após o login
 //Route::middleware(['auth'])->group(function () {
-    Route::get('/', 'IndexController@index')->name('index');
     Route::get('/create', 'App\Http\Controllers\CreateController@create')->name('denuncia.create');
     Route::post('/create', 'App\Http\Controllers\CreateController@store')->name('denuncia.store');
     Route::get('/confirmation', 'App\Http\Controllers\ConfirmationController@confirmation')->name('confirmation');
