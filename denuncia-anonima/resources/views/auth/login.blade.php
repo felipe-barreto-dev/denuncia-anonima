@@ -23,6 +23,7 @@
         .card {
             margin-top: 100px;
             max-width: 400px;
+            min-width: 400px;
             margin-left: auto;
             margin-right: auto;
             border: none;
@@ -30,15 +31,36 @@
             box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
         }
 
-        .logo {
-            text-align: center;
-            background-color:white;
-            
+        .form-control{
+            margin: 10px;
+            width: 200px;
+            margin-left: auto;
+            margin-right: auto;
+                }
+        .btn-login{
+            width: 100px;
+            margin: 0 auto;
+            border-radius: 30px;
         }
-
+        .btn-login-anon{
+            width: 160px;
+            margin: 0 auto;
+            border-radius: 30px;
+        }
+        .logo div{
+            display: flex;
+            flex-direction: column;
+            text-align: center;            
+        }
+        .logo {
+            display: flex;
+            flex-direction: column;
+            text-align: center;          
+        }
         .logo img {
-            max-width: 100%;
-            height: auto;
+            max-width: 40%;
+            margin-right: auto;
+            margin-left: auto;
         }
 
     </style>
@@ -49,7 +71,7 @@
                 <div class="col-sm-12 col-md-6 offset-md-3 ">
                     <div class="card">
                         <div class=" logo">
-                            <img src="logo.png"  >
+                            <img src="{{ asset('Imagens/logo.png') }}"  >
                     </div>
                         <div style="text-align: center;" class="card-body">
                             <p>Se você já tem um login, por favor, insira suas <br>
@@ -62,13 +84,13 @@
                                 <input id="password" class="form-control"
                                     type="password"
                                     name="password"
-                                    required autocomplete="current-password">
+                                    required autocomplete="current-password"
+                                    placeholder="Senha">
                                 <x-input-error :messages="$errors->get('password')" class="mt-2" />
-                                <button type="submit" class="btn btn-primary btn-block">Entrar</button>
-                                <br>
-                                <p style="text-align: center;" >Ou</p>
-                                <br>
-                                <button type="submit" class="btn btn-primary btn-block">Denunciar anonimamente</button>
+                                <button type="submit" class="btn btn-primary btn-block btn-login">Entrar</button>     
+                                <br>       
+                                <p style="text-align: center;" >Ou</p>   
+                                <button type="submit" class="btn btn-primary btn-block btn-login-anon">Denunciar Anonimamente</button>
                             </form>
                         </div>
                     </div>
