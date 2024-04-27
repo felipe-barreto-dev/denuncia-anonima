@@ -12,6 +12,7 @@
         <li><strong>Nome de usuário:</strong> {{ $usuario->login }}</li>
         <!-- Adicione mais campos conforme necessário -->
     </ul>
+    <a href="/fazer-denuncia">FA\ER DENUNCIA</a>
     <form method="POST" action="{{ route('logout') }}">
       @csrf
 
