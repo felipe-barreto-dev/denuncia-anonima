@@ -13,10 +13,26 @@ class DenunciaController extends Controller
         return view('usuario.fazer-denuncia');
     }
 
+    public function generate_protocol()
+    {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+        $characters_length = strlen($characters);
+
+        $protocol = '';
+
+        for ($i = 0; $i < 6; $i++) {
+            $random_index = rand(0, $characters_length - 1);
+            $protocol .= $characters[$random_index];
+        }
+
+        return $protocol;
+    }
+
     public function store(Request $request)
     {
         $denuncia = new Denuncia();
-        $denuncia->protocolo = 'protocolo';
+        $denuncia->protocolo = $this->generate_protocol();
         $denuncia->descricao = $request->input('descricao');
         $denuncia->titulo = $request->input('titulo');
         $denuncia->pessoas_afetadas = 'outros';
