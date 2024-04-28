@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Denuncia;
 use Illuminate\Http\Request;
 use App\Models\TipoDenuncia; // Certifique-se de importar o modelo de TipoDenuncia
+use Illuminate\Support\Facades\Auth;
 
 class DenunciaController extends Controller
 {
@@ -35,14 +36,23 @@ class DenunciaController extends Controller
     public function store(Request $request)
     {
         $denuncia = new Denuncia();
+    
         $denuncia->protocolo = $this->generate_protocol();
+    
         $denuncia->descricao = $request->input('descricao');
         $denuncia->titulo = $request->input('titulo');
-        $denuncia->pessoas_afetadas = 'outros';
-        $denuncia->id_responsavel = 3;
-        $denuncia->id_usuario = 4;
+        $denuncia->pessoas_afetadas = $request->input('pessoas_afetadas');
+    
+        $denuncia->id_usuario = Auth::id();
+    
         $denuncia->save();
-
+    
+        // Tipos de denúncia (array com os IDs das opções selecionadas)
+        $tiposDenuncia = $request->input('tipos_denuncia');
+        $denuncia->tiposDenuncia()->attach($tiposDenuncia);
+    
+        // Redireciona para a rota adequada com uma mensagem de sucesso
         return redirect()->route('autenticado')->with('success', 'Denúncia criada com sucesso!');
     }
+    
 }

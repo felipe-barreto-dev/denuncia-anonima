@@ -12,4 +12,9 @@ class Denuncia extends Model
         'protocolo', 'descricao', 'titulo', 'pessoas_afetadas', 'id_usuario', 'id_responsavel'
     ];
 
+    public function tiposDenuncia()
+    {
+        return $this->belongsToMany(TipoDenuncia::class);
+    }
+
 }

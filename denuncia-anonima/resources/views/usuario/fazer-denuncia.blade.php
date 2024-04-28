@@ -17,15 +17,12 @@
             position: relative;
             display: flex;
             align-items: center;
-            /* Centraliza verticalmente */
             padding: 20px;
             background-color: #17A2B8;
-            height: 15vh;
-            height: 15vh;
+            height: 10vh;
         }
 
         .cabecalho img {
-            width: 80px;
             width: 80px;
         }
 
@@ -33,7 +30,6 @@
             width: 100%;
             display: flex;
             flex-direction: row;
-
         }
 
         .container-informacoes {
@@ -70,9 +66,7 @@
 
 <body>
     <div class="cabecalho">
-
-        <div class="">
-
+        <div>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button class="rounded border border-danger bg-danger text-white"> <strong>Log out</strong> </button>
@@ -83,7 +77,6 @@
                 </x-dropdown-link>
             </form>
         </div>
-
         <div>
             <h3 class="text-white">Nova denúncia</h3>
         </div>
@@ -107,40 +100,44 @@
 
                 <!-- Data -->
                 <div class="mb-3">
-                    <label class="form-label">Data</label>
-                    <input name="data" class="form-control" placeholder="01/01/2000">
+                    <label class="form-label">Data do ocorrido</label>
+                    <input name="data" type="date" class="form-control" placeholder="01/01/2000">
                 </div>
 
                 <!-- Pessoas afetadas (radio buttons para permitir apenas uma seleção) -->
                 <div class="mb-3">
                     <p>Pessoas afetadas</p>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="pessoas_afetadas" id="afetados-alunos"
-                            value="Alunos">
-                        <label class="form-check-label" for="afetados-alunos">Alunos</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="pessoas_afetadas"
-                            id="afetados-funcionarios" value="Funcionários">
-                        <label class="form-check-label" for="afetados-funcionarios">Funcionários</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="pessoas_afetadas" id="afetados-outros"
-                            value="Outros">
-                        <label class="form-check-label" for="afetados-outros">Outros</label>
+                    <div class="d-flex gap-2">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="pessoas_afetadas" id="afetados-alunos"
+                                value="Alunos">
+                            <label class="form-check-label" for="afetados-alunos">Alunos</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="pessoas_afetadas"
+                                id="afetados-funcionarios" value="Funcionários">
+                            <label class="form-check-label" for="afetados-funcionarios">Funcionários</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="pessoas_afetadas" id="afetados-outros"
+                                value="Outros">
+                            <label class="form-check-label" for="afetados-outros">Outros</label>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Tipo de denúncia (checkboxes para permitir múltiplas seleções) -->
                 <div class="mb-3">
                     <p>Tipo de denúncia</p>
-                    @foreach ($tiposDenuncia as $tipoDenuncia)
-                        <div class="form-check">
-                            <input value="{{ $tipoDenuncia->id }}" class="form-check-input" type="checkbox"
-                                name="tipos_denuncia[]">
-                            <label class="form-check-label">{{ $tipoDenuncia->titulo }}</label>
-                        </div>
-                    @endforeach
+                    <div class="d-flex gap-2">
+                        @foreach ($tiposDenuncia as $tipoDenuncia)
+                            <div class="d-flex items-center py-2 px-4 gap-2 bg-secondary rounded-2 ">
+                                <input class="rounded-2" value="{{ $tipoDenuncia->id }}" type="checkbox"
+                                    name="tipos_denuncia[]">
+                                <label class="form-check-label">{{ $tipoDenuncia->titulo }}</label>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
 
                 <!-- Descrição -->
@@ -289,11 +286,9 @@
                 </div>
             </div>
 
-            <div class="imagem-bem-estar">
-                <br>
+            {{-- <div class="imagem-bem-estar">
                 <img width="100%" src="../../imagens/bem-estar.png" alt="">
-
-            </div>
+            </div> --}}
         </div>
 
     </div>
