@@ -5,14 +5,16 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Denuncia;
 use Illuminate\Http\Request;
+use App\Models\TipoDenuncia; // Certifique-se de importar o modelo de TipoDenuncia
 
 class DenunciaController extends Controller
 {
+
     public function create()
     {
-        return view('usuario.fazer-denuncia');
+        $tiposDenuncia = TipoDenuncia::all();
+        return view('usuario.fazer-denuncia', ['tiposDenuncia' => $tiposDenuncia]);
     }
-
     public function store(Request $request)
     {
         $denuncia = new Denuncia();
