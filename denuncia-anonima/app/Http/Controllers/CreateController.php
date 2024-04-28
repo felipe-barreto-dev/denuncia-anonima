@@ -9,6 +9,6 @@ class CreateController extends Controller
 {
     public function create()
     {
-        return view('site.create');
+        return view('usuario.create-report');
     }
 }

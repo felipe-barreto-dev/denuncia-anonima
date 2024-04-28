@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\CreateController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/dashboard', function () {
@@ -13,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 //     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
+//Rota para denunciar sem as credencias
+Route::get('/create-report', [CreateController::class, 'create'])->name('create-report');
 
 require __DIR__.'/auth.php';
 

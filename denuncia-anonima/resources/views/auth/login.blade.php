@@ -21,17 +21,20 @@
         }
 
         .card {
-            margin-top: 100px;
+            margin-top: 5vw;
             max-width: 400px;
             min-width: 400px;
             margin-left: auto;
             margin-right: auto;
             border: none;
-            border-radius: 10px;
+            border-radius: 15px;
             box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+            padding-bottom: 20px;
         }
+
         .form-control{
-            margin-bottom: 10px;
+            margin-top: 10px;
+            margin-bottom: 15px;
             width: 200px;
             margin-left: auto;
             margin-right: auto;
@@ -39,12 +42,12 @@
         .btn-login{
             width: 100px;
             margin: 0 auto;
-            border-radius: 30px;
+            border-radius: 15px;
         }
         .btn-login-anon{
-            width: 160px;
+            width: 120px;
             margin: 0 auto;
-            border-radius: 30px;
+            border-radius: 15px;
         }
         .logo div{
             display: flex;
@@ -79,14 +82,16 @@
                         <div class=" logo">
                             <img src="{{ asset('Imagens/logo.png') }}"  >
                         </div>
-                    <p style= "text-align: center; margin-bottom:5px;">Clique no botão abaixo para registrar sua denúncia:</p>
-                        <div style= "margin: 0px text-align: center;" class="card-body">
-                            <button type="submit" class="btn btn-primary btn-block btn-login-anon">Denunciar Anonimamente</button>     
+                            <p style= "text-align: center; margin:20px;">Clique no botão abaixo para registrar sua denúncia de forma anônima:</p>
+                                <div style= "text-align: center;">
+                                <form method="GET" action="{{ route('create-report') }}">
+                                    @csrf
+                                    <button type="submit" class="btn btn-primary btn-block btn-login-anon">Denunciar</button>     
+                                </form>
                                 <br>    
-                            <h6 style="text-align: center;" >Ou</h6>   
-                                <p style = "text-align: center; margin-bottom:5px;">Insira suas credencias para acompanhar uma denúncia:</p>
-                                    <form method="POST" action="{{ route('login') }}">
-                                        
+                            <h6 style="text-align: center;">―――――――― OU ――――――――</h6>   
+                                <p style = "text-align: center; margin:20px;">Insira as credencias para acompanhar uma denúncia:</p>
+                                    <form method="POST" action="{{ route('login') }}">                                        
                                     @csrf
                                         <input id="login" class="form-control" type="login" name="login" :value="old('login')" required autofocus autocomplete="login" id="inputEmail" placeholder="Login">
                                         <input id="password" class="form-control"
@@ -95,7 +100,6 @@
                                             required autocomplete="current-password"
                                             placeholder="Senha">
                                         <x-input-error :messages="$errors->get('password')" class="mt-2" />
-
                                             @if ($errors->any())
                                                 <div class="alert alert-danger error-message">
                                                     {{ $errors->first() }}
