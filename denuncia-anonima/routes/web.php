@@ -1,28 +1,31 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\IndexController;
+use App\Http\Controllers\AuthenticatedSessionController;
+use App\Http\Controllers\ShowReportsController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\AutenticadoController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\ConfirmationController;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
+Route::middleware('guest')->group(function () {
+    Route::get('criar-usuario', [UserController::class, 'create'])->name('criar.usuario');
+    Route::post('criar-usuario', [UserController::class, 'store']);
 
-// Route::middleware('auth')->group(function () {
-//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-// });
+    Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
+    Route::post('login', [AuthenticatedSessionController::class, 'store']);
+});
 
-require __DIR__.'/auth.php';
+Route::get('fazer-denuncia', [ReportController::class, 'create']);
+Route::post('fazer-denuncia', [ReportController::class, 'store'])->name('fazer-denuncia');
 
-// Rotas para as telas acessíveis apenas após o login
-//Route::middleware(['auth'])->group(function () {
-    Route::get('/create', 'App\Http\Controllers\CreateController@create')->name('denuncia.create');
-    Route::post('/create', 'App\Http\Controllers\CreateController@store')->name('denuncia.store');
-    Route::get('/confirmation', 'App\Http\Controllers\ConfirmationController@confirmation')->name('confirmation');
+Route::middleware('auth')->group(function () {
+    Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+    Route::get('autenticado', [AutenticadoController::class, 'autenticado']);
 
-    //Como ainda não temos o banco de dados populado, não temos denúncia cadastrada para ter um id AINDA
-    //Route::get('/show/{id}', 'App\Http\Controllers\ShowController@show')->name('denuncia.show');
-    Route::get('/show', 'App\Http\Controllers\ShowController@show')->name('denuncia.show');
-//});
+    Route::get('confirmacao/{token}', [ConfirmationController::class, 'confirmation'])->name('confirmacao');
+
+    Route::get('/', [ShowReportsController::class, 'index'])->name('denuncias.index');
+
+    Route::get('show/{id}', 'App\Http\Controllers\ShowController@show')->name('denuncia.show');
+});

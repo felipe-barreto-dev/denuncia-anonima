@@ -68,8 +68,8 @@
                                 <br>
                                 <p style="text-align: center;" >Ou</p>
                                 <br>
-                                <button type="submit" class="btn btn-primary btn-block">Denunciar anonimamente</button>
                             </form>
+                            <a href="{{ route('fazer-denuncia') }}" class="btn btn-primary btn-block">Denunciar anonimamente</a>
                         </div>
                     </div>
                 </div>
