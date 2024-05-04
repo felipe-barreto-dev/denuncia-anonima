@@ -28,7 +28,7 @@ class AuthenticatedSessionController extends Controller
     
         if (Auth::attempt($credentials)) {
             // Autenticação bem-sucedida
-            return redirect()->intended('/autenticado');
+            return redirect()->route('denuncias.index');
         }
     
         // Autenticação falhou

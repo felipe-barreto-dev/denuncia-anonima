@@ -98,7 +98,7 @@
 <body> 
 
     <div id="container">
-        <form class="form-container">
+        <div class="form-container">
             <div>
                 <img src="{{ asset('Imagens/conclusao.png') }}" alt="" class="logo">
             </div>
@@ -134,12 +134,13 @@
             <p class="alert-footer">Sua coragem é o primeiro passo para um ambiente acadêmico mais justo e seguro. 
                 Contamos com você para construirmos juntos uma universidade melhor.</p>
 
-            <button class="btn btn-primary">Voltar</button>
+            <a href="{{ route('denuncias.index') }}"
+                            class="btn btn-primary">Voltar</a>
 
             <footer>
                 <p class="alert-footer">Cuidado, denunciação caluniosa é crime!</p>
             </footer>
-        </form>
+        </div>
     </div>
 </body>
 

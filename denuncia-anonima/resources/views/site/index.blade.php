@@ -1,144 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
-    </script>
-    <title>Denúncia concluída</title>
-
-
+    <title>Histórico de Denúncias</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
         body {
-            background-color: #17A2B8;
+            margin: 0;
+            font-family: Arial, sans-serif;
         }
 
-        .header {
-            position: relative;
+        .top-header {
+            background-color: #0d98d4;
             display: flex;
-            align-items: center;
-            /* Centraliza verticalmente */
             justify-content: space-between;
-            padding: 30px;
-            height: 20vh;
+            align-items: center;
         }
 
-        .header img {
-            width: 200px;
-            margin: 0 auto;
-            /* Centraliza horizontalmente */
+        .top-header h2 {
+            margin: 30px;
+            color: #fff;
+        }
+        .right-header{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            align-items: end;
+            margin-right: 80px;
         }
 
-        .header button {
-            /* position: absolute; */
-            /* right: 15px; */
-            /* top: 70px; */
+        .btn-group-sm {
+            font-weight: lighter;
+            margin-left: 80px;
         }
 
-        .nav-table {
-            /* position: absolute; */
-            /* bottom: 0; */
+        .btn-lg {
+            padding: 10px 20px;
+            font-size: 16px;
         }
 
-        .table-container {
-            background-color: white;
-            border-radius: 30px 30px 0 0;
-            border: solid 1px;
-            padding: 50px;
-            height: 80vh;
-        }
-
-        .navegacao {
-            position: absolute;
-            bottom: 0px;
-            background-color: white;
-            border-radius: 10px;
+        .btn-sm {
+            padding: 5px 10px;
+            font-size: 14px;
         }
     </style>
 </head>
-
 <body>
 
-
-    <!-- header -->
-    <div class="header">
-
-        <!-- navegação -->
-        <div class="nav-table bg-light">
-            <div class="navegacao">
-                <ul class="nav nav-tabs">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Active</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                    </li>
-                </ul>
-            </div>
+<header class="top-header">
+    <div>
+        <h2>Histórico de Denúncias</h2>
+        <div class="btn-group btn-group-sm" role="group">
+            <button type="button" class="btn btn-secondary" onclick="filterDenuncias('todas')">Todas</button>
+            <button type="button" class="btn btn-secondary" onclick="filterDenuncias('pendentes')">Pendentes</button>
+            <button type="button" class="btn btn-secondary" onclick="filterDenuncias('concluidas')">Concluídas</button>
         </div>
+    </div>
+    <div class="right-header">
+        <button type="button" class="btn btn-primary btn-lg" style="margin-top: 20px">Nova Denúncia</button>
+        <button type="button" class="btn btn-secondary btn-sm" style="margin-top: 10px" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            Logout
+        </button>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>    
+    </div>
+</header>
 
-
-
-        <div><img src="logo-branca.png" alt="">
-        </div>
-
-        <div><button type="button" class="btn btn-secondary btn-lg">Nova denúncia</button>
-        </div>
-
-
+<main>
+    <div class="container">
+        <ul class="list-group mt-3">
+            <!-- Exemplo de registro -->
+               @foreach ($userReports as $report)
+                    <li class="list-group-item d-flex justify-content-between align-items-center denuncia">
+                         <div>
+                             <h3>{{ $report->titulo }}</h3>
+                             <p>{{ $report->descricao }}</p>
+                             <span class="data">Data da denúncia:</span>
+                         </div>
+                         <span class="badge bg-warning text-dark">Pendente</span>
+                     </li>
+               @endforeach
+            <!-- Fim do exemplo -->
+        </ul>
     </div>
 
-
-
-    <!-- tabela  -->
-    <div class="table-container">
-        <table class="table table-light table-striped">
-            <thead>
-                <tr>
-                    <th>Título</th>
-                    <th>Subtítulo</th>
-                    <th>Índice</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($userReports as $report)
-                    <tr>
-                        <td>{{ $report->titulo }}</td>
-                        <td>{{ $report->descricao }}</td>
-                        <td>
-                            <button type="button" class="btn btn-primary btn-sm">Índice</button>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-
-
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
-                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
-        </nav>
-    </div>
-
-    </div>
-
-
+</main>
 
 </body>
-
 </html>
