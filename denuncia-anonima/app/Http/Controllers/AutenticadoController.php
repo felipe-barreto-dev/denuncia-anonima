@@ -10,6 +10,6 @@ class AutenticadoController extends Controller
     public function autenticado()
     {
         $usuario = Auth::user();
-        return view('auth.auth', ['usuario' => $usuario]);
+        return view('site.history');
     }
 }

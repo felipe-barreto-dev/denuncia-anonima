@@ -39,6 +39,34 @@
             border-radius: 15px;
             box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
             padding-bottom: 20px;
+            <<<<<<< HEAD
+        }
+
+        .form-control {
+            margin-top: 10px;
+            margin-bottom: 15px;
+            width: 200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-login {
+            width: 100px;
+            margin: 0 auto;
+            border-radius: 15px;
+        }
+
+        .btn-login-anon {
+            width: 120px;
+            margin: 0 auto;
+            border-radius: 15px;
+        }
+
+        .logo div {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            =======>>>>>>>origin/feat-page_protocol
         }
 
         .form-control {

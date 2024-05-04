@@ -25,16 +25,16 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request): RedirectResponse
     {
         $credentials = $request->only('login', 'password');
-
+    
         if (Auth::attempt($credentials)) {
             // Autenticação bem-sucedida
             return redirect()->intended('/autenticado');
         }
     
         // Autenticação falhou
-        return back()->withErrors(['login' => 'Credenciais inválidas']);
+        return back()->withErrors(['error' => 'Credenciais inválidas']);
     }
-
+    
     /**
      * Destroy an authenticated session.
      */

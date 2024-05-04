@@ -14,7 +14,7 @@
     <style>
         * {
             font-family: "Inter", sans-serif;
-            }
+        }
         #container{
             background: #3e98ff; /*suubsituir a cor por uma plano de fundo*/
             display: flex;
@@ -25,11 +25,11 @@
         }
         .logo {
             position: absolute;
-            top: -15%;
+            top: -8%;
             left: 50%;
             transform: translateX(-50%);
             z-index: 1; /* Certifica-se de que a imagem esteja acima do formulário */
-            width: 200px; /* Define a largura da imagem */
+            width: 160px; /* Define a largura da imagem */
             height: auto;
         }
 
@@ -86,12 +86,11 @@
         }
     /*Alerta do rodapé*/
         .alert-footer{
-            max-width: 30vw;
+            width: 30vw;
             margin-top: 20px;
             font-size: 12px;
             text-align: justify;
         }
-
     </style>
 </head>
 
@@ -100,7 +99,7 @@
     <div id="container">
         <form class="form-container">
             <div>
-                <img src="{{ asset('Imagens/conclusao.png') }}" alt="" class="logo">
+                <img src="denuncia-anonima\public\Imagens\logo.png" alt="" class="logo">
             </div>
             <div class="info-header" >
                 <h2 style="padding-top: 70px">Muito Obrigado!</h2>
@@ -110,7 +109,7 @@
             <div class="container-wrapper">
                 <div class="container">
                     <div class="input-wrapper">
-                        <input value={{ $details['protocolo'] }} readonly/>
+                        <input value="Subst p/ Num Protocolo" readonly/>
                         <i class="fa fa-copy"></i>    
                     </div>
                 </div>
@@ -118,14 +117,14 @@
         <!--Login-->
             <div style="margin-top: 20px;" class="formulario mb-3">
                 <label class="form-label">Login:</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" value={{ $details['login'] }} readonly>
+                <input type="email" class="form-control" id="exampleInputEmail1" value="Subst p/ Login Aleatorio" readonly>
             </div>
         <!--Senha-->
             <div class="formulario mb-3">
                 <label class="form-label">Senha:</label>
                     <div class="container-wrapper">
                         <div class="input-wrapper">
-                            <input type="password" value={{ $details['password'] }} readonly/>
+                            <input type="password" value="Subst p/ Senha Temp" readonly/>
                             <i class="fa-regular fa-eye"></i>                           
                         </div>                       
                     </div>
