@@ -1,0 +1,174 @@
+* {
+    font-family: "Inter", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#container-style {
+    background: #3e98ff; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.logo {
+    position: absolute;
+    top: -8%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1; 
+    width: 160px;
+    height: auto;
+}
+
+
+.info-header {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.container-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.input-wrapper {
+    padding: 4px 10px;
+    display: flex;
+    align-items: center;
+    background-color: rgb(230, 230, 230);
+    border-radius: 6px;
+}
+
+.input-wrapper i {
+    color: #000000;
+    cursor: pointer;
+}
+
+.input-wrapper input {
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+    width: 200px;
+}
+
+.form-container {
+    position: relative;
+    max-width: 480px;
+    background: rgba(255, 255, 255, 0.8); 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border-radius: 25px;
+    margin: auto;
+}
+
+.form-container p {
+    text-align: center;
+}
+
+.form-container button {
+    border-radius: 10px;
+}
+
+.form-label {
+    color: black;
+}
+
+
+.alert-footer {
+    width: 30vw;
+    margin-top: 20px;
+    font-size: 12px;
+    text-align: justify;
+}
+
+
+.cabecalho {
+    justify-content: space-between;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background-color: #17A2B8;
+    height: 10vh;
+}
+
+.cabecalho img {
+    width: 80px;
+}
+
+
+.container-conteudo {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.container-informacoes,
+.container-formulario {
+    width: 50%;
+    padding: 15px;
+}
+
+
+.imagem-bem-estar img {
+    border-radius: 20px;
+}
+
+
+.bg-purple {
+    background-color: #738DED;
+}
+
+.stepper .line {
+    width: 2px;
+    background-color: lightgrey !important;
+}
+
+.stepper .lead {
+    font-size: 1.1rem;
+}
+
+.top-header {
+    background-color: #0d98d4;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.top-header h2 {
+    margin: 30px;
+    color: #fff;
+}
+
+.right-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: end;
+    margin-right: 80px;
+}
+
+.btn-group-sm {
+    font-weight: lighter;
+    margin-left: 80px;
+}
+
+.btn-lg {
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+.btn-sm {
+    padding: 5px 10px;
+    font-size: 14px;
+}
