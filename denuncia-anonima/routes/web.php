@@ -19,6 +19,10 @@ Route::middleware('guest')->group(function () {
 Route::get('fazer-denuncia', [ReportController::class, 'create']);
 Route::post('fazer-denuncia', [ReportController::class, 'store'])->name('fazer-denuncia');
 
+Route::fallback(function() {
+    echo 'A rota acessada não existe. <a href="'.route('login').'">Clique aqui</a> para ir na página inicial';
+});
+
 Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
     Route::get('autenticado', [AutenticadoController::class, 'autenticado']);
