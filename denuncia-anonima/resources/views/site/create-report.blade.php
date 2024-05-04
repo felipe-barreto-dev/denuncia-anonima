@@ -70,11 +70,6 @@
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button class="rounded border border-danger bg-danger text-white"> <strong>Log out</strong> </button>
-                <x-dropdown-link :href="route('logout')"
-                    onclick="event.preventDefault();
-                          this.closest('form').submit();">
-                    {{ __('Log Out') }}
-                </x-dropdown-link>
             </form>
         </div>
         <div>
