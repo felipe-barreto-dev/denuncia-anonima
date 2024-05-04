@@ -5,7 +5,7 @@
     box-sizing: border-box;
 }
 
-#container-style {
+.container-style {
     background: #3e98ff; 
     display: flex;
     flex-direction: column;
