@@ -22,6 +22,12 @@ Route::middleware('guest')->group(function () {
     Route::post('login', [AuthenticatedSessionController::class, 'store']);
 });
 
+
+Route::fallback(function() {
+    echo 'A rota acessada não existe. <a href="'.route('login').'">Clique aqui</a> para ir na página inicial';
+});
+
+
 Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
     Route::get('autenticado', [AutenticadoController::class, 'autenticado']);
