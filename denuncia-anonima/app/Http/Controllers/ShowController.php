@@ -9,6 +9,6 @@ class ShowController extends Controller
 {
     public function show()
     {
-        return view('site.show');
+        return view('site.show-report');
     }
 }
