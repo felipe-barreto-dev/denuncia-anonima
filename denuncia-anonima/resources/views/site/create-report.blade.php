@@ -145,8 +145,31 @@
                 <!-- Botões -->
                 <div class="d-grid gap-2">
                     <button class="btn btn-secondary" type="button">Voltar</button>
-                    <button class="btn btn-primary" type="submit">Denunciar</button>
+                  <!--  <button class="btn btn-primary" type="submit">Denunciar</button> -->
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDenuncia">Denúnciar</button>
+                  
                 </div>
+
+                <!-- Modal de Denúncia -->
+    <div class="modal fade" id="modalDenuncia" tabindex="-1" aria-labelledby="modalDenunciaLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalDenunciaLabel">Confirmação da Denúncia</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Conteúdo do modal de denúncia aqui -->
+                    Deseja confirmar sua denúncia?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <!-- Botão Confirmar -->
+                    <button class="btn btn-primary" type="submit">Confirmar</button>
+                </div>
+            </div>
+        </div>
+    </div>
             </form>
 
         </div>
@@ -286,7 +309,10 @@
             </div> --}}
         </div>
 
+
     </div>
+    
+
 </body>
 
 </html>
