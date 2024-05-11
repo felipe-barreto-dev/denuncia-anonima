@@ -1,56 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('head')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Histórico de Denúncias</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
+@section('title', 'Histórico de Denúncias')
 
-        .top-header {
-            background-color: #0d98d4;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .top-header h2 {
-            margin: 30px;
-            color: #fff;
-        }
-
-        .right-header {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-evenly;
-            align-items: end;
-            margin-right: 80px;
-        }
-
-        .btn-group-sm {
-            font-weight: lighter;
-            margin-left: 80px;
-        }
-
-        .btn-lg {
-            padding: 10px 20px;
-            font-size: 16px;
-        }
-
-        .btn-sm {
-            padding: 5px 10px;
-            font-size: 14px;
-        }
-    </style>
-</head>
-
-<body>
+@section('content')
 
     <header class="top-header">
         <div>
@@ -94,7 +46,4 @@
         </div>
 
     </main>
-
-</body>
-
-</html>
+@endsection
