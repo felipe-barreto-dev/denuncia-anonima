@@ -20,11 +20,12 @@ class CreateDenunciasTable extends Migration
             $table->string('titulo');
             $table->integer('pessoas_afetadas');
             $table->unsignedBigInteger('id_usuario');
-            $table->unsignedBigInteger('id_responsavel');
-            
+            $table->unsignedBigInteger('id_responsavel')->nullable(); // Permitir nulo se aplicável
+
             // Chaves estrangeiras
-            $table->foreign('id_usuario')->references('id')->on('usuarios');
-            $table->foreign('id_responsavel')->references('id')->on('usuarios');
+            $table->foreign('id_usuario')->references('id')->on('usuarios')->onDelete('cascade');
+            $table->foreign('id_responsavel')->references('id')->on('usuarios')->onDelete('set null');
+            $table->timestamps();
         });
     }
 

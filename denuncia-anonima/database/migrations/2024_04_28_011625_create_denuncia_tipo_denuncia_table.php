@@ -14,6 +14,7 @@ class CreateDenunciaTipoDenunciaTable extends Migration
     public function up()
     {
         Schema::create('denuncia_tipo_denuncia', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('denuncia_id');
             $table->unsignedBigInteger('tipo_denuncia_id');
             $table->foreign('denuncia_id')->references('id')->on('denuncias')->onDelete('cascade');
