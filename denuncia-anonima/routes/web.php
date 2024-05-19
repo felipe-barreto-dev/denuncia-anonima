@@ -31,5 +31,5 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/', [ShowReportsController::class, 'index'])->name('denuncias.index');
 
-    Route::get('show/{id}', 'App\Http\Controllers\ShowController@show')->name('denuncia.show');
+    Route::get('show/', 'App\Http\Controllers\ShowController@show')->name('denuncia.show');
 });
