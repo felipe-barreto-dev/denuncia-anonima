@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AutenticadoController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ConfirmationController;
+use App\Http\Controllers\CreateReportTypeController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -34,4 +35,9 @@ Route::middleware('auth')->group(function () {
     Route::get('show/{id}', 'App\Http\Controllers\ShowController@show')->name('denuncia.show');
     Route::post('concluir/{id}', 'App\Http\Controllers\ShowController@concluir')->name('denuncia.concluir');
     Route::post('delegar/{id}', 'App\Http\Controllers\ShowController@delegarResponsavel')->name('denuncia.delegar');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('criar-tipo-denuncia', [CreateReportTypeController::class, 'create'])->name('create-report-type');
+    Route::post('criar-tipo-denuncia', [CreateReportTypeController::class, 'store']);
 });
