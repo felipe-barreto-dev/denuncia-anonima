@@ -1,4 +1,3 @@
-
 @extends('head')
 
 @section('title', 'Fazer Denúncia')

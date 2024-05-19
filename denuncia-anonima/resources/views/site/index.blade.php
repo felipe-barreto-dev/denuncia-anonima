@@ -34,7 +34,7 @@
                 @foreach ($userReports as $report)
                     <li class="list-group-item d-flex justify-content-between align-items-center denuncia">
                         <div>
-                            <h3>{{ $report->titulo }}</h3>
+                            <h3><a href="{{ route('denuncia.show', $report->id) }}">{{ $report->titulo }}</a></h3>
                             <p>{{ $report->descricao }}</p>
                             <span class="data">Data da denúncia:</span>
                         </div>
