@@ -2,23 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Perfil;
 use Illuminate\Http\Request;
-use App\Models\Usuario; // Certifique-se de importar o modelo de Usuario
+use App\Models\Usuario;
 
 class UserController extends Controller
 {
     public function create()
     {
-        return view('auth.register');
+        $perfis = Perfil::all();
+        return view('auth.register', ['perfis' => $perfis]);
     }
 
     public function store(Request $request)
     {
-        $usuario = new Usuario();
-        $usuario->login = $request->input('login');
-        $usuario->password = bcrypt($request->input('password'));
-        $usuario->id_perfil = 1;
-        $usuario->save();
+        $request->validate([
+            'login' => 'required|string|max:255|unique:usuarios',
+            'password' => 'required|string|min:8',
+            'perfil' => 'required|exists:perfis,id',
+        ]);
+
+        $user = new Usuario();
+        $user->login = $request->login;
+        $user->password = bcrypt($request->password);
+        $user->id_perfil = $request->perfil;
+        $user->save();
 
         return redirect()->route('criar.usuario')->with('success', 'Usuário criado com sucesso!');
     }

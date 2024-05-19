@@ -26,6 +26,6 @@ class Usuario extends Model implements AuthenticatableContract
 
     public function perfil()
     {
-        return $this->belongsTo('App\Models\Perfil', 'id_perfil');
+        return $this->belongsTo(Perfil::class, 'id_perfil');
     }
 }

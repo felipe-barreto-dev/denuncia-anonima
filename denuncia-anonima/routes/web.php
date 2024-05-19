@@ -31,5 +31,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/', [ShowReportsController::class, 'index'])->name('denuncias.index');
 
-    Route::get('show/', 'App\Http\Controllers\ShowController@show')->name('denuncia.show');
+    Route::get('show/{id}', 'App\Http\Controllers\ShowController@show')->name('denuncia.show');
+    Route::post('concluir/{id}', 'App\Http\Controllers\ShowController@concluir')->name('denuncia.concluir');
+    Route::post('delegar/{id}', 'App\Http\Controllers\ShowController@delegarResponsavel')->name('denuncia.delegar');
 });

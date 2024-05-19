@@ -5,28 +5,44 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Denuncia;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class ShowReportsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
         $userRole = $user->perfil->nome;
 
+        $filter = $request->input('filter', 'todas');
+
         switch ($userRole) {
             case 'admin':
-                $userReports = Denuncia::all();
+                $query = Denuncia::query();
                 break;
             case 'analista':
-                $userReports = Denuncia::where('id_responsavel', $user->id)->get();
+                $query = Denuncia::where('id_responsavel', $user->id);
                 break;
             case 'denunciante':
-                $userReports = Denuncia::where('id_usuario', $user->id)->get();
+                $query = Denuncia::where('id_usuario', $user->id);
                 break;
             default:
                 return redirect()->route('home')->with('error', 'Perfil não reconhecido.');
         }
 
-        return view('site.index', ['userReports' => $userReports]);
+        if ($filter === 'pendentes') {
+            $query->whereNull('id_responsavel');
+        } elseif ($filter === 'andamento') {
+            $query->whereNull('data_conclusao')->whereNotNull('id_responsavel');
+        } elseif ($filter === 'concluidas') {
+            $query->whereNotNull('data_conclusao');
+        }
+
+        $userReports = $query->get();
+
+        return view('site.index', [
+            'userReports' => $userReports,
+            'currentFilter' => $filter
+        ]);
     }
 }

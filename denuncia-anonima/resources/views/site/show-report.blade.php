@@ -5,8 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalhes denúncia</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
     </script>
 
     <style>
@@ -47,7 +49,7 @@
         .bg-purple {
             background-color: #738DED;
             display: flex;
-   
+
         }
 
         .btn-chat {
@@ -62,9 +64,9 @@
             background-color: grey;
         }
 
-        .d-btn{
+        .d-btn {
             display: flex;
-            justify-content:center;
+            justify-content: center;
             align-items: center;
         }
 
@@ -107,18 +109,18 @@
                 @csrf
                 <div class="mb-3">
                     <label class="form-label">Protocolo</label>
-                    <input name="titulo" class="form-control" value="a53Di0" readonly>
+                    <input name="titulo" class="form-control" value={{ $denuncia->protocolo }} readonly>
                 </div>
                 <!-- Título -->
                 <div class="mb-3">
                     <label class="form-label">Título da denúncia</label>
-                    <input name={{ $denuncia->titulo }} class="form-control" value="Assédio na sala aula" readonly>
+                    <input name="titulo" class="form-control" value={{ $denuncia->titulo }} readonly>
                 </div>
 
                 <!-- Data -->
                 <div class="mb-3">
                     <label class="form-label">Data do ocorrido</label>
-                    <input name="data" class="form-control" value="03/05/24" readonly>
+                    <input name="data" class="form-control" value={{ $denuncia->data_ocorrido }} readonly>
                 </div>
 
                 <!-- Pessoas afetadas (radio buttons para permitir apenas uma seleção) -->
@@ -126,15 +128,18 @@
                     <p>Pessoas afetadas</p>
                     <div class="d-flex gap-2">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="pessoas_afetadas" id="afetados-alunos" value="Alunos" disabled checked>
+                            <input class="form-check-input" type="radio" name="pessoas_afetadas" id="afetados-alunos"
+                                value="Alunos" disabled checked>
                             <label class="form-check-label" for="afetados-alunos">Alunos</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="pessoas_afetadas" id="afetados-funcionarios" value="Funcionários" disabled>
+                            <input class="form-check-input" type="radio" name="pessoas_afetadas"
+                                id="afetados-funcionarios" value="Funcionários" disabled>
                             <label class="form-check-label" for="afetados-funcionarios">Funcionários</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="pessoas_afetadas" id="afetados-outros" value="Outros" disabled>
+                            <input class="form-check-input" type="radio" name="pessoas_afetadas" id="afetados-outros"
+                                value="Outros" disabled>
                             <label class="form-check-label" for="afetados-outros">Outros</label>
                         </div>
                     </div>
@@ -151,7 +156,7 @@
                 <!-- Descrição -->
                 <div class="mb-3">
                     <label for="descricao" class="form-label">Descrição:</label>
-                    <textarea name="descricao" class="form-control w-100" id="descricao" rows="8" readonly>professor passou a mão na aluna na sala de aula</textarea>
+                    <textarea name="descricao" class="form-control w-100" id="descricao" rows="8" readonly>{{ $denuncia->descricao }}</textarea>
                 </div>
 
                 <!-- Botões -->
@@ -173,7 +178,8 @@
                     </div>
                     <div class="ms-4">
                         <h6 class="text-dark">Em análise</h6>
-                        <p class="lead text-muted pb-3">A denúncia foi recebida e está sendo revisada pelos responsáveis pelo processo de investigação.</p>
+                        <p class="lead text-muted pb-3">A denúncia foi recebida e está sendo revisada pelos responsáveis
+                            pelo processo de investigação.</p>
                     </div>
                 </div>
                 <div class="d-flex mb-1">
@@ -183,7 +189,8 @@
                     </div>
                     <div class="ms-3">
                         <h6 class="text-dark">Em andamento</h6>
-                        <p class="lead text-muted pb-3">A investigação sobre a denúncia está em curso, e estão sendo tomadas medidas para resolver o problema.</p>
+                        <p class="lead text-muted pb-3">A investigação sobre a denúncia está em curso, e estão sendo
+                            tomadas medidas para resolver o problema.</p>
                     </div>
                 </div>
                 <div class="d-flex mb-1">
@@ -193,7 +200,8 @@
                     </div>
                     <div class="ms-3">
                         <h6 class="text-dark">Aguardando mais informações</h6>
-                        <p class="lead text-muted pb-3">Mais informações são necessárias para continuar com a investigação da denúncia, verifique seu chat.</p>
+                        <p class="lead text-muted pb-3">Mais informações são necessárias para continuar com a
+                            investigação da denúncia, verifique seu chat.</p>
                     </div>
                 </div>
                 <div class="d-flex mb-1">
@@ -203,23 +211,44 @@
                     </div>
                     <div class="ms-3">
                         <h6 class="text-dark">Resolvida</h6>
-                        <p class="lead text-muted pb-3">O problema relatado na denúncia foi identificado e resolvido de forma satisfatória.</p>
+                        <p class="lead text-muted pb-3">O problema relatado na denúncia foi identificado e resolvido de
+                            forma satisfatória.</p>
                     </div>
 
 
-            </div>
-
-            <div class="d-btn">
-                <div class="btn-chat ">
-                    <button class="btn ">
-                        <i class=""> chat </i>
-                    </button>
                 </div>
+
+                @if (is_null($denuncia->data_conclusao) &&
+                        (auth()->user()->perfil->nome === 'admin' || auth()->user()->perfil->nome === 'analista'))
+                    <div class="d-grid gap-2">
+                        <form method="POST" action="{{ route('denuncia.concluir', $denuncia->id) }}">
+                            @csrf
+                            <button class="btn btn-secondary" type="submit">Concluir Denúncia</button>
+                        </form>
+                    </div>
+                @endif
+
+                @if (is_null($denuncia->id_responsavel) && auth()->user()->perfil->nome === 'admin')
+                    <div class="d-grid gap-2 mt-4">
+                        <form method="POST" action="{{ route('denuncia.delegar', $denuncia->id) }}">
+                            @csrf
+                            <div class="mb-3">
+                                <label for="responsavel" class="form-label">Selecionar Analista:</label>
+                                <select name="id_responsavel" id="responsavel" class="form-select" required>
+                                    <option value="">Escolha um analista</option>
+                                    @foreach ($analistas as $analista)
+                                        <option value="{{ $analista->id }}">{{ $analista->login }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <button class="btn btn-primary" type="submit">Atribuir Analista</button>
+                        </form>
+                    </div>
+                @endif
+
             </div>
 
         </div>
-
-    </div>
 </body>
 
 </html>
