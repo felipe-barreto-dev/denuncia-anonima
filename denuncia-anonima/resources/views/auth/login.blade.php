@@ -39,7 +39,7 @@
             border-radius: 15px;
             box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
             padding-bottom: 20px;
-            <<<<<<< HEAD
+           
         }
 
         .form-control {
@@ -66,7 +66,7 @@
             display: flex;
             flex-direction: column;
             text-align: center;
-            =======>>>>>>>origin/feat-page_protocol
+       
         }
 
         .form-control {
