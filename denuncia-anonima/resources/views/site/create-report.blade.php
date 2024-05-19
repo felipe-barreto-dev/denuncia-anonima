@@ -36,7 +36,7 @@
                 <!-- Data -->
                 <div class="mb-3">
                     <label class="form-label">Data do ocorrido</label>
-                    <input name="data" type="date" class="form-control" placeholder="01/01/2000">
+                    <input name="data_ocorrido" type="date" class="form-control" placeholder="01/01/2000">
                 </div>
 
                 <!-- Pessoas afetadas (radio buttons para permitir apenas uma seleção) -->

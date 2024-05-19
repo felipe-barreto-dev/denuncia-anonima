@@ -9,7 +9,7 @@ class Denuncia extends Model
     protected $table = 'denuncias'; // Define o nome da tabela
 
     protected $fillable = [
-        'protocolo', 'descricao', 'titulo', 'pessoas_afetadas', 'id_usuario', 'id_responsavel'
+        'protocolo', 'descricao', 'titulo', 'pessoas_afetadas', 'id_usuario', 'id_responsavel', 'data_conclusao', 'data_ocorrido'
     ];
 
     public function tiposDenuncia()

@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Denuncia;
+use App\Models\Perfil;
+use Exception;
 use Illuminate\Http\Request;
-use App\Models\TipoDenuncia; // Certifique-se de importar o modelo de TipoDenuncia
+use App\Models\TipoDenuncia;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Usuario;
 use Illuminate\Support\Str;
@@ -49,13 +51,11 @@ class ReportController extends Controller
         $login = '';
         $password = '';
 
-        // Gerar login aleatório
         for ($i = 0; $i < 8; $i++) {
             $random_index = rand(0, $characters_length - 1);
             $login .= $characters[$random_index];
         }
 
-        // Gerar senha aleatória
         for ($i = 0; $i < 10; $i++) {
             $random_index = rand(0, $characters_length - 1);
             $password .= $characters[$random_index];
@@ -74,7 +74,14 @@ class ReportController extends Controller
             $usuario = new Usuario();
             $usuario->login = $credentials['login'];
             $usuario->password = bcrypt($credentials['password']);
-            $usuario->id_perfil = 1;
+            $perfil = Perfil::where('nome', 'denunciante')->first();
+
+            if ($perfil) {
+                $usuario->id_perfil = $perfil->id;
+            } else {
+                throw new Exception('Perfil "denunciante" não encontrado.');
+            }
+
             $usuario->save();
 
             Auth::login($usuario);
@@ -87,6 +94,7 @@ class ReportController extends Controller
         $denuncia->descricao = $request->input('descricao');
         $denuncia->titulo = $request->input('titulo');
         $denuncia->pessoas_afetadas = $request->input('pessoas_afetadas');
+        $denuncia->data_ocorrido = $request->input('data_ocorrido');
     
         $denuncia->id_usuario = Auth::id();
     
@@ -104,7 +112,7 @@ class ReportController extends Controller
                 'login' => $credentials['login'],
                 'password' => $credentials['password'],
                 'protocolo' => $denuncia->protocolo
-            ], now()->addHours(1)); // Define o tempo de expiração do cache para 1 hora
+            ], now()->addHours(1));
     
             // Redireciona para a rota adequada com o token gerado
             return redirect()->route('confirmacao', ['token' => $token])->with('success', 'Denúncia criada com sucesso!');
