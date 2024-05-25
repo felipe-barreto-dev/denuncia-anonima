@@ -1,89 +1,8 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+@extends('head')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalhes denúncia</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
-    </script>
+@section('title', 'Detalhes denúncia')
 
-    <style>
-        .cabecalho {
-            justify-content: space-between;
-            position: relative;
-            display: flex;
-            align-items: center;
-            padding: 20px;
-            background-color: #17A2B8;
-            height: 10vh;
-        }
-
-        .cabecalho img {
-            width: 80px;
-        }
-
-        .container-conteudo {
-            width: 100%;
-            display: flex;
-            flex-direction: row;
-        }
-
-        .container-andamento {
-            width: 50%;
-            padding: 15px;
-        }
-
-        .container-formulario {
-            width: 50%;
-            padding: 15px;
-        }
-
-        .imagem-bem-estar img {
-            border-radius: 20px;
-        }
-
-        .bg-purple {
-            background-color: #738DED;
-            display: flex;
-
-        }
-
-        .btn-chat {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            border: 1.5px solid black;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: grey;
-        }
-
-        .d-btn {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .stepper {
-            .line {
-                width: 2px;
-                background-color: lightgrey !important;
-            }
-
-            .lead {
-                font-size: 1.1rem;
-            }
-
-        }
-    </style>
-</head>
-
+@section('content')
 <body>
     <div class="cabecalho">
         <div>
@@ -152,7 +71,7 @@
                         @foreach($denuncia->tiposDenuncia as $tipoDenuncia)
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="tipoDenuncia-{{ $tipoDenuncia->id }}" checked disabled>
-                                <label class="form-check-label" for="tipoDenuncia-{{ $tipoDenuncia->id }}">{{ $tipoDenuncia->titulo }}
+                                <label class="form-check-label" for="tipoDenuncia-{{ $tipoDenuncia->id }}">{{ $tipoDenuncia->titulo }}</label>
                             </div>
                         @endforeach
                     </div>
@@ -256,4 +175,4 @@
         </div>
 </body>
 
-</html>
+@endsection
