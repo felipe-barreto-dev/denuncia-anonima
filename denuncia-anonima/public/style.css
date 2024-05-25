@@ -172,3 +172,74 @@
     padding: 5px 10px;
     font-size: 14px;
 }
+
+/* CSS de show-report */
+.cabecalho {
+    justify-content: space-between;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background-color: #17A2B8;
+    height: 10vh;
+}
+
+.cabecalho img {
+    width: 80px;
+}
+
+.container-conteudo {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.container-andamento {
+    width: 50%;
+    padding: 15px;
+}
+
+.container-formulario {
+    width: 50%;
+    padding: 15px;
+}
+
+.imagem-bem-estar img {
+    border-radius: 20px;
+}
+
+.bg-purple {
+    background-color: #738DED;
+    display: flex;
+
+}
+
+.btn-chat {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 1.5px solid black;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: grey;
+}
+
+.d-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.stepper {
+    .line {
+        width: 2px;
+        background-color: lightgrey !important;
+    }
+
+    .lead {
+        font-size: 1.1rem;
+    }
+
+}
