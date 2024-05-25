@@ -149,7 +149,12 @@
                 <div class="mb-3">
                     <p>Tipo de denúncia</p>
                     <div class="d-flex gap-2">
-
+                        @foreach($denuncia->tiposDenuncia as $tipoDenuncia)
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="tipoDenuncia-{{ $tipoDenuncia->id }}" checked disabled>
+                                <label class="form-check-label" for="tipoDenuncia-{{ $tipoDenuncia->id }}">{{ $tipoDenuncia->titulo }}
+                            </div>
+                        @endforeach
                     </div>
                 </div>
 
