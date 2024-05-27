@@ -1,9 +1,72 @@
-@extends('head')
+<!DOCTYPE html>
+<html lang="pt-BR">
 
-@section('title', 'Fazer Denúncia')
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fazer denúncia</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
+    </script>
+    <style>
+        .cabecalho {
+            justify-content: space-between;
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            background-color: #17A2B8;
+            height: 10vh;
+        }
 
-@section('content')
+        .cabecalho img {
+            width: 80px;
+        }
 
+        .container-conteudo {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+        }
+
+        .container-informacoes {
+            width: 50%;
+            padding: 15px;
+        }
+
+        .container-formulario {
+            width: 50%;
+            padding: 15px;
+        }
+
+        .imagem-bem-estar img {
+            border-radius: 20px;
+        }
+
+        .bg-purple {
+            background-color: #738DED;
+        }
+
+        .stepper .line {
+            width: 2px;
+            background-color: lightgrey !important;
+        }
+
+        .stepper .lead {
+            font-size: 1.1rem;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 0.9rem;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
     <div class="cabecalho">
         <div>
             <form method="POST" action="{{ route('logout') }}">
@@ -20,22 +83,22 @@
     </div>
 
     <div class="container-conteudo d-flex">
-
-
         <!-- formulário -->
-        <div class="container-formulario ">
-            <form method="POST" action="{{ route('fazer-denuncia') }}">
+        <div class="container-formulario">
+            <form method="POST" action="{{ route('fazer-denuncia') }}" id="denunciaForm">
                 @csrf
                 <!-- Título -->
                 <div class="mb-3">
                     <label class="form-label">Título da denúncia</label>
                     <input name="titulo" class="form-control" placeholder="Digite o título aqui">
+                    <div class="error-message" id="error-titulo">Campo obrigatório</div>
                 </div>
 
                 <!-- Data -->
                 <div class="mb-3">
                     <label class="form-label">Data do ocorrido</label>
-                    <input name="data_ocorrido" type="date" class="form-control" placeholder="01/01/2000">
+                    <input name="data" type="date" class="form-control" placeholder="01/01/2000">
+                    <div class="error-message" id="error-data">Campo obrigatório</div>
                 </div>
 
                 <!-- Pessoas afetadas (radio buttons para permitir apenas uma seleção) -->
@@ -58,6 +121,7 @@
                             <label class="form-check-label" for="afetados-outros">Outros</label>
                         </div>
                     </div>
+                    <div class="error-message" id="error-pessoas-afetadas">Campo obrigatório</div>
                 </div>
 
                 <!-- Tipo de denúncia (checkboxes para permitir múltiplas seleções) -->
@@ -65,13 +129,14 @@
                     <p>Tipo de denúncia</p>
                     <div class="d-flex gap-2">
                         @foreach ($tiposDenuncia as $tipoDenuncia)
-                            <div class="d-flex items-center py-2 px-4 gap-2 bg-secondary rounded-2 ">
-                                <input class="rounded-2" value="{{ $tipoDenuncia->id }}" type="checkbox"
-                                    name="tipos_denuncia[]">
-                                <label class="form-check-label">{{ $tipoDenuncia->titulo }}</label>
-                            </div>
+                        <div class="d-flex items-center py-2 px-4 gap-2 bg-secondary rounded-2 ">
+                            <input class="rounded-2" value="{{ $tipoDenuncia->id }}" type="checkbox"
+                                name="tipos_denuncia[]">
+                            <label class="form-check-label">{{ $tipoDenuncia->titulo }}</label>
+                        </div>
                         @endforeach
                     </div>
+                    <div class="error-message" id="error-tipos-denuncia">Campo obrigatório</div>
                 </div>
 
                 <!-- Descrição -->
@@ -79,19 +144,39 @@
                     <label for="descricao" class="form-label">Descrição:</label>
                     <textarea name="descricao" class="form-control w-100" id="descricao" rows="8"
                         placeholder="Digite a descrição aqui"></textarea>
+                    <div class="error-message" id="error-descricao">Campo obrigatório</div>
                 </div>
 
                 <!-- Botões -->
                 <div class="d-grid gap-2">
                     <button class="btn btn-secondary" type="button">Voltar</button>
-                    <button class="btn btn-primary" type="submit">Denunciar</button>
+                    <button type="button" class="btn btn-primary" onclick="showModal()">Denunciar</button>
+                </div>
+
+                <!-- Modal de Denúncia -->
+                <div class="modal fade" id="modalDenuncia" tabindex="-1" aria-labelledby="modalDenunciaLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalDenunciaLabel">Confirmação da Denúncia</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Deseja confirmar sua denúncia?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <!-- Botão Confirmar -->
+                                <button class="btn btn-primary" type="submit" form="denunciaForm">Confirmar</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </form>
-
         </div>
 
         <div class="container-informacoes">
-
             <div class="stepper d-flex flex-column mt-5 ml-2">
                 <div class="d-flex mb-1 ">
                     <div class="d-flex flex-column pr-4 align-items-center">
@@ -110,9 +195,7 @@
                     </div>
                     <div class="ms-3">
                         <h6 class="text-dark">Envio da denúncia</h6>
-                        <p class="lead text-muted pb-3">Clique em denunciar para submeter a sua denúncia, revise
-                            antes de
-                            enviar</p>
+                        <p class="lead text-muted pb-3">Clique em denunciar para submeter a sua denúncia, revise antes de enviar</p>
                     </div>
                 </div>
                 <div class="d-flex mb-1">
@@ -122,9 +205,7 @@
                     </div>
                     <div class="ms-3">
                         <h6 class="text-dark">Protocolo e credenciais</h6>
-                        <p class="lead text-muted pb-3">Após o envio, será gerado um protocolo e suas
-                            credenciais
-                            para que você possa logar e consultar suas denúncias de forma segura!</p>
+                        <p class="lead text-muted pb-3">Após o envio, será gerado um protocolo e suas credenciais para que você possa logar e consultar suas denúncias de forma segura!</p>
                     </div>
                 </div>
                 <div class="d-flex mb-1">
@@ -134,10 +215,7 @@
                     </div>
                     <div class="ms-3">
                         <h6 class="text-dark">Análise inicial</h6>
-                        <p class="lead text-muted pb-3">O administrador revisa sua denúncia para entender a
-                            gravidade da
-                            situação e
-                            delegar um analista responsável pelo seu atendimento.</p>
+                        <p class="lead text-muted pb-3">O administrador revisa sua denúncia para entender a gravidade da situação e delegar um analista responsável pelo seu atendimento.</p>
                     </div>
                 </div>
                 <div class="d-flex mb-1">
@@ -147,10 +225,7 @@
                     </div>
                     <div class="ms-3">
                         <h6 class="text-dark">Investigação</h6>
-                        <p class="lead text-muted pb-3">Uma equipe conduz uma investigação minuciosa, coletando
-                            evidências
-                            adicionais,
-                            fique atento as atualizações de status.</p>
+                        <p class="lead text-muted pb-3">Uma equipe conduz uma investigação minuciosa, coletando evidências adicionais, fique atento as atualizações de status.</p>
                     </div>
                 </div>
                 <div class="d-flex mb-1">
@@ -160,12 +235,9 @@
                     </div>
                     <div class="ms-3">
                         <h6 class="text-dark">Resolução e encerramento</h6>
-                        <p class="lead text-muted pb-3">Você será informado sobre as medidas tomadas em
-                            resposta à
-                            denúncia.</p>
+                        <p class="lead text-muted pb-3">Você será informado sobre as medidas tomadas em resposta à denúncia.</p>
                     </div>
                 </div>
-
             </div>
 
             <!-- Accordion -->
@@ -195,7 +267,6 @@
                         </h2>
                         <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
                             data-bs-parent="#accordionExample">
-
                             <div class="accordion-body">
                                 Através do protocolo e login e login gerados após a denúncia, é possível
                                 acompanhar o andamento de sua denúncia.
@@ -224,6 +295,64 @@
                 <img width="100%" src="../../imagens/bem-estar.png" alt="">
             </div> --}}
         </div>
-
     </div>
-@endsection
+
+    <script>
+        function validateForm() {
+            let valid = true;
+
+            // Reset all error messages
+            document.querySelectorAll('.error-message').forEach(function (el) {
+                el.style.display = 'none';
+            });
+
+            // Validate Título
+            const titulo = document.querySelector('input[name="titulo"]').value.trim();
+            if (titulo === '') {
+                document.getElementById('error-titulo').style.display = 'block';
+                valid = false;
+            }
+
+            // Validate Data
+            const data = document.querySelector('input[name="data"]').value.trim();
+            if (data === '') {
+                document.getElementById('error-data').style.display = 'block';
+                valid = false;
+            }
+
+            // Validate Pessoas Afetadas
+            const pessoasAfetadas = document.querySelector('input[name="pessoas_afetadas"]:checked');
+            if (!pessoasAfetadas) {
+                document.getElementById('error-pessoas-afetadas').style.display = 'block';
+                valid = false;
+            }
+
+            // Validate Tipo de Denúncia
+            const tiposDenuncia = document.querySelectorAll('input[name="tipos_denuncia[]"]:checked');
+            if (tiposDenuncia.length === 0) {
+                document.getElementById('error-tipos-denuncia').style.display = 'block';
+                valid = false;
+            }
+
+            // Validate Descrição
+            const descricao = document.querySelector('textarea[name="descricao"]').value.trim();
+            if (descricao === '') {
+                document.getElementById('error-descricao').style.display = 'block';
+                valid = false;
+            }
+
+            return valid;
+        }
+
+        function showModal() {
+            if (validateForm()) {
+                var myModal = new bootstrap.Modal(document.getElementById('modalDenuncia'), {
+                    keyboard: false
+                });
+                myModal.show();
+            }
+        }
+    </script>
+</body>
+
+</html>
