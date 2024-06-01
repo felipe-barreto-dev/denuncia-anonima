@@ -17,7 +17,7 @@
         <div class="right-header">
             <a href="{{ route('fazer-denuncia') }}" class="btn btn-primary btn-lg">Nova Denúncia</a>
             <button type="button" class="btn btn-secondary btn-sm" style="margin-top: 10px" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                Logout
+                Sair
             </button>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf

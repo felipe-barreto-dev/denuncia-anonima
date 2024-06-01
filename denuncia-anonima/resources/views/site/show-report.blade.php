@@ -23,7 +23,7 @@
 
         <!-- formulário -->
         <div class="container-formulario ">
-            <form method="POST" action="{{ route('fazer-denuncia') }}">
+            <form>
                 @csrf
                 <div class="mb-3">
                     <label class="form-label">Protocolo</label>
@@ -87,7 +87,6 @@
                     <button class="btn btn-secondary" type="button">Voltar</button>
                 </div>
             </form>
-
         </div>
 
         <!-- andamento da denúncia -->

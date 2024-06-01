@@ -18,8 +18,8 @@ class ShowController extends Controller
             $query->where('nome', 'analista');
         })->get();
 
-        // Verifica se a denúncia existe e se pertence ao usuário autenticado
-        if ($denuncia && $denuncia->id_usuario == auth()->user()->id) {
+        // Verifica se a denúncia existe e se pertence ao usuário autenticado ou o usuário autenticado é admin ou o usuário autenticado é responsavel pela denúncia
+        if ($denuncia && ($denuncia->id_usuario == auth()->user()->id || auth()->user()->perfil->nome == "admin" || $denuncia->id_responsavel == auth()->user()->id)) {
             // Passe os dados da denúncia para a visualização
             return view('site.show-report', ['denuncia' => $denuncia, 'analistas' => $analistas]);
         } else {
