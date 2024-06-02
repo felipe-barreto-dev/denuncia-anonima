@@ -120,4 +120,17 @@ class ReportController extends Controller
 
         return redirect()->route('denuncias.index');
     }
+
+    public function concluir($id)
+    {
+        try {
+            $denuncia = Denuncia::findOrFail($id);
+            $denuncia->data_conclusao = now();
+            $denuncia->save();
+
+            return redirect()->route('denuncias.index')->with('success', 'Denúncia concluída com sucesso!');
+        } catch (Exception $e) {
+            return redirect()->route('denuncias.index')->with('error', 'Erro ao concluir a denúncia: ' . $e->getMessage());
+        }
+    }
 }

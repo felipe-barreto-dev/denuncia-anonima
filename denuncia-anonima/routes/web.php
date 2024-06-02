@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthenticatedSessionController;
+use App\Http\Controllers\ShowController;
 use App\Http\Controllers\ShowReportsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AutenticadoController;
@@ -31,7 +32,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/', [ShowReportsController::class, 'index'])->name('denuncias.index');
 
-    Route::get('show/{id}', 'App\Http\Controllers\ShowController@show')->name('denuncia.show');
-    Route::post('concluir/{id}', 'App\Http\Controllers\ShowController@concluir')->name('denuncia.concluir');
-    Route::post('delegar/{id}', 'App\Http\Controllers\ShowController@delegarResponsavel')->name('denuncia.delegar');
+    Route::get('show/{id}', [ShowController::class, 'show'])->name('denuncia.show');
+    Route::post('concluir/{id}', [ReportController::class, 'concluir'])->name('denuncia.concluir');
+    Route::post('delegar/{id}', [ShowController::class, 'delegarResponsavel'])->name('denuncia.delegar');
 });

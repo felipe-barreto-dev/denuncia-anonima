@@ -7,7 +7,7 @@
         <div>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
-                <button class="rounded border border-danger bg-danger text-white"> <strong>Log out</strong> </button>
+                <button class="rounded border border-danger bg-danger text-white py-2 px-4"> <strong>Sair</strong> </button>
             </form>
         </div>
         <div>
@@ -67,10 +67,12 @@
                 <div class="mb-3">
                     <p>Tipo de denúncia</p>
                     <div class="d-flex gap-2">
-                        @foreach($denuncia->tiposDenuncia as $tipoDenuncia)
+                        @foreach ($denuncia->tiposDenuncia as $tipoDenuncia)
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="tipoDenuncia-{{ $tipoDenuncia->id }}" checked disabled>
-                                <label class="form-check-label" for="tipoDenuncia-{{ $tipoDenuncia->id }}">{{ $tipoDenuncia->titulo }}</label>
+                                <input class="form-check-input" type="checkbox" id="tipoDenuncia-{{ $tipoDenuncia->id }}"
+                                    checked disabled>
+                                <label class="form-check-label"
+                                    for="tipoDenuncia-{{ $tipoDenuncia->id }}">{{ $tipoDenuncia->titulo }}</label>
                             </div>
                         @endforeach
                     </div>
@@ -84,7 +86,7 @@
 
                 <!-- Botões -->
                 <div class="d-grid gap-2">
-                    <button class="btn btn-secondary" type="button">Voltar</button>
+                    <a href="{{ route('denuncias.index') }}" class="btn btn-secondary">Voltar</a>
                 </div>
             </form>
         </div>
@@ -129,15 +131,12 @@
                 <div class="d-flex mb-1">
                     <div class="d-flex flex-column pr-4 align-items-center">
                         <div class="rounded-circle py-2 px-3 bg-secondary text-white mb-1">4</div>
-                        <div class="line h-100"></div>
                     </div>
                     <div class="ms-3">
                         <h6 class="text-dark">Resolvida</h6>
                         <p class="lead text-muted pb-3">O problema relatado na denúncia foi identificado e resolvido de
                             forma satisfatória.</p>
                     </div>
-
-
                 </div>
 
                 @if (is_null($denuncia->data_conclusao) &&
@@ -171,4 +170,4 @@
             </div>
 
         </div>
-@endsection
+    @endsection

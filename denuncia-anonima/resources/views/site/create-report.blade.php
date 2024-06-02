@@ -71,7 +71,8 @@
         <div>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
-                <button class="rounded border border-danger bg-danger text-white"> <strong>Log out</strong> </button>
+                <button class="rounded border border-danger bg-danger text-white py-2 px-4"> <strong>Sair</strong>
+                </button>
             </form>
         </div>
         <div>
@@ -129,11 +130,11 @@
                     <p>Tipo de denúncia</p>
                     <div class="d-flex gap-2">
                         @foreach ($tiposDenuncia as $tipoDenuncia)
-                        <div class="d-flex items-center py-2 px-4 gap-2 bg-secondary rounded-2 ">
-                            <input class="rounded-2" value="{{ $tipoDenuncia->id }}" type="checkbox"
-                                name="tipos_denuncia[]">
-                            <label class="form-check-label">{{ $tipoDenuncia->titulo }}</label>
-                        </div>
+                            <div class="d-flex items-center py-2 px-4 gap-2 bg-secondary rounded-2 ">
+                                <input class="rounded-2" value="{{ $tipoDenuncia->id }}" type="checkbox"
+                                    name="tipos_denuncia[]">
+                                <label class="form-check-label">{{ $tipoDenuncia->titulo }}</label>
+                            </div>
                         @endforeach
                     </div>
                     <div class="error-message" id="error-tipos-denuncia">Campo obrigatório</div>
@@ -149,7 +150,7 @@
 
                 <!-- Botões -->
                 <div class="d-grid gap-2">
-                    <button class="btn btn-secondary" type="button">Voltar</button>
+                    <a href="{{ route('denuncias.index') }}" class="btn btn-secondary">Voltar</a>
                     <button type="button" class="btn btn-primary" onclick="showModal()">Denunciar</button>
                 </div>
 
@@ -160,13 +161,15 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="modalDenunciaLabel">Confirmação da Denúncia</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 Deseja confirmar sua denúncia?
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">Cancelar</button>
                                 <!-- Botão Confirmar -->
                                 <button class="btn btn-primary" type="submit" form="denunciaForm">Confirmar</button>
                             </div>
@@ -195,7 +198,8 @@
                     </div>
                     <div class="ms-3">
                         <h6 class="text-dark">Envio da denúncia</h6>
-                        <p class="lead text-muted pb-3">Clique em denunciar para submeter a sua denúncia, revise antes de enviar</p>
+                        <p class="lead text-muted pb-3">Clique em denunciar para submeter a sua denúncia, revise antes
+                            de enviar</p>
                     </div>
                 </div>
                 <div class="d-flex mb-1">
@@ -205,7 +209,8 @@
                     </div>
                     <div class="ms-3">
                         <h6 class="text-dark">Protocolo e credenciais</h6>
-                        <p class="lead text-muted pb-3">Após o envio, será gerado um protocolo e suas credenciais para que você possa logar e consultar suas denúncias de forma segura!</p>
+                        <p class="lead text-muted pb-3">Após o envio, será gerado um protocolo e suas credenciais para
+                            que você possa logar e consultar suas denúncias de forma segura!</p>
                     </div>
                 </div>
                 <div class="d-flex mb-1">
@@ -215,7 +220,8 @@
                     </div>
                     <div class="ms-3">
                         <h6 class="text-dark">Análise inicial</h6>
-                        <p class="lead text-muted pb-3">O administrador revisa sua denúncia para entender a gravidade da situação e delegar um analista responsável pelo seu atendimento.</p>
+                        <p class="lead text-muted pb-3">O administrador revisa sua denúncia para entender a gravidade
+                            da situação e delegar um analista responsável pelo seu atendimento.</p>
                     </div>
                 </div>
                 <div class="d-flex mb-1">
@@ -225,7 +231,8 @@
                     </div>
                     <div class="ms-3">
                         <h6 class="text-dark">Investigação</h6>
-                        <p class="lead text-muted pb-3">Uma equipe conduz uma investigação minuciosa, coletando evidências adicionais, fique atento as atualizações de status.</p>
+                        <p class="lead text-muted pb-3">Uma equipe conduz uma investigação minuciosa, coletando
+                            evidências adicionais, fique atento as atualizações de status.</p>
                     </div>
                 </div>
                 <div class="d-flex mb-1">
@@ -235,7 +242,8 @@
                     </div>
                     <div class="ms-3">
                         <h6 class="text-dark">Resolução e encerramento</h6>
-                        <p class="lead text-muted pb-3">Você será informado sobre as medidas tomadas em resposta à denúncia.</p>
+                        <p class="lead text-muted pb-3">Você será informado sobre as medidas tomadas em resposta à
+                            denúncia.</p>
                     </div>
                 </div>
             </div>
@@ -302,7 +310,7 @@
             let valid = true;
 
             // Reset all error messages
-            document.querySelectorAll('.error-message').forEach(function (el) {
+            document.querySelectorAll('.error-message').forEach(function(el) {
                 el.style.display = 'none';
             });
 
