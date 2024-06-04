@@ -41,7 +41,7 @@
             <p class="alert-footer">Sua coragem é o primeiro passo para um ambiente acadêmico mais justo e seguro.
                 Contamos com você para construirmos juntos uma universidade melhor.</p>
 
-            <a href="{{ route('denuncias.index') }}" class="btn btn-primary">Voltar</a>
+            <a href="{{ route('denuncias.index') }}" class="btn btn-primary">Continuar</a>
 
             <footer>
                 <p class="alert-footer">Cuidado, denunciação caluniosa é crime!</p>

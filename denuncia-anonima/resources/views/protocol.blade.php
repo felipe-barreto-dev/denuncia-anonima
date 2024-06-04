@@ -38,10 +38,10 @@
                 </div>
             </div>
 
-            <p class="alert-footer">Sua coragem é o primeiro passo para um ambiente acadêmico mais justo e seguro.
+            <p>Sua coragem é o primeiro passo para um ambiente acadêmico mais justo e seguro.
                 Contamos com você para construirmos juntos uma universidade melhor.</p>
 
-            <button class="btn btn-primary">Voltar</button>
+            <button class="btn btn-primary">Continuar</button>
 
             <footer>
                 <p class="alert-footer">Cuidado, denunciação caluniosa é crime!</p>
