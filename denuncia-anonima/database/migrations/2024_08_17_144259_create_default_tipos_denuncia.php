@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
+use App\Models\TipoDenuncia;
 
 class CreateDefaultProfiles extends Migration
 {
@@ -11,9 +12,10 @@ class CreateDefaultProfiles extends Migration
      */
     public function up()
     {
-        // Adicionando dois perfis
-        DB::table('tipos_denuncia')->insert([
-            ['titulo' => 'titulo', 'descricao' => 'descricao'],
+        // Adicionando dois perfis usando Eloquent
+        TipoDenuncia::create([
+            'titulo' => 'titulo',
+            'descricao' => 'descricao',
         ]);
     }
 
@@ -24,7 +26,7 @@ class CreateDefaultProfiles extends Migration
      */
     public function down()
     {
-        // Removendo os perfis adicionados
-        DB::table('tipos_denuncia')->whereIn('titulo', ['teste'])->delete();
+        // Removendo os perfis adicionados usando Eloquent
+        TipoDenuncia::where('titulo', 'titulo')->delete();
     }
 }
