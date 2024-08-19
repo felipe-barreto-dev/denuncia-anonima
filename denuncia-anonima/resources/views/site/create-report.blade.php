@@ -17,7 +17,7 @@
             display: flex;
             align-items: center;
             padding: 20px;
-            background-color: #17A2B8;
+            background-color: #0d98d4;
             height: 10vh;
         }
 
