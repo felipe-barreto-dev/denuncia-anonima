@@ -235,3 +235,56 @@
 .btn-primary{
     background-color: #0d98d4; 
 }
+
+.cabecalho {
+    justify-content: space-between;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background-color: #0d98d4;
+    height: 10vh;
+}
+
+.cabecalho img {
+    width: 80px;
+}
+
+.container-conteudo {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.container-informacoes {
+    width: 50%;
+    padding: 15px;
+}
+
+.container-formulario {
+    width: 50%;
+    padding: 15px;
+}
+
+.imagem-bem-estar img {
+    border-radius: 20px;
+}
+
+.bg-purple {
+    background-color: #738DED;
+}
+
+.stepper .line {
+    width: 2px;
+    background-color: lightgrey !important;
+}
+
+.stepper .lead {
+    font-size: 1.1rem;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.9rem;
+    display: none;
+}
