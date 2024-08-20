@@ -25,9 +25,8 @@
 </header>
 
 <main>
-    <div class="container-fluid">
+    <div class="container position-relative"> 
         <div class="row">
-       
             <div class="col-md-9 offset-md-1">
                 <ul class="list-group mt-3">
                     @foreach ($userReports as $report)
@@ -59,16 +58,18 @@
                 </ul>
             </div>
            
-            <div class="col-md-1 d-flex justify-content-center align-items-center ms-5">
-                <a href="{{ route('fazer-denuncia') }}" class="btn btn-primary btn-lg">
-                    <i class="fa-solid fa-plus"></i>
-                </a>
-                <button type="button" class="btn btn-secondary btn-lg ms-3" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                    <i class="fa-solid fa-right-from-bracket"></i>
-                </button>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                    @csrf
-                </form>
+            <div class="col-md-1" style="position: absolute; right: 0;">
+                <div class="col-md-1 d-flex justify-content-center align-items-center ms-5 mt-4">
+                    <a href="{{ route('fazer-denuncia') }}" class="btn btn-primary btn-lg">
+                        <i class="fa-solid fa-plus"></i>
+                    </a>
+                    <button type="button" class="btn btn-secondary btn-lg ms-3" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    </button>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                </div>
             </div>
         </div>
     </div>
