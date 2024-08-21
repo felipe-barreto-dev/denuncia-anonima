@@ -6,7 +6,7 @@
 }
 
 .container-style {
-    background: #3e98ff; 
+    background: #0d98d4; 
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -60,7 +60,7 @@
 .form-container {
     position: relative;
     max-width: 480px;
-    background: rgba(255, 255, 255, 0.8); 
+    background: #F8F8FF; 
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -287,4 +287,37 @@
     color: red;
     font-size: 0.9rem;
     display: none;
+}
+
+/* Estilo geral do Datepicker */
+.datepicker {
+    background-color: #F8F8FF; /* Cor de fundo do calendário */
+    border: 1px solid #ddd; /* Cor da borda */
+    border-radius: 0.25rem; /* Borda arredondada */
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15); /* Sombra */
+}
+
+/* Botões de navegação (anterior/próximo) */
+.datepicker .prev, .datepicker .next {
+    color: #000; /* Cor dos ícones */
+    opacity: 0.7; /* Transparência dos ícones */
+}
+
+/* Dias da semana */
+.datepicker .datepicker-days .dow {
+    color: #6c757d; /* Cor dos dias da semana */
+    font-weight: bold; /* Texto em negrito */
+}
+
+/* Dias do mês */
+.datepicker .datepicker-days .day {
+    color: #343a40; /* Cor dos dias */
+    background-color: #b2d7e6; /* Cor de fundo dos dias */
+    border-radius: 0.25rem; /* Borda arredondada */
+}
+
+/* Dia selecionado */
+.datepicker .datepicker-days .day.active {
+    background-color: #007bff; /* Cor de fundo do dia selecionado */
+    color: #fff; /* Cor do texto do dia selecionado */
 }
