@@ -1,8 +1,8 @@
 @extends('head')
 
-@section('content')
-
 @section('title', 'Fazer denúncia')
+
+@section('content')
 
 <div class="cabecalho">
     <div>
@@ -31,9 +31,14 @@
                 <div class="error-message" id="error-titulo">Campo obrigatório</div>
             </div>
 
-            <div class="mb-3">
+             <div class="mb-3 position-relative">
                 <label class="form-label">Data do ocorrido</label>
-                <input name="data" type="date" class="form-control" placeholder="01/01/2000">
+                <div class="input-group">
+                    <input name="data" type="text" class="form-control" placeholder="01/01/2000" id="custom-date">
+                    <span class="input-group-text" role="button">
+                        <i class="fa-solid fa-calendar cursor-pointer"></i>
+                    </span>
+                </div>
                 <div class="error-message" id="error-data">Campo obrigatório</div>
             </div>
 
@@ -58,11 +63,11 @@
 
             <div class="mb-3">
                 <p>Tipo de denúncia</p>
-                <div class="d-flex gap-2">
+                <div class="d-flex flex-wrap gap-2">
                     @foreach ($tiposDenuncia as $tipoDenuncia)
-                        <div class="d-flex items-center py-2 px-4 gap-2 bg-secondary rounded-2">
+                        <div class="d-flex align-items-center py-2 px-4 bg-secondary rounded-2">
                             <input class="rounded-2" value="{{ $tipoDenuncia->id }}" type="checkbox" name="tipos_denuncia[]">
-                            <label class="form-check-label">{{ $tipoDenuncia->titulo }}</label>
+                            <label class="form-check-label ms-2">{{ $tipoDenuncia->titulo }}</label>
                         </div>
                     @endforeach
                 </div>
@@ -259,6 +264,5 @@
         }
     }
 </script>
-@section('content')
 
 @endsection
