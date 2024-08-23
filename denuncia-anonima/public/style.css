@@ -366,3 +366,8 @@
     text-align: center; 
     margin:20px;
 }
+
+.bg-secondary, .btn-secondary {
+    background-color: #aaacaf !important;
+}
+

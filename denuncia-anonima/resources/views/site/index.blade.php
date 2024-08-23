@@ -8,13 +8,13 @@
     <div>
         <h2>Histórico de Denúncias</h2>
         <div class="btn-group btn-group-sm" role="group">
-            <button type="button" class="btn btn-secondary {{ $currentFilter === 'todas' ? 'active' : '' }}"
+            <button type="button" class="btn border-0 btn-secondary {{ $currentFilter === 'todas' ? 'active' : '' }}"
                 onclick="filterDenuncias('todas')">Todas</button>
-            <button type="button" class="btn btn-secondary {{ $currentFilter === 'pendentes' ? 'active' : '' }}"
+            <button type="button" class="btn border-0 btn-secondary {{ $currentFilter === 'pendentes' ? 'active' : '' }}"
                 onclick="filterDenuncias('pendentes')">Pendentes</button>
-            <button type="button" class="btn btn-secondary {{ $currentFilter === 'andamento' ? 'active' : '' }}"
+            <button type="button" class="btn border-0 btn-secondary {{ $currentFilter === 'andamento' ? 'active' : '' }}"
                 onclick="filterDenuncias('andamento')">Em Andamento</button>
-            <button type="button" class="btn btn-secondary {{ $currentFilter === 'concluidas' ? 'active' : '' }}"
+            <button type="button" class="btn border-0 btn-secondary {{ $currentFilter === 'concluidas' ? 'active' : '' }}"
                 onclick="filterDenuncias('concluidas')">Concluídas</button>
         </div>
     </div>
@@ -63,7 +63,7 @@
                     <a href="{{ route('fazer-denuncia') }}" class="btn btn-primary btn-lg">
                         <i class="fa-solid fa-plus"></i>
                     </a>
-                    <button type="button" class="btn btn-secondary btn-lg ms-3" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <button type="button" class="btn border-0 btn-secondary btn-lg ms-3" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <i class="fa-solid fa-right-from-bracket"></i>
                     </button>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
