@@ -15,13 +15,8 @@
 }
 
 .logo {
-    position: absolute;
-    top: -8%;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1; 
-    width: 160px;
-    height: auto;
+    transform: translateY(-67%) !important;
+    left: 22%;
 }
 
 .info-header {
@@ -320,4 +315,54 @@
 .datepicker .datepicker-days .day.active {
     background-color: #007bff; /* Cor de fundo do dia selecionado */
     color: #fff; /* Cor do texto do dia selecionado */
+}
+
+.background-login{
+    background-color: #85b3e2;
+    height: 100vh;
+}
+
+.custom-card-login{
+    margin-top: 84px;
+    width: 100%; 
+    max-width: 400px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+}
+
+.custom-buttons-login {
+    margin-top: 10px;
+    margin-bottom: 15px;
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn-login {
+    width: 100px;
+    border-radius: 15px;
+    margin-top: 10px;
+}
+
+.btn-login-anonymous {
+    width: 120px;
+    margin: 0 auto;
+    border-radius: 15px;
+}
+
+.error-message-login {
+    font-size: 14px;
+    /* Defina o tamanho da fonte */
+    max-width: 200px;
+    padding: 5px 10px;
+    /* Defina o preenchimento (padding) interno */
+    margin-bottom: 10px;
+    /* Defina a margem inferior */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.text-alignment-login {
+    text-align: center; 
+    margin:20px;
 }
