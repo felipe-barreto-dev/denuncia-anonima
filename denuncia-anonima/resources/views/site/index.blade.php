@@ -3,7 +3,7 @@
 @section('title', 'Histórico de Denúncias')
 
 @section('content')
-
+<body>
 <header class="top-header">
     <div>
         <h2>Histórico de Denúncias</h2>
@@ -74,6 +74,7 @@
         </div>
     </div>
 </main>
+</body>
 
 <script>
     function filterDenuncias(filter) {

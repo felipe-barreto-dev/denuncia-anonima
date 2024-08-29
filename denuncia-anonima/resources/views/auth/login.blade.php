@@ -4,6 +4,7 @@
 
 @section('content')
 
+<body>
 <div class="container-fluid background-login d-flex justify-content-center align-items-center">
     <div class="card custom-card-login p-3">
         <div class="text-center position-relative">
@@ -43,5 +44,5 @@
         </div>
     </div>
 </div>
-
+</body>
 @endsection
