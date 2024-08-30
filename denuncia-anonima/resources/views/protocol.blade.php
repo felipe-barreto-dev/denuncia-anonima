@@ -3,84 +3,76 @@
 @section('title', 'Protocolo')
 
 @section('content')
-    <div id="container-protocol" class="container-style">
-        <form class="form-container">
-            <div>
-                <img src="denuncia-anonima\public\Imagens\logo.png" alt="" class="logo">
+<body class="bg-fundo-confirmation">
+    <div class="d-flex justify-content-center align-items-center vh-100">
+        <div class="form-container mx-4">
+            <div class="text-center">
+                <img src="{{ asset('Imagens/logo.png') }}" alt="" style="width: 8rem; height: 7rem;">
             </div>
-            <div class="info-header">
-                <h2 style="padding-top: 70px">Muito Obrigado!</h2>
-                <h5>O protocolo da sua denúncia é:</h5>
+            <div class="text-center mb-2">
+                <h4>Muito Obrigado!</h4>
+            <h6>O protocolo da sua denúncia é:</h6>
             </div>
-            <!--Numero do protocolo-->
-            <div class="container-wrapper">
+            <!-- Numero do protocolo -->
+            <div class="container-wrapper mb-2">
                 <div class="container">
                     <div class="input-wrapper">
-                        <input value="Subst p/ Num Protocolo" readonly />
-                        <i class="fa fa-copy"></i>
+                        <input id="numberProtocol" value="{{ $details['protocolo'] }}" readonly />
+                        <i class="copyNumberProtocol fa fa-copy"></i>
                     </div>
                 </div>
             </div>
-            <!--Login-->
-            <div style="margin-top: 20px;" class="formulario mb-3">
+            <!-- Login -->
+            <div class="formulario mb-2">
                 <label class="form-label">Login:</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" value="Subst p/ Login Aleatorio"
-                    readonly>
+                <input type="email" class="form-control" id="exampleInputEmail1" value="{{ $details['login'] }}" readonly>
             </div>
-            <!--Senha-->
-            <div class="formulario mb-3">
+            <!-- Senha -->
+             <div class="formulario">
                 <label class="form-label">Senha:</label>
                 <div class="container-wrapper">
                     <div class="input-wrapper">
-                        <input type="password" value="Subst p/ Senha Temp" readonly />
-                        <i class="fa-regular fa-eye"></i>
+                        <input id="passwordField" type="password" value="{{ $details['password'] }}" readonly />
+                        <i class="togglePassword fa-regular fa-eye"></i>
                     </div>
                 </div>
             </div>
 
-            <p>Sua coragem é o primeiro passo para um ambiente acadêmico mais justo e seguro.
-                Contamos com você para construirmos juntos uma universidade melhor.</p>
+            <p class="alert-footer fs-7 mt-2">
+                Sua coragem é o primeiro passo para um ambiente acadêmico mais justo e seguro.
+                Contamos com você para construirmos juntos uma universidade melhor.
+            </p>
 
-            <button class="btn btn-primary">Continuar</button>
+            <a href="{{ route('denuncias.index') }}" class="btn btn-primary btn-sm">Continuar</a>
 
             <footer>
-                <p class="alert-footer">Cuidado, denunciação caluniosa é crime!</p>
+                <p class="alert-footer fs-7 mt-2">Cuidado, denunciação caluniosa é crime!</p>
             </footer>
-        </form>
+        </div>
     </div>
-@endsection
+</body>
 
-@section('additional_scripts_protocol')
-    <script>
-        //Script do botao copiar
-        document.addEventListener("DOMContentLoaded", function() {
-            const copyIcon = document.querySelector('.fa-copy');
-            const inputField = document.querySelector('input');
+<script>
+     $('.copyNumberProtocol').on('click', function() {
+        var $copyText = $('#numberProtocol');
+        $copyText.select();
+        $copyText[0].setSelectionRange(0, 99999); // For mobile devices
 
-            copyIcon.addEventListener('click', function() {
-                // Seleciona o conteúdo do input
-                inputField.select();
-                // Copia o conteúdo para a área de transferência
-                document.execCommand("copy");
-                // Deseleciona o texto
-                window.getSelection().removeAllRanges();
-                // Exibe uma mensagem informando que o conteúdo foi copiado
-                alert("Conteúdo copiado para a área de transferência!");
-            });
+        navigator.clipboard.writeText($copyText.val())
+        .then(function() {
+            alert("Copied the text: " + $copyText.val());
+        })
+        .catch(function(err) {
+            console.error("Failed to copy text: ", err);
         });
-        //Script do botao voltar
-        document.addEventListener("DOMContentLoaded", function() {
-            const eyeIcon = document.querySelector('.fa-eye');
-            const passwordInput = document.querySelector('input[type="password"]');
+    });
 
-            eyeIcon.addEventListener('click', function() {
-                // Alterna a visibilidade da senha entre texto e senha
-                if (passwordInput.type === "password") {
-                    passwordInput.type = "text";
-                } else {
-                    passwordInput.type = "password";
-                }
-            });
-        });
-    </script>
+    $('.togglePassword').on('click', function() {
+        var $passwordField = $('#passwordField');
+        var type = $passwordField.attr('type') === 'password' ? 'text' : 'password';
+        $passwordField.attr('type', type);
+        
+        $(this).toggleClass('fa-eye fa-eye-slash');
+    });
+</script>
 @endsection
