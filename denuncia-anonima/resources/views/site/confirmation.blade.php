@@ -5,19 +5,19 @@
 @section('content')
 <body class="bg-fundo-confirmation">
     <div class="d-flex justify-content-center align-items-center vh-100">
-        <div class="form-container">
+        <div class="form-container mx-4">
             <div class="text-center">
                 <img src="{{ asset('Imagens/logo.png') }}" alt="" style="width: 8rem; height: 7rem;">
             </div>
             <div class="text-center mb-2">
                 <h4>Muito Obrigado!</h4>
-                <h6>O protocolo da sua denúncia é:</h6>
+            <h6>O protocolo da sua denúncia é:</h6>
             </div>
             <!-- Numero do protocolo -->
             <div class="container-wrapper mb-2">
                 <div class="container">
                     <div class="input-wrapper">
-                        <input id="numberProtocol" value={{ $details['protocolo'] }} readonly />
+                        <input id="numberProtocol" value="{{ $details['protocolo'] }}" readonly />
                         <i class="copyNumberProtocol fa fa-copy"></i>
                     </div>
                 </div>
@@ -25,14 +25,14 @@
             <!-- Login -->
             <div class="formulario mb-2">
                 <label class="form-label">Login:</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" value={{ $details['login'] }} readonly>
+                <input type="email" class="form-control" id="exampleInputEmail1" value="{{ $details['login'] }}" readonly>
             </div>
             <!-- Senha -->
              <div class="formulario">
                 <label class="form-label">Senha:</label>
                 <div class="container-wrapper">
                     <div class="input-wrapper">
-                        <input id="passwordField" type="password" value={{ $details['password'] }} readonly />
+                        <input id="passwordField" type="password" value="{{ $details['password'] }}" readonly />
                         <i class="togglePassword fa-regular fa-eye"></i>
                     </div>
                 </div>
@@ -72,7 +72,6 @@
         var type = $passwordField.attr('type') === 'password' ? 'text' : 'password';
         $passwordField.attr('type', type);
         
-        // Alterna o ícone de olho aberto/fechado
         $(this).toggleClass('fa-eye fa-eye-slash');
     });
 </script>
