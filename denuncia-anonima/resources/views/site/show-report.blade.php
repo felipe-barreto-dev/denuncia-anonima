@@ -3,6 +3,7 @@
 @section('title', 'Detalhes denúncia')
 
 @section('content')
+<body>
     <div class="cabecalho">
         <div>
             <form method="POST" action="{{ route('logout') }}">
@@ -168,6 +169,6 @@
                 @endif
 
             </div>
-
         </div>
-    @endsection
+</body>
+@endsection

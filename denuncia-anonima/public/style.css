@@ -1,4 +1,4 @@
-* {
+body {
     font-family: "Inter", sans-serif;
     margin: 0;
     padding: 0;
@@ -6,30 +6,20 @@
 }
 
 .container-style {
-    background: #3e98ff; 
-    display: flex;
+    background: #0d98d4; 
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
 }
 
-.logo {
-    position: absolute;
-    top: -8%;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1; 
-    width: 160px;
-    height: auto;
+.bg-fundo-confirmation{
+    background: #0d98d4;
 }
 
-
-.info-header {
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.logo {
+    transform: translateY(-67%) !important;
+    left: 22%;
 }
 
 
@@ -62,11 +52,11 @@
 .form-container {
     position: relative;
     max-width: 480px;
-    background: rgba(255, 255, 255, 0.8); 
+    background: #F8F8FF; 
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
+    padding: 5px 20px; 
     border-radius: 25px;
     margin: auto;
 }
@@ -83,13 +73,11 @@
     color: black;
 }
 
-
 .alert-footer {
     margin-top: 20px;
     font-size: 12px;
     text-align: justify;
 }
-
 
 .cabecalho {
     justify-content: space-between;
@@ -97,14 +85,13 @@
     display: flex;
     align-items: center;
     padding: 20px;
-    background-color: #17A2B8;
+    background-color: #0d98d4;
     height: 10vh;
 }
 
 .cabecalho img {
     width: 80px;
 }
-
 
 .container-conteudo {
     width: 100%;
@@ -142,6 +129,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
 }
 
 .top-header h2 {
@@ -149,13 +137,6 @@
     color: #fff;
 }
 
-.right-header {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: end;
-    margin-right: 80px;
-}
 
 .btn-group-sm {
     font-weight: lighter;
@@ -179,7 +160,7 @@
     display: flex;
     align-items: center;
     padding: 20px;
-    background-color: #17A2B8;
+    background-color: #0d98d4;
     height: 10vh;
 }
 
@@ -242,3 +223,148 @@
     }
 
 }
+
+.btn-primary{
+    background-color: #0d98d4; 
+}
+
+.cabecalho {
+    justify-content: space-between;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background-color: #0d98d4;
+    height: 10vh;
+}
+
+.cabecalho img {
+    width: 80px;
+}
+
+.container-conteudo {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.container-informacoes {
+    width: 50%;
+    padding: 15px;
+}
+
+.container-formulario {
+    width: 50%;
+    padding: 15px;
+}
+
+.imagem-bem-estar img {
+    border-radius: 20px;
+}
+
+.bg-purple {
+    background-color: #738DED;
+}
+
+.stepper .line {
+    width: 2px;
+    background-color: lightgrey !important;
+}
+
+.stepper .lead {
+    font-size: 1.1rem;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.9rem;
+    display: none;
+}
+
+/* Estilo geral do Datepicker */
+.datepicker {
+    background-color: #F8F8FF; /* Cor de fundo do calendário */
+    border: 1px solid #ddd; /* Cor da borda */
+    border-radius: 0.25rem; /* Borda arredondada */
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15); /* Sombra */
+}
+
+/* Botões de navegação (anterior/próximo) */
+.datepicker .prev, .datepicker .next {
+    color: #000; /* Cor dos ícones */
+    opacity: 0.7; /* Transparência dos ícones */
+}
+
+/* Dias da semana */
+.datepicker .datepicker-days .dow {
+    color: #6c757d; /* Cor dos dias da semana */
+    font-weight: bold; /* Texto em negrito */
+}
+
+/* Dias do mês */
+.datepicker .datepicker-days .day {
+    color: #343a40; /* Cor dos dias */
+    background-color: #b2d7e6; /* Cor de fundo dos dias */
+    border-radius: 0.25rem; /* Borda arredondada */
+}
+
+/* Dia selecionado */
+.datepicker .datepicker-days .day.active {
+    background-color: #007bff; /* Cor de fundo do dia selecionado */
+    color: #fff; /* Cor do texto do dia selecionado */
+}
+
+.background-login{
+    background-color: #85b3e2;
+    height: 100vh;
+}
+
+.custom-card-login{
+    margin-top: 84px;
+    width: 100%; 
+    max-width: 400px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+}
+
+.custom-buttons-login {
+    margin-top: 10px;
+    margin-bottom: 15px;
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn-login {
+    width: 100px;
+    border-radius: 15px;
+    margin-top: 10px;
+}
+
+.btn-login-anonymous {
+    width: 120px;
+    margin: 0 auto;
+    border-radius: 15px;
+}
+
+.error-message-login {
+    font-size: 14px;
+    /* Defina o tamanho da fonte */
+    max-width: 200px;
+    padding: 5px 10px;
+    /* Defina o preenchimento (padding) interno */
+    margin-bottom: 10px;
+    /* Defina a margem inferior */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.text-alignment-login {
+    text-align: center; 
+    margin:20px;
+}
+
+.bg-secondary, .btn-secondary {
+    background-color: #aaacaf !important;
+}
+
