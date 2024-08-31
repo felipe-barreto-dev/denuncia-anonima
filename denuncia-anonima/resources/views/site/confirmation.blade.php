@@ -17,7 +17,7 @@
             <div class="container-wrapper">
                 <div class="container">
                     <div class="input-wrapper">
-                        <input value={{ $details['protocolo'] }} readonly />
+                        <input type="text" value="{{ $details['protocolo'] }}" readonly />
                         <i class="fa fa-copy"></i>
                     </div>
                 </div>
@@ -25,15 +25,15 @@
             <!--Login-->
             <div style="margin-top: 20px;" class="formulario mb-3">
                 <label class="form-label">Login:</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" value={{ $details['login'] }} readonly>
+                <input type="email" class="form-control" id="exampleInputEmail1" value="{{ $details['login'] }}" readonly>
             </div>
             <!--Senha-->
             <div class="formulario mb-3">
                 <label class="form-label">Senha:</label>
                 <div class="container-wrapper">
                     <div class="input-wrapper">
-                        <input type="password" value={{ $details['password'] }} readonly />
-                        <i class="fa-regular fa-eye"></i>
+                        <input id="passwordField" value="{{ $details['password'] }}" readonly />
+                        <i class="fa fa-eye" id="togglePassword"></i>
                     </div>
                 </div>
             </div>
@@ -52,14 +52,14 @@
 
 @section('additional_scripts_confirmation')
     <script>
-        //Script do botao copiar
         document.addEventListener("DOMContentLoaded", function() {
+            // Script do botao copiar
             const copyIcon = document.querySelector('.fa-copy');
-            const inputField = document.querySelector('input');
+            const protocoloInput = document.querySelector('input[type="text"]');
 
             copyIcon.addEventListener('click', function() {
                 // Seleciona o conteúdo do input
-                inputField.select();
+                protocoloInput.select();
                 // Copia o conteúdo para a área de transferência
                 document.execCommand("copy");
                 // Deseleciona o texto
@@ -67,19 +67,17 @@
                 // Exibe uma mensagem informando que o conteúdo foi copiado
                 alert("Conteúdo copiado para a área de transferência!");
             });
-        });
-        //Script do botao voltar
-        document.addEventListener("DOMContentLoaded", function() {
-            const eyeIcon = document.querySelector('.fa-eye');
-            const passwordInput = document.querySelector('input[type="password"]');
 
-            eyeIcon.addEventListener('click', function() {
+            // Script do botao de olho
+            const togglePassword = document.querySelector('#togglePassword');
+            const passwordField = document.querySelector('#passwordField');
+
+            togglePassword.addEventListener('click', function() {
                 // Alterna a visibilidade da senha entre texto e senha
-                if (passwordInput.type === "password") {
-                    passwordInput.type = "text";
-                } else {
-                    passwordInput.type = "password";
-                }
+                const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordField.setAttribute('type', type);
+                // Alterna o ícone entre olho e olho cortado
+                this.classList.toggle('fa-eye-slash');
             });
         });
     </script>

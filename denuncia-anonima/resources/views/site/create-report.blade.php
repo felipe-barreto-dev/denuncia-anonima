@@ -130,10 +130,10 @@
                     <p>Tipo de denúncia</p>
                     <div class="d-flex gap-2">
                         @foreach ($tiposDenuncia as $tipoDenuncia)
-                            <div class="d-flex items-center py-2 px-4 gap-2 bg-secondary rounded-2 ">
+                            <div class="d-flex items-center py-2 px-3 gap-2 bg-info text-light rounded-2 text-3xl lh-lg">
                                 <input class="rounded-2" value="{{ $tipoDenuncia->id }}" type="checkbox"
                                     name="tipos_denuncia[]">
-                                <label class="form-check-label">{{ $tipoDenuncia->titulo }}</label>
+                                <label>{{ $tipoDenuncia->titulo }}</label>
                             </div>
                         @endforeach
                     </div>
