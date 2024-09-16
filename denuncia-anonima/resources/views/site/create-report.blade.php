@@ -23,7 +23,7 @@
 
 <div class="container-conteudo d-flex">
     <div class="container-formulario">
-        <form method="POST" action="{{ route('fazer-denuncia') }}" id="denunciaForm">
+        <form method="POST" action="{{ route('fazer-denuncia') }}" id="denunciaForm" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
                 <label class="form-label">Título da denúncia</label>
@@ -31,7 +31,7 @@
                 <div class="error-message" id="error-titulo">Campo obrigatório</div>
             </div>
 
-             <div class="mb-3 position-relative">
+            <div class="mb-3 position-relative">
                 <label class="form-label">Data do ocorrido</label>
                 <div class="input-group">
                     <input name="data" type="text" class="form-control" placeholder="01/01/2000" id="custom-date">
@@ -79,8 +79,19 @@
                 <textarea name="descricao" class="form-control w-100" id="descricao" rows="8" placeholder="Digite a descrição aqui"></textarea>
                 <div class="error-message" id="error-descricao">Campo obrigatório</div>
             </div>
+            
+            <label for="anexo" class="form-label">Anexe Fotos ou Vídeos</label>
+            <div id="upload-container" class="d-flex justify-content-center align-items-center border rounded w-100 cursor-pointer">
+                <i class="fa-solid fa-cloud-arrow-up fs-3 p-3"></i>
+            </div>
+            <input type="file" name="arquivo" id="arquivo">
 
-            <div class="d-grid gap-2">
+            <div class="file-name mt-3">
+                <div class="file-name-content"></div>
+            </div>
+            
+  
+            <div class="d-grid gap-2 margin-28px">
                 <a href="{{ route('denuncias.index') }}" class="btn btn-secondary border-0">Voltar</a>
                 <button type="button" class="btn btn-primary" onclick="showModal()">Denunciar</button>
             </div>
@@ -216,6 +227,23 @@
 </body>
 
 <script>
+$(document).ready(function(){
+    $('#upload-container').on('click', function(){
+        $('#arquivo').click();
+    });
+
+    $('#arquivo').on('change', function(){
+        var fileName = $(this).val().split('\\').pop(); 
+        $('.file-name-content').text(fileName);
+
+        if (fileName) {
+            $('.file-name').show();
+        } else {
+            $('.file-name').hide();
+        }
+    });
+});
+
     function validateForm() {
         let valid = true;
 
@@ -263,7 +291,7 @@
             });
             myModal.show();
         }
-    }
+    }   
 </script>
 
 @endsection

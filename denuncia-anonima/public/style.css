@@ -368,3 +368,40 @@ body {
     background-color: #aaacaf !important;
 }
 
+
+input[type="file"] {
+    display: none;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.file-name, .file-display {
+    background-color: rgba(77, 77, 77, 0.1);
+    border: 2px solid transparent;
+    border-radius: 18px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+    padding: 5px 0px 5px 10px;
+}
+
+.file-name {
+    display: none;
+}
+
+.file-display-container .file-display {
+    display: flex;
+    align-items: center;
+}
+
+.file-display-container .no-file {
+    padding: 6px 0px 6px 10px;
+    background-color: rgba(77, 77, 77, 0.1);
+    border: 2px solid transparent;
+    border-radius: 18px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.margin-28px {
+    margin-top: 28px;
+}

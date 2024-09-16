@@ -67,10 +67,14 @@ class ReportController extends Controller
     public function store(Request $request)
     {
         $credentials = null;
-    
+          
+        $request->validate([
+            'arquivo' => 'nullable|file|mimes:jpg,jpeg,png,pdf,doc,docx,xls,xlsx,csv,zip,rar|max:2048',
+        ]);
+        
         if (!Auth::check()) {
             $credentials = $this->generate_random_credentials();
-    
+
             $usuario = new Usuario();
             $usuario->login = $credentials['login'];
             $usuario->password = bcrypt($credentials['password']);
@@ -88,32 +92,43 @@ class ReportController extends Controller
         }
 
         $denuncia = new Denuncia();
-    
+        
         $denuncia->protocolo = $this->generate_protocol();
-    
+
         $denuncia->descricao = $request->input('descricao');
         $denuncia->titulo = $request->input('titulo');
         $denuncia->pessoas_afetadas = $request->input('pessoas_afetadas');
         $denuncia->data_ocorrido = $request->input('data_ocorrido');
-    
+
+        // Upload do arquivo, se presente
+        if ($request->hasFile('arquivo')) {
+            $arquivo = $request->file('arquivo');
+            $caminhoArquivo = $arquivo->store('arquivos_denuncias', 'public'); // Salva o arquivo com um nome único
+            $nomeOriginal = $arquivo->getClientOriginalName(); // Obtém o nome original do arquivo
+        
+            // Armazene o caminho do arquivo e o nome original no banco de dados
+            $denuncia->arquivo = $caminhoArquivo; // Armazena o caminho
+            $denuncia->nome_arquivo = $nomeOriginal; // Armazena o nome original (adicione essa coluna no banco de dados)
+        }
+
         $denuncia->id_usuario = Auth::id();
-    
+
         $denuncia->save();
-    
+
         // Tipos de denúncia (array com os IDs das opções selecionadas)
         $tiposDenuncia = $request->input('tipos_denuncia');
         $denuncia->tiposDenuncia()->attach($tiposDenuncia);
 
         if ($credentials) {
             $token = $this->generate_unique_token();
-    
+
             // Salvar os detalhes da denúncia com o token gerado
             Cache::put('denuncia_' . $token, [
                 'login' => $credentials['login'],
                 'password' => $credentials['password'],
                 'protocolo' => $denuncia->protocolo
             ], now()->addHours(1));
-    
+
             // Redireciona para a rota adequada com o token gerado
             return redirect()->route('confirmacao', ['token' => $token])->with('success', 'Denúncia criada com sucesso!');
         }
