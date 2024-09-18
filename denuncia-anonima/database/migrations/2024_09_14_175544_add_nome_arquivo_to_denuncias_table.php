@@ -11,7 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::dropIfExists('users');
+        Schema::table('denuncias', function (Blueprint $table) {
+            $table->string('nome_arquivo')->nullable(); 
+        });
     }
 
     /**
@@ -19,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::table('denuncias', function (Blueprint $table) {
+            $table->dropColumn('nome_arquivo');
+        });
     }
 };

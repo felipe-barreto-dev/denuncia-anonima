@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Denuncia;
 use App\Models\Perfil;
-use App\Models\RespostasDenuncia;
 use Exception;
 use Illuminate\Http\Request;
 use App\Models\TipoDenuncia;
@@ -13,8 +12,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Usuario;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Http\JsonResponse;
-use App\Jobs\SendMessage;
 
 class ReportController extends Controller
 {
@@ -70,7 +67,11 @@ class ReportController extends Controller
     public function store(Request $request)
     {
         $credentials = null;
-
+          
+        $request->validate([
+            'arquivo' => 'nullable|file|mimes:jpg,jpeg,png,pdf,doc,docx,xls,xlsx,csv,zip,rar|max:2048',
+        ]);
+        
         if (!Auth::check()) {
             $credentials = $this->generate_random_credentials();
 
@@ -91,13 +92,24 @@ class ReportController extends Controller
         }
 
         $denuncia = new Denuncia();
-
+        
         $denuncia->protocolo = $this->generate_protocol();
 
         $denuncia->descricao = $request->input('descricao');
         $denuncia->titulo = $request->input('titulo');
         $denuncia->pessoas_afetadas = $request->input('pessoas_afetadas');
         $denuncia->data_ocorrido = $request->input('data_ocorrido');
+
+        // Upload do arquivo, se presente
+        if ($request->hasFile('arquivo')) {
+            $arquivo = $request->file('arquivo');
+            $caminhoArquivo = $arquivo->store('arquivos_denuncias', 'public'); // Salva o arquivo com um nome único
+            $nomeOriginal = $arquivo->getClientOriginalName(); // Obtém o nome original do arquivo
+        
+            // Armazene o caminho do arquivo e o nome original no banco de dados
+            $denuncia->arquivo = $caminhoArquivo; // Armazena o caminho
+            $denuncia->nome_arquivo = $nomeOriginal; // Armazena o nome original (adicione essa coluna no banco de dados)
+        }
 
         $denuncia->id_usuario = Auth::id();
 
@@ -135,26 +147,5 @@ class ReportController extends Controller
         } catch (Exception $e) {
             return redirect()->route('denuncias.index')->with('error', 'Erro ao concluir a denúncia: ' . $e->getMessage());
         }
-    }
-
-    public function messages(): JsonResponse
-    {
-        $messages = RespostasDenuncia::with('user')->get()->append('time');
-
-        return response()->json($messages);
-    }
-
-    public function message(Request $request): JsonResponse
-    {
-        $message = RespostasDenuncia::create([
-            'id_usuario' => auth()->id(),
-            'text' => $request->get('text'),
-        ]);
-        SendMessage::dispatch($message);
-
-        return response()->json([
-            'success' => true,
-            'message' => "Message created and job dispatched.",
-        ]);
     }
 }

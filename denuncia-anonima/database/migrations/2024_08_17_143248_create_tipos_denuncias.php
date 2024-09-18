@@ -15,11 +15,7 @@ return new class extends Migration {
             $table->string('titulo')->nullable();
             $table->string('descricao')->nullable();
             $table->timestamps();
-        });
-
-        DB::table('tipos_denuncia')->insert([
-            ['titulo' => 'teste'],
-        ]);
+        });   
     }
 
     /**
