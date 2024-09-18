@@ -23,6 +23,16 @@
 
 <div class="container-conteudo d-flex">
     <div class="container-formulario">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <form method="POST" action="{{ route('fazer-denuncia') }}" id="denunciaForm" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
@@ -34,7 +44,7 @@
             <div class="mb-3 position-relative">
                 <label class="form-label">Data do ocorrido</label>
                 <div class="input-group">
-                    <input name="data" type="text" class="form-control" placeholder="01/01/2000" id="custom-date">
+                    <input name="data_ocorrido" type="text" class="form-control" id="custom-date">
                     <span class="input-group-text" role="button">
                         <i class="fa-solid fa-calendar cursor-pointer"></i>
                     </span>
@@ -84,7 +94,13 @@
             <div id="upload-container" class="d-flex justify-content-center align-items-center border rounded w-100 cursor-pointer">
                 <i class="fa-solid fa-cloud-arrow-up fs-3 p-3"></i>
             </div>
+            
             <input type="file" name="arquivo" id="arquivo">
+            @if ($errors->has('arquivo'))
+                <div class="text-danger">
+                    {{ $errors->first('arquivo') }}
+                </div>
+            @endif
     
             <div id="file-name-container"></div>
             
@@ -259,7 +275,7 @@ $(document).ready(function() {
             valid = false;
         }
 
-        const data = document.querySelector('input[name="data"]').value.trim();
+        const data = document.querySelector('input[name="data_ocorrido"]').value.trim();
         if (data === '') {
             document.getElementById('error-data').style.display = 'block';
             valid = false;

@@ -39,7 +39,7 @@
                 <!-- Data -->
                 <div class="mb-3">
                     <label class="form-label">Data do ocorrido</label>
-                    <input name="data" class="form-control" value={{ $denuncia->data_ocorrido }} readonly>
+                    <input name="data_ocorrido" class="form-control" value="{{ \Carbon\Carbon::parse($denuncia->data_ocorrido)->format('d/m/Y') }}" readonly>
                 </div>
 
                 <!-- Pessoas afetadas (radio buttons para permitir apenas uma seleção) -->
