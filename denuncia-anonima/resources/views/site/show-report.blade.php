@@ -86,18 +86,17 @@
                 </div>
 
                <div class="file-display-container mt-3 mb-4">
-    @if ($denuncia->arquivo)
-        <div class="file-display">
-            <i class="fa-solid fa-cloud-arrow-down pe-2"></i>
-            <a href="{{ asset('storage/' . $denuncia->arquivo) }}" target="_blank" class="text-reset text-decoration-none">
-                {{ $denuncia->nome_arquivo }}
-            </a>
-        </div>
-    @else
-        <p class="no-file">Não há arquivo anexado.</p>
-    @endif
-</div>
-
+                    @if ($denuncia->arquivo)
+                        <div class="file-display">
+                            <i class="fa-solid fa-cloud-arrow-down pe-2"></i>
+                            <a href="{{ asset('storage/' . $denuncia->arquivo) }}" target="_blank" class="text-reset text-decoration-none">
+                                {{ $denuncia->nome_arquivo }}
+                            </a>
+                        </div>
+                    @else
+                        <p class="no-file">Não há arquivo anexado.</p>
+                    @endif
+                </div>
 
                 <!-- Botões -->
                 <div class="d-grid gap-2">

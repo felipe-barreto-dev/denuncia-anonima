@@ -85,12 +85,9 @@
                 <i class="fa-solid fa-cloud-arrow-up fs-3 p-3"></i>
             </div>
             <input type="file" name="arquivo" id="arquivo">
-
-            <div class="file-name mt-3">
-                <div class="file-name-content"></div>
-            </div>
+    
+            <div id="file-name-container"></div>
             
-  
             <div class="d-grid gap-2 margin-28px">
                 <a href="{{ route('denuncias.index') }}" class="btn btn-secondary border-0">Voltar</a>
                 <button type="button" class="btn btn-primary" onclick="showModal()">Denunciar</button>
@@ -227,20 +224,25 @@
 </body>
 
 <script>
-$(document).ready(function(){
-    $('#upload-container').on('click', function(){
-        $('#arquivo').click();
+$(document).ready(function() {
+    $('#arquivo').on('change', function(e) {
+        var fileName = e.target.files[0].name;
+
+        $('#file-name-container').html(`
+            <div class="file-name file-style d-flex justify-content-between align-items-center mt-3">
+                <div class="file-name-content">${fileName}</div>
+                <i class="fa-solid fa-trash trash-icon-color me-2 cursor-pointer"></i>
+            </div>
+        `);
+
+        $('.trash-icon-color').on('click', function() {
+            $('#file-name-container').empty(); 
+            $('#arquivo').val('');
+        });
     });
 
-    $('#arquivo').on('change', function(){
-        var fileName = $(this).val().split('\\').pop(); 
-        $('.file-name-content').text(fileName);
-
-        if (fileName) {
-            $('.file-name').show();
-        } else {
-            $('.file-name').hide();
-        }
+    $('#upload-container').on('click', function() {
+        $('#arquivo').click();
     });
 });
 
