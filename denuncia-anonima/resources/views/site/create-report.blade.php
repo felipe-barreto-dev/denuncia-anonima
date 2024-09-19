@@ -5,14 +5,9 @@
 @section('content')
 <body>
 <div class="cabecalho">
-    <div>
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button class="btn btn-secondary btn-lg py-2 px-4 ms-3 border-0" >
-                <i class="fa-solid fa-arrow-left"></i>
-            </button>
-        </form>
-    </div>
+       <a href="{{ route('denuncias.index') }}" class="btn btn-secondary btn-lg py-2 px-4 ms-3 border-0">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
     <div>
         <h3 class="text-white">Nova denúncia</h3>
     </div>
