@@ -3,7 +3,7 @@
 @section('title', 'Criar Usuário')
 
 @section('content')
-<body class="bg-fundo-confirmation">
+<body class="background-padrao">
     <div class="container-fluid d-flex align-items-center justify-content-center">
         <div class="row w-100">
             <div class="col-md-6 d-flex align-items-center justify-content-center">
@@ -46,7 +46,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-secondary border-0">Criar Usuário</button>
+                        <button type="submit" class="btn btn-secondary">Criar Usuário</button>
                     </form>
                 </div>
             </div>
