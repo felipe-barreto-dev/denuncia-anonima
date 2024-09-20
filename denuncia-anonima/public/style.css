@@ -113,13 +113,6 @@ body {
     background-color: #0d98d4; 
 }
 
-.cabecalho {
-    justify-content: space-between;
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
 .imagem-bem-estar img {
     border-radius: 20px;
 }
