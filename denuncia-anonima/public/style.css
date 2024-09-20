@@ -120,16 +120,6 @@ body {
     align-items: center;
 }
 
-.container-informacoes {
-    width: 50%;
-    padding: 15px;
-}
-
-.container-formulario {
-    width: 50%;
-    padding: 15px;
-}
-
 .imagem-bem-estar img {
     border-radius: 20px;
 }
@@ -268,6 +258,30 @@ input[type="file"] {
     background-color: #85b3e2;
 }
 
+.font-size-titles{
+    font-size: 38px;
+}
+
+.margin-top-button-back-create{
+    margin-top: 32px;
+}
+
+.margin-top-title-create{
+    margin-top: 24px;
+}
+
+.logo-center {
+    display: flex;
+    justify-content: end;
+}
+
+.border-radius-index { 
+    border-top: 5px solid transparent;
+    border-radius: 20px 20px 0 0;
+    background-color: white;
+}
+
+
 @media (max-width: 768px) {
     .alinhamento-status {
         margin-top: 20px;
@@ -281,12 +295,21 @@ input[type="file"] {
         flex: 1 1 100%;
         margin-bottom: 0.5rem;
     }
+
+    .margin-top-button-back-create {
+        margin-top: 0;
+    }
+
+    .margin-top-title-create {
+        margin-top: 0;
+    }
+
+    .font-size-titles{
+        font-size: 12px;
+    }
+
+    .logo-center {
+        display: flex;
+        justify-content: center;
+    }
 }
-
-.border-radius-index { 
-    border-top: 5px solid transparent;
-    border-radius: 20px 20px 0 0;
-    background-color: white;
-}
-
-
