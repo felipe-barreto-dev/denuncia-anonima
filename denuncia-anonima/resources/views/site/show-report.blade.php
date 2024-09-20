@@ -4,13 +4,16 @@
 
 @section('content')
 <body>
-    <div class="cabecalho">
+    <div class="cabecalho background-padrao">
         <div>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button class="rounded border border-danger bg-danger text-white py-2 px-4"> <strong>Sair</strong> </button>
             </form>
         </div>
+        <a href="{{ route('denuncias.index') }}" class="btn btn-secondary btn-lg py-2 px-4 ms-3">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
         <div>
             <h3 class="text-white">Detalhes da denúncia</h3>
         </div>

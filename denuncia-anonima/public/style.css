@@ -5,19 +5,10 @@ body {
     box-sizing: border-box;
 }
 
-.container-style {
-    background: #0d98d4; 
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
 .logo {
     transform: translateY(-67%) !important;
     left: 22%;
 }
-
 
 .container-wrapper {
     display: flex;
@@ -75,54 +66,15 @@ body {
     text-align: justify;
 }
 
-.container-conteudo {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-}
-
 .container-informacoes,
 .container-formulario {
     width: 50%;
     padding: 15px;
 }
 
-
-.imagem-bem-estar img {
-    border-radius: 20px;
-}
-
-
-.bg-purple {
-    background-color: #738DED;
-}
-
 .stepper .line {
     width: 2px;
     background-color: lightgrey !important;
-}
-
-.stepper .lead {
-    font-size: 1.1rem;
-}
-
-.top-header {
-    background-color: #0d98d4;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-}
-
-.top-header h2 {
-    margin: 30px;
-    color: #fff;
-}
-
-
-.btn-group-sm {
-    font-weight: lighter;
-    margin-left: 80px;
 }
 
 .btn-lg {
@@ -135,48 +87,14 @@ body {
     font-size: 14px;
 }
 
-.container-conteudo {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-}
-
 .container-andamento {
     width: 50%;
     padding: 15px;
 }
 
-.container-formulario {
-    width: 50%;
-    padding: 15px;
-}
-
-.imagem-bem-estar img {
-    border-radius: 20px;
-}
-
 .bg-purple {
     background-color: #738DED;
     display: flex;
-
-}
-
-.btn-chat {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    border: 1.5px solid black;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: grey;
-}
-
-.d-btn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .stepper {
@@ -200,13 +118,6 @@ body {
     position: relative;
     display: flex;
     align-items: center;
-    background-color: #0d98d4;
-}
-
-.container-conteudo {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
 }
 
 .container-informacoes {
@@ -221,15 +132,6 @@ body {
 
 .imagem-bem-estar img {
     border-radius: 20px;
-}
-
-.bg-purple {
-    background-color: #738DED;
-}
-
-.stepper .line {
-    width: 2px;
-    background-color: lightgrey !important;
 }
 
 .stepper .lead {
@@ -310,12 +212,9 @@ body {
 
 .error-message-login {
     font-size: 14px;
-    /* Defina o tamanho da fonte */
     max-width: 200px;
     padding: 5px 10px;
-    /* Defina o preenchimento (padding) interno */
     margin-bottom: 10px;
-    /* Defina a margem inferior */
     margin-left: auto;
     margin-right: auto;
 }
