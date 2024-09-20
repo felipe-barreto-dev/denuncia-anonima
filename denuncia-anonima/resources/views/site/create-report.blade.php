@@ -4,16 +4,14 @@
 
 @section('content')
 <body>
-<div class="cabecalho">
-       <a href="{{ route('denuncias.index') }}" class="btn btn-secondary btn-lg py-2 px-4 ms-3 border-0">
+<div class="cabecalho background-padrao">
+       <a href="{{ route('denuncias.index') }}" class="btn btn-secondary btn-lg py-2 px-4 ms-3">
             <i class="fa-solid fa-arrow-left"></i>
         </a>
-    <div>
+        
         <h3 class="text-white">Nova denúncia</h3>
-    </div>
-    <div>
-        <img src="/logo2.png" alt="Logo" />
-    </div>
+   
+        <img src="/logo2.png" alt="Logo" />  
 </div>
 
 <div class="container-conteudo d-flex">
@@ -100,7 +98,7 @@
             <div id="file-name-container"></div>
             
             <div class="d-grid gap-2 margin-28px">
-                <a href="{{ route('denuncias.index') }}" class="btn btn-secondary border-0">Voltar</a>
+                <a href="{{ route('denuncias.index') }}" class="btn btn-secondary">Voltar</a>
                 <button type="button" class="btn btn-primary" onclick="showModal()">Denunciar</button>
             </div>
 
@@ -116,7 +114,7 @@
                             Deseja confirmar sua denúncia?
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary border-0" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                             <!-- Botão Confirmar -->
                             <button class="btn btn-primary" type="submit" form="denunciaForm">Confirmar</button>
                         </div>
