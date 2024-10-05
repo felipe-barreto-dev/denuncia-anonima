@@ -3,7 +3,7 @@
 @section('title', 'Protocolo')
 
 @section('content')
-<body class="bg-fundo-confirmation">
+<body class="background-padrao">
     <div class="d-flex justify-content-center align-items-center vh-100">
         <div class="form-container mx-4">
             <div class="text-center">

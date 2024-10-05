@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Usuario;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cache;
+use Carbon\Carbon;
 
 class ReportController extends Controller
 {
@@ -68,9 +69,14 @@ class ReportController extends Controller
     {
         $credentials = null;
           
+        $messages = [
+            'arquivo.max' => 'O arquivo não pode ter mais que 2MB.',
+            'arquivo.mimes' => 'O arquivo deve ser um dos seguintes tipos: jpg, jpeg, png, pdf, doc, docx, xls, xlsx, csv, zip, rar.'
+        ];
+    
         $request->validate([
             'arquivo' => 'nullable|file|mimes:jpg,jpeg,png,pdf,doc,docx,xls,xlsx,csv,zip,rar|max:2048',
-        ]);
+        ], $messages);
         
         if (!Auth::check()) {
             $credentials = $this->generate_random_credentials();
@@ -91,6 +97,8 @@ class ReportController extends Controller
             Auth::login($usuario);
         }
 
+        $data_ocorrido = Carbon::createFromFormat('d/m/Y', $request->input('data_ocorrido'))->format('Y-m-d');
+
         $denuncia = new Denuncia();
         
         $denuncia->protocolo = $this->generate_protocol();
@@ -98,7 +106,7 @@ class ReportController extends Controller
         $denuncia->descricao = $request->input('descricao');
         $denuncia->titulo = $request->input('titulo');
         $denuncia->pessoas_afetadas = $request->input('pessoas_afetadas');
-        $denuncia->data_ocorrido = $request->input('data_ocorrido');
+        $denuncia->data_ocorrido = $data_ocorrido;
 
         // Upload do arquivo, se presente
         if ($request->hasFile('arquivo')) {

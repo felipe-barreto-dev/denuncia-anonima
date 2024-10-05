@@ -12,10 +12,10 @@ class Denuncia extends Model
     protected $fillable = [
         'protocolo', 'descricao', 'titulo', 'pessoas_afetadas', 'id_usuario', 'id_responsavel', 'data_conclusao', 'data_ocorrido'
     ];
-
+    
     public function tiposDenuncia()
     {
-        return $this->belongsToMany(TipoDenuncia::class, 'denuncia_tipo_denuncia', 'denuncia_id', 'tipo_denuncia_id');
+        return $this->belongsToMany(TipoDenuncia::class, 'denuncia_tipo_denuncia', 'denuncia_id', 'tipo_denuncia_id')->withTimestamps();
     }
 
     public function usuario()

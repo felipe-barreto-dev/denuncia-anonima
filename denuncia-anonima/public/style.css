@@ -5,23 +5,10 @@ body {
     box-sizing: border-box;
 }
 
-.container-style {
-    background: #0d98d4; 
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
-.bg-fundo-confirmation{
-    background: #0d98d4;
-}
-
 .logo {
     transform: translateY(-67%) !important;
     left: 22%;
 }
-
 
 .container-wrapper {
     display: flex;
@@ -79,68 +66,15 @@ body {
     text-align: justify;
 }
 
-.cabecalho {
-    justify-content: space-between;
-    position: relative;
-    display: flex;
-    align-items: center;
-    padding: 20px;
-    background-color: #0d98d4;
-    height: 10vh;
-}
-
-.cabecalho img {
-    width: 80px;
-}
-
-.container-conteudo {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-}
-
 .container-informacoes,
 .container-formulario {
     width: 50%;
     padding: 15px;
 }
 
-
-.imagem-bem-estar img {
-    border-radius: 20px;
-}
-
-
-.bg-purple {
-    background-color: #738DED;
-}
-
 .stepper .line {
     width: 2px;
     background-color: lightgrey !important;
-}
-
-.stepper .lead {
-    font-size: 1.1rem;
-}
-
-.top-header {
-    background-color: #0d98d4;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-}
-
-.top-header h2 {
-    margin: 30px;
-    color: #fff;
-}
-
-
-.btn-group-sm {
-    font-weight: lighter;
-    margin-left: 80px;
 }
 
 .btn-lg {
@@ -153,63 +87,14 @@ body {
     font-size: 14px;
 }
 
-/* CSS de show-report */
-.cabecalho {
-    justify-content: space-between;
-    position: relative;
-    display: flex;
-    align-items: center;
-    padding: 20px;
-    background-color: #0d98d4;
-    height: 10vh;
-}
-
-.cabecalho img {
-    width: 80px;
-}
-
-.container-conteudo {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-}
-
 .container-andamento {
     width: 50%;
     padding: 15px;
 }
 
-.container-formulario {
-    width: 50%;
-    padding: 15px;
-}
-
-.imagem-bem-estar img {
-    border-radius: 20px;
-}
-
 .bg-purple {
     background-color: #738DED;
     display: flex;
-
-}
-
-.btn-chat {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    border: 1.5px solid black;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: grey;
-}
-
-.d-btn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .stepper {
@@ -228,47 +113,8 @@ body {
     background-color: #0d98d4; 
 }
 
-.cabecalho {
-    justify-content: space-between;
-    position: relative;
-    display: flex;
-    align-items: center;
-    padding: 20px;
-    background-color: #0d98d4;
-    height: 10vh;
-}
-
-.cabecalho img {
-    width: 80px;
-}
-
-.container-conteudo {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-}
-
-.container-informacoes {
-    width: 50%;
-    padding: 15px;
-}
-
-.container-formulario {
-    width: 50%;
-    padding: 15px;
-}
-
 .imagem-bem-estar img {
     border-radius: 20px;
-}
-
-.bg-purple {
-    background-color: #738DED;
-}
-
-.stepper .line {
-    width: 2px;
-    background-color: lightgrey !important;
 }
 
 .stepper .lead {
@@ -349,12 +195,9 @@ body {
 
 .error-message-login {
     font-size: 14px;
-    /* Defina o tamanho da fonte */
     max-width: 200px;
     padding: 5px 10px;
-    /* Defina o preenchimento (padding) interno */
     margin-bottom: 10px;
-    /* Defina a margem inferior */
     margin-left: auto;
     margin-right: auto;
 }
@@ -398,4 +241,68 @@ input[type="file"] {
 
 .trash-icon-color {
     color: #CC3917;
+}
+
+.alinhamento-status {
+    margin-top: 98px;
+}
+
+.background-padrao {
+    background-color: #85b3e2;
+}
+
+.font-size-titles{
+    font-size: 38px;
+}
+
+.margin-top-button-back-create{
+    margin-top: 32px;
+}
+
+.margin-top-title-create{
+    margin-top: 24px;
+}
+
+.logo-center {
+    display: flex;
+    justify-content: end;
+}
+
+.border-radius-index { 
+    border-top: 5px solid transparent;
+    border-radius: 20px 20px 0 0;
+    background-color: white;
+}
+
+
+@media (max-width: 768px) {
+    .alinhamento-status {
+        margin-top: 20px;
+    }
+
+    .btn-group .btn {
+        font-size: 14px;
+    }
+
+    .alinhamento-status .btn {
+        flex: 1 1 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    .margin-top-button-back-create {
+        margin-top: 0;
+    }
+
+    .margin-top-title-create {
+        margin-top: 0;
+    }
+
+    .font-size-titles{
+        font-size: 12px;
+    }
+
+    .logo-center {
+        display: flex;
+        justify-content: center;
+    }
 }
