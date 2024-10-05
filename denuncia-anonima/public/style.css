@@ -290,7 +290,8 @@ input[type="file"] {
     }
 
     .margin-top-button-back-create {
-        margin-top: 0;
+        margin-top: 3px;
+        margin-right: 13px;
     }
 
     .margin-top-title-create {
@@ -304,5 +305,14 @@ input[type="file"] {
     .logo-center {
         display: flex;
         justify-content: center;
+    }
+    .background-padrao .row {
+        justify-content: center;
+        text-align: center;
+    }
+
+    .background-padrao .col-md-6, 
+    .background-padrao .col-md-3 {
+        text-align: center;
     }
 }
