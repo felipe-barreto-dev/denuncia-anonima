@@ -97,10 +97,10 @@
                     <i class="fa-solid fa-cloud-arrow-up fs-3 p-3"></i>
                 </div>
                 
-                <input type="file" name="arquivo" id="arquivo">
-                @if ($errors->has('arquivo'))
+                <input type="file" name="arquivos[]" id="arquivos" multiple>
+                @if ($errors->has('arquivos'))
                     <div class="text-danger">
-                        {{ $errors->first('arquivo') }}
+                        {{ $errors->first('arquivos') }}
                     </div>
                 @endif
         
@@ -243,75 +243,88 @@
 
 <script>
 $(document).ready(function() {
-    $('#arquivo').on('change', function(e) {
-        var fileName = e.target.files[0].name;
-
-        $('#file-name-container').html(`
-            <div class="file-name file-style d-flex justify-content-between align-items-center mt-3">
-                <div class="file-name-content">${fileName}</div>
-                <i class="fa-solid fa-trash trash-icon-color me-2 cursor-pointer"></i>
-            </div>
-        `);
+    $('#arquivos').on('change', function(e) {
+        const files = e.target.files;
+        
+        Array.from(files).forEach(file => {
+            $('#file-name-container').append(`
+                <div class="file-name file-style d-flex justify-content-between align-items-center mt-3">
+                    <div class="file-name-content">${file.name}</div>
+                    <i class="fa-solid fa-trash trash-icon-color me-2 cursor-pointer"></i>
+                </div>
+            `);
+        });
 
         $('.trash-icon-color').on('click', function() {
-            $('#file-name-container').empty(); 
-            $('#arquivo').val('');
+            $(this).closest('.file-name').remove(); 
+            updateFileInput();
         });
+        
+        updateFileInput();
     });
 
     $('#upload-container').on('click', function() {
-        $('#arquivo').click();
+        $('#arquivos').click();
     });
-});
 
-    function validateForm() {
-        let valid = true;
-
-        document.querySelectorAll('.error-message').forEach(function(el) {
-            el.style.display = 'none';
+    function updateFileInput() {
+        const fileInputs = [];
+        $('#file-name-container .file-name-content').each(function() {
+            fileInputs.push($(this).text());
         });
 
-        const titulo = document.querySelector('input[name="titulo"]').value.trim();
-        if (titulo === '') {
-            document.getElementById('error-titulo').style.display = 'block';
-            valid = false;
-        }
+        $('#arquivos').val(fileInputs.join(','));
+    }
+});
 
-        const data = document.querySelector('input[name="data_ocorrido"]').value.trim();
-        if (data === '') {
-            document.getElementById('error-data').style.display = 'block';
-            valid = false;
-        }
+function validateForm() {
+    let valid = true;
 
-        const pessoasAfetadas = document.querySelector('input[name="pessoas_afetadas"]:checked');
-        if (!pessoasAfetadas) {
-            document.getElementById('error-pessoas-afetadas').style.display = 'block';
-            valid = false;
-        }
+    document.querySelectorAll('.error-message').forEach(function(el) {
+        el.style.display = 'none';
+    });
 
-        const tiposDenuncia = document.querySelectorAll('input[name="tipos_denuncia[]"]:checked');
-        if (tiposDenuncia.length === 0) {
-            document.getElementById('error-tipos-denuncia').style.display = 'block';
-            valid = false;
-        }
-
-        const descricao = document.querySelector('textarea[name="descricao"]').value.trim();
-        if (descricao === '') {
-            document.getElementById('error-descricao').style.display = 'block';
-            valid = false;
-        }
-
-        return valid;
+    const titulo = document.querySelector('input[name="titulo"]').value.trim();
+    if (titulo === '') {
+        document.getElementById('error-titulo').style.display = 'block';
+        valid = false;
     }
 
-    function showModal() {
-        if (validateForm()) {
-            var myModal = new bootstrap.Modal(document.getElementById('modalDenuncia'), {
-                keyboard: false
-            });
-            myModal.show();
-        }
-    }   
+    const data = document.querySelector('input[name="data_ocorrido"]').value.trim();
+    if (data === '') {
+        document.getElementById('error-data').style.display = 'block';
+        valid = false;
+    }
+
+    const pessoasAfetadas = document.querySelector('input[name="pessoas_afetadas"]:checked');
+    if (!pessoasAfetadas) {
+        document.getElementById('error-pessoas-afetadas').style.display = 'block';
+        valid = false;
+    }
+
+    const tiposDenuncia = document.querySelectorAll('input[name="tipos_denuncia[]"]:checked');
+    if (tiposDenuncia.length === 0) {
+        document.getElementById('error-tipos-denuncia').style.display = 'block';
+        valid = false;
+    }
+
+    const descricao = document.querySelector('textarea[name="descricao"]').value.trim();
+    if (descricao === '') {
+        document.getElementById('error-descricao').style.display = 'block';
+        valid = false;
+    }
+
+    return valid;
+}
+
+function showModal() {
+    if (validateForm()) {
+        var myModal = new bootstrap.Modal(document.getElementById('modalDenuncia'), {
+            keyboard: false
+        });
+        myModal.show();
+    }
+}
 </script>
 
 @endsection

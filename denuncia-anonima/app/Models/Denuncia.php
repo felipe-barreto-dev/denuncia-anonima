@@ -27,4 +27,9 @@ class Denuncia extends Model
     {
         return $this->belongsTo(User::class, 'id_responsavel');
     }
+
+    public function anexos()
+    {
+        return $this->hasMany(AnexoDenuncia::class, 'id_denuncia');
+    }
 }
