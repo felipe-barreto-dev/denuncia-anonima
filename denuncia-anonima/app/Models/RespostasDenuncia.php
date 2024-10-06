@@ -10,7 +10,7 @@ class RespostasDenuncia extends Model
 {
     use HasFactory;
 
-    public $table = 'messages';
+    public $table = 'respostas_denuncias';
     protected $fillable = ['id', 'id_usuario', 'mensagem', 'id_denuncia', 'data_envio'];
 
     public function user(): BelongsTo

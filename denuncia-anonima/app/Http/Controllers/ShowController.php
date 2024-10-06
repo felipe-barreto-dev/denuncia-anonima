@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Denuncia;
+use App\Models\RespostasDenuncia;
 use App\Models\Usuario;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -18,10 +19,12 @@ class ShowController extends Controller
             $query->where('nome', 'analista');
         })->get();
 
+        $messages = RespostasDenuncia::where('id_denuncia', $id)->with('user')->get();
+
         // Verifica se a denúncia existe e se pertence ao usuário autenticado ou o usuário autenticado é admin ou o usuário autenticado é responsavel pela denúncia
         if ($denuncia && ($denuncia->id_usuario == auth()->user()->id || auth()->user()->perfil->nome == "admin" || $denuncia->id_responsavel == auth()->user()->id)) {
             // Passe os dados da denúncia para a visualização
-            return view('site.show-report', ['denuncia' => $denuncia, 'analistas' => $analistas]);
+            return view('site.show-report', ['denuncia' => $denuncia, 'analistas' => $analistas, 'messages' => $messages]);
         } else {
             // Redireciona ou exibe uma mensagem de erro se a denúncia não for encontrada ou não pertencer ao usuário
             return redirect()->route('denuncias.index')->with('error', 'Denúncia não encontrada ou não autorizada.');

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthenticatedSessionController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ShowController;
 use App\Http\Controllers\ShowReportsController;
 use App\Http\Controllers\UserController;
@@ -20,8 +21,8 @@ Route::middleware('guest')->group(function () {
 Route::get('fazer-denuncia', [ReportController::class, 'create']);
 Route::post('fazer-denuncia', [ReportController::class, 'store'])->name('fazer-denuncia');
 
-Route::fallback(function() {
-    echo 'A rota acessada não existe. <a href="'.route('login').'">Clique aqui</a> para ir na página inicial';
+Route::fallback(function () {
+    echo 'A rota acessada não existe. <a href="' . route('login') . '">Clique aqui</a> para ir na página inicial';
 });
 
 Route::middleware('auth')->group(function () {
@@ -35,4 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::get('show/{id}', [ShowController::class, 'show'])->name('denuncia.show');
     Route::post('concluir/{id}', [ReportController::class, 'concluir'])->name('denuncia.concluir');
     Route::post('delegar/{id}', [ShowController::class, 'delegarResponsavel'])->name('denuncia.delegar');
+
+    Route::get('/chat/{id_denuncia}', [ChatController::class, 'show'])->name('chat.show');
+    Route::post('/chat/send', [ChatController::class, 'sendMessage'])->name('chat.send');
 });
