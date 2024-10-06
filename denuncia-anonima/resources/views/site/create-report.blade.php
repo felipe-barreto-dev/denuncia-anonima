@@ -241,25 +241,30 @@
 </main>
 </body>
 
-<script>
-$(document).ready(function() {
+<script>$(document).ready(function() {
+    let fileCount = 0; 
+
     $('#arquivos').on('change', function(e) {
         const files = e.target.files;
-        
+
         Array.from(files).forEach(file => {
+            fileCount++;
+            const fileClass = `imagem_${fileCount}`; 
             $('#file-name-container').append(`
-                <div class="file-name file-style d-flex justify-content-between align-items-center mt-3">
+                <div class="file-name ${fileClass} file-style d-flex justify-content-between align-items-center mt-3">
                     <div class="file-name-content">${file.name}</div>
-                    <i class="fa-solid fa-trash trash-icon-color me-2 cursor-pointer"></i>
+                    <i class="fa-solid fa-trash trash-icon-color me-2 cursor-pointer" data-file-class="${fileClass}"></i>
                 </div>
             `);
         });
 
-        $('.trash-icon-color').on('click', function() {
-            $(this).closest('.file-name').remove(); 
-            updateFileInput();
+        $('.trash-icon-color').off('click').on('click', function() { 
+            const fileClassToRemove = $(this).data('file-class');
+            $(`.${fileClassToRemove}`).remove(); 
+            fileCount--; 
+            updateFileInput(); 
         });
-        
+
         updateFileInput();
     });
 

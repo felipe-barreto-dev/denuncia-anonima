@@ -112,35 +112,31 @@ class ReportController extends Controller
 
         $denuncia->save();
 
-        // Upload dos arquivos, se presentes
-if ($request->hasFile('arquivos')) {
-    foreach ($request->file('arquivos') as $arquivo) {
-        $caminhoArquivo = $arquivo->store('arquivos_denuncias', 'public'); // Salva o arquivo com um nome único
-        $nomeOriginal = $arquivo->getClientOriginalName(); // Obtém o nome original do arquivo
-        
-        // Salve o caminho e o nome do arquivo na tabela anexos_denuncia
-        $denuncia->anexos()->create([
-            'id_denuncia' => $denuncia->id,
-            'caminho_arquivo' => $caminhoArquivo,
-            'nome_arquivo' => $nomeOriginal,
-        ]);
-    }
-}
-        // Tipos de denúncia (array com os IDs das opções selecionadas)
+        if ($request->hasFile('arquivos')) {
+            foreach ($request->file('arquivos') as $arquivo) {
+                $caminhoArquivo = $arquivo->store('arquivos_denuncias', 'public'); 
+                $nomeOriginal = $arquivo->getClientOriginalName(); 
+                
+                $denuncia->anexos()->create([
+                    'id_denuncia' => $denuncia->id,
+                    'caminho_arquivo' => $caminhoArquivo,
+                    'nome_arquivo' => $nomeOriginal,
+                ]);
+            }
+        }
+
         $tiposDenuncia = $request->input('tipos_denuncia');
         $denuncia->tiposDenuncia()->attach($tiposDenuncia);
 
         if ($credentials) {
             $token = $this->generate_unique_token();
 
-            // Salvar os detalhes da denúncia com o token gerado
             Cache::put('denuncia_' . $token, [
                 'login' => $credentials['login'],
                 'password' => $credentials['password'],
                 'protocolo' => $denuncia->protocolo
             ], now()->addHours(1));
 
-            // Redireciona para a rota adequada com o token gerado
             return redirect()->route('confirmacao', ['token' => $token])->with('success', 'Denúncia criada com sucesso!');
         }
 
