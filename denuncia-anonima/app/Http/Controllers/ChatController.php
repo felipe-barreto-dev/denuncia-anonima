@@ -34,7 +34,7 @@ class ChatController extends Controller
                 'id_denuncia' => 'required|exists:denuncias,id',
             ]);
             \Log::info('Validação concluída');
-
+    
             $message = RespostasDenuncia::create([
                 'id_usuario' => auth()->id(),
                 'mensagem' => $request->input('mensagem'),
@@ -42,15 +42,19 @@ class ChatController extends Controller
                 'data_envio' => now(),
             ]);
             \Log::info('Criação concluída');
-
+    
+            
+            \Log::info('Preparando para enviar evento MessageSent.');
             broadcast(new MessageSent($message->load('user')))->toOthers();
-            \Log::info('Evento MessageSent enviado');
-
+            \Log::info('Evento MessageSent enviado com sucesso.');
+            
+    
             return response()->json(['success' => 'Message sent successfully']);
         } catch (\Exception $e) {
             \Log::error('Erro ao enviar mensagem: ' . $e->getMessage());
             return response()->json(['error' => 'Erro ao enviar mensagem de denúncia: ' . $e->getMessage()], 500);
         }
     }
+    
 }
 

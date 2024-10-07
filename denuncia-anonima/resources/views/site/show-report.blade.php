@@ -220,7 +220,7 @@
     </body>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/laravel-echo/1.11.1/echo.iife.js"></script>
-    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+    <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             console.log('content loaded')
@@ -267,23 +267,75 @@
             });
 
             // Escutar novas mensagens via WebSocket com Laravel Echo
+            // window.Echo = new Echo({
+            //     broadcaster: 'pusher',
+            //     key: '{{ env('MIX_PUSHER_APP_KEY') }}',
+            //     cluster: '{{ env('MIX_PUSHER_APP_CLUSTER') }}',
+            //     forceTLS: true,
+            //     encrypted: true,
+            //     authEndpoint: '/broadcasting/auth', // Endereço padrão para autenticação de canais privados
+            //     auth: {
+            //         headers: {
+            //             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+            //                 'content')
+            //         }
+            //     }
+            // });
+
+
+            console.log("denunciaId", denunciaId);
+            console.log("MIX_PUSHER_APP_KEY", '{{ env('MIX_PUSHER_APP_KEY') }}');
+            console.log("MIX_PUSHER_APP_CLUSTER", '{{ env('MIX_PUSHER_APP_CLUSTER') }}');
+
             window.Echo = new Echo({
                 broadcaster: 'pusher',
-                key: '{{ env('MIX_PUSHER_APP_KEY') }}',
+                key: '{{ env('MIX_PUSHER_APP_KEY') }}', // Use a variável de ambiente correta
                 cluster: '{{ env('MIX_PUSHER_APP_CLUSTER') }}',
-                forceTLS: true
+                forceTLS: true,
+                authEndpoint: '/broadcasting/auth', // O endpoint correto para autenticação
+                auth: {
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                            'content')
+                    }
+                }
             });
 
+
+            // Inscreva-se no canal privado
             window.Echo.private(`chat.${denunciaId}`)
                 .listen('MessageSent', (e) => {
-                    console.log('Evento MessageSent recebido:', e); // Adicione este log
+                    console.log('Evento MessageSent recebido:', e);
                     const messageElement = document.createElement('p');
                     messageElement.textContent = `${e.message.user.name}: ${e.message.mensagem}`;
                     chatMessages.appendChild(messageElement);
 
                     // Scroll para a última mensagem
                     chatMessages.scrollTop = chatMessages.scrollHeight;
+                })
+                .error((error) => {
+                    console.error('Erro ao se inscrever no canal:', error);
                 });
+
+
+            // const pusher = new Pusher('83be7c45c7f8e32c2528', {
+            //     cluster: 'sa1',
+            //     forceTLS: true,
+            // });
+
+            // // Inscreva-se no canal privado
+            // const channel = pusher.subscribe(`chat.${denunciaId}`);
+            // channel.bind('MessageSent', function(data) {
+            //     console.log('Evento MessageSent recebido:', data);
+            //     const messageElement = document.createElement('p');
+            //     messageElement.textContent = `${data.message.user.name}: ${data.message.mensagem}`;
+            //     document.getElementById('chatMessages').appendChild(messageElement);
+
+            //     // Scroll para a última mensagem
+            //     const chatMessages = document.getElementById('chatMessages');
+            //     chatMessages.scrollTop = chatMessages.scrollHeight;
+            // });
+
 
         });
     </script>
