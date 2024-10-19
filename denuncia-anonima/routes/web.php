@@ -37,6 +37,6 @@ Route::middleware('auth')->group(function () {
     Route::post('concluir/{id}', [ReportController::class, 'concluir'])->name('denuncia.concluir');
     Route::post('delegar/{id}', [ShowController::class, 'delegarResponsavel'])->name('denuncia.delegar');
 
-    Route::get('/chat/{id_denuncia}', [ChatController::class, 'show'])->name('chat.show');
     Route::post('/chat/send', [ChatController::class, 'sendMessage'])->name('chat.send');
+    Route::get('/chat/fetch/{denuncia}', [ChatController::class, 'fetchMessages'])->name('chat.fetch');
 });

@@ -2,59 +2,62 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-namespace App\Http\Controllers;
-
-use App\Events\MessageSent;
-use App\Events\TesteEvent;
 use App\Models\Denuncia;
 use App\Models\RespostasDenuncia;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ChatController extends Controller
 {
-    public function show($id_denuncia)
-    {
-        $denuncia = Denuncia::findOrFail($id_denuncia);
-        $messages = RespostasDenuncia::where('id_denuncia', $id_denuncia)->with('user')->get();
-
-        return view('chat', [
-            'denuncia' => $denuncia,
-            'messages' => $messages,
-        ]);
-    }
-
+    // Método para enviar uma mensagem
     public function sendMessage(Request $request)
     {
-        try {
-            \Log::info('Entrou na função sendMessage');
-            $request->validate([
-                'mensagem' => 'required|string',
-                'id_denuncia' => 'required|exists:denuncias,id',
-            ]);
-            \Log::info('Validação concluída');
-    
-            $message = RespostasDenuncia::create([
-                'id_usuario' => auth()->id(),
-                'mensagem' => $request->input('mensagem'),
-                'id_denuncia' => $request->input('id_denuncia'),
-                'data_envio' => now(),
-            ]);
-            \Log::info('Criação concluída');
-    
-            
-            \Log::info('Preparando para enviar evento MessageSent.');
-            broadcast(new MessageSent($message->load('user')))->toOthers();
-            \Log::info('Evento MessageSent enviado com sucesso.');
-            
-    
-            return response()->json(['success' => 'Message sent successfully']);
-        } catch (\Exception $e) {
-            \Log::error('Erro ao enviar mensagem: ' . $e->getMessage());
-            return response()->json(['error' => 'Erro ao enviar mensagem de denúncia: ' . $e->getMessage()], 500);
-        }
-    }
-    
-}
+        $validated = $request->validate([
+            'mensagem' => 'required|string|max:1000',
+            'denuncia_id' => 'required|exists:denuncias,id',
+        ]);
 
+        $message = RespostasDenuncia::create([
+            'id_usuario' => Auth::id(),
+            'mensagem' => $validated['mensagem'],
+            'id_denuncia' => $validated['denuncia_id'],
+            'data_envio' => now(),
+        ]);
+
+        return response()->json($message, 201);
+    }
+
+    // Método para buscar as mensagens de uma denúncia específica
+    public function fetchMessages(Denuncia $denuncia, Request $request)
+    {
+        // Pega a última data de verificação para long polling
+        $lastChecked = $request->input('last_checked');
+
+        // Loop para long polling
+        $startTime = time();
+        while (time() - $startTime < 30) { // Timeout de 30 segundos
+            $messagesQuery = $denuncia->respostas()->with('user')->latest();
+
+            if ($lastChecked) {
+                $messagesQuery->where('data_envio', '>', $lastChecked);
+            }
+
+            $messages = $messagesQuery->get();
+
+            if ($messages->count() > 0) {
+                return response()->json([
+                    'messages' => $messages,
+                    'last_checked' => now()->toDateTimeString(),
+                ]);
+            }
+
+            usleep(500000); // Pausa de meio segundo antes de tentar novamente
+        }
+
+        // Retorna uma resposta vazia se não houver novas mensagens no intervalo de tempo
+        return response()->json([
+            'messages' => [],
+            'last_checked' => now()->toDateTimeString(),
+        ]);
+    }
+}

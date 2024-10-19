@@ -1,7 +1,144 @@
 @extends('head')
 
+
 <head>
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <style>
+        /* Estilos para o botão flutuante */
+        .chat-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        /* Estilos para o painel de chat */
+        #chat {
+            position: fixed;
+            top: 0;
+            right: -33vw;
+            /* Inicialmente fora da tela */
+            height: 100%;
+            width: 33vw;
+            background-color: #fff;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+            transition: right 0.3s ease;
+            /* Animação de slide */
+            z-index: 1000;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            /* Permite rolagem se necessário */
+        }
+
+        /* Estilos para o título do chat */
+        .chat-title {
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: #007bff;
+            align-self: center;
+            /* Cor do título */
+        }
+
+        /* Estilos para mensagens */
+        #messagesContainer {
+            flex-grow: 1;
+            margin-bottom: 10px;
+            overflow-y: auto;
+            /* Permite rolagem de mensagens */
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 5px 0;
+            position: relative;
+            word-wrap: break-word;
+        }
+
+        .message-timestamp {
+            display: block;
+            font-size: 0.8rem;
+            /* Tamanho da fonte menor */
+            color: #6c757d;
+            /* Cor cinza para a data */
+            margin-top: 5px;
+            /* Espaçamento acima */
+            text-align: right;
+            /* Alinha a data à direita */
+        }
+
+        .message.sender {
+            background-color: #007bff;
+            /* Azul para o remetente */
+            color: white;
+            margin-left: auto;
+            margin-right: 10px;
+            /* Alinha à direita */
+
+            .message-timestamp {
+                color: white;
+            }
+        }
+
+        .message.receiver {
+            background-color: #e9ecef;
+            /* Cinza para o receptor */
+            color: black;
+            margin-right: auto;
+            margin-left: 10px;
+            /* Alinha à esquerda */
+        }
+
+        .message.sender::after,
+        .message.receiver::before {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+        }
+
+        .message.sender::after {
+            border-left: 10px solid #007bff;
+            /* Cor do triângulo */
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            right: -10px;
+            /* Posição da ponta */
+            top: 15px;
+            /* Alinha verticalmente */
+        }
+
+        .message.receiver::before {
+            border-right: 10px solid #e9ecef;
+            /* Cor do triângulo */
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            left: -10px;
+            /* Posição da ponta */
+            top: 15px;
+            /* Alinha verticalmente */
+        }
+
+        #chat.active {
+            right: 0;
+            /* Mostra o chat quando ativo */
+        }
+
+        /* Estilos para o botão de fechar */
+        .close-button {
+            background: none;
+            border: none;
+            font-size: 30px;
+            cursor: pointer;
+            color: #dc3545;
+            margin-bottom: 15px;
+            transition: transform 0.2s;
+            align-self: flex-start;
+        }
+    </style>
 </head>
 
 @section('title', 'Detalhes denúncia')
@@ -68,29 +205,6 @@
                                 </div>
                             </div>
                         </div>
-                            @endforeach
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="descricao" class="form-label">Descrição:</label>
-                        <textarea name="descricao" class="form-control w-100" id="descricao" rows="8" readonly>{{ $denuncia->descricao }}</textarea>
-                    </div>
-
-                    <div class="file-display-container mt-3 mb-4">
-                        @if ($denuncia->anexos->count() > 0) 
-                            @foreach ($denuncia->anexos as $anexo)
-                                <div class="file-display">
-                                    <i class="fa-solid fa-cloud-arrow-down pe-2"></i>
-                                    <a href="{{ asset('storage/' . $anexo->caminho_arquivo) }}" target="_blank" class="text-reset text-decoration-none">
-                                        {{ $anexo->nome_arquivo }}
-                                    </a>
-                                </div>
-                            @endforeach
-                        @else
-                            <p class="no-file">Não há arquivo anexado.</p>
-                        @endif
-                    </div>
 
                         <div class="mb-3">
                             <p>Tipo de denúncia</p>
@@ -112,14 +226,16 @@
                         </div>
 
                         <div class="file-display-container mt-3 mb-4">
-                            @if ($denuncia->arquivo)
-                                <div class="file-display">
-                                    <i class="fa-solid fa-cloud-arrow-down pe-2"></i>
-                                    <a href="{{ asset('storage/' . $denuncia->arquivo) }}" target="_blank"
-                                        class="text-reset text-decoration-none">
-                                        {{ $denuncia->nome_arquivo }}
-                                    </a>
-                                </div>
+                            @if ($denuncia->anexos->count() > 0)
+                                @foreach ($denuncia->anexos as $anexo)
+                                    <div class="file-display">
+                                        <i class="fa-solid fa-cloud-arrow-down pe-2"></i>
+                                        <a href="{{ asset('storage/' . $anexo->caminho_arquivo) }}" target="_blank"
+                                            class="text-reset text-decoration-none">
+                                            {{ $anexo->nome_arquivo }}
+                                        </a>
+                                    </div>
+                                @endforeach
                             @else
                                 <p class="no-file">Não há arquivo anexado.</p>
                             @endif
@@ -204,162 +320,127 @@
                                 </form>
                             </div>
                         @endif
-
                     </div>
                 </div>
+            </div>
 
+            <div id="chat-button" class="chat-button">
+                <button class="btn btn-primary" id="toggleChatButton">
+                    <i class="fa-solid fa-comments"></i> Chat
+                </button>
+            </div>
 
-                <div id="chat-button" class="chat-button">
-                    <button class="btn btn-primary">
-                        <i class="fa-solid fa-comments"></i> Chat
+            <div id="chat">
+                <button class="close-button" id="closeChatButton">&times;</button>
+                <h4 class="chat-title">Protocolo: {{ $denuncia->protocolo }}</h4> <!-- Título com o protocolo -->
+                <input type="hidden" id="denunciaId" value="{{ $denuncia->id }}">
+                <div id="messagesContainer">
+                    <div class="message sender">testetestetestetesteteste testetestetesteteste testeteste
+                        testetestetestetesteteste testetesteteste testetestetestetesteteste testetestetesteteste
+                        <span class="message-timestamp">[2024-10-19 12:30]</span>
+                    </div>
+                    <div class="message receiver">teste <span class="message-timestamp">[2024-10-19 12:30]</span></div>
+                </div>
+                <div class="d-flex align-items-center p-3 bg-light rounded shadow-sm">
+                    <input id="messageInput" type="text" placeholder="Digite sua mensagem..."
+                        class="form-control me-2" aria-label="Mensagem" />
+                    <button type="button" class="btn btn-primary" id="sendButton">
+                        Enviar
                     </button>
                 </div>
+            </div>
 
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-md-8">
-                            <div class="card">
-                                <div class="card-header">Chat</div>
-
-                                <div class="card-body">
-                                    <div id="chat-messages"
-                                        style="height: 300px; overflow-y: auto; border: 1px solid #ccc; padding: 10px;">
-                                        <!-- Mensagens serão exibidas aqui -->
-                                        @foreach ($messages as $message)
-                                            <p>{{ $message->user->name }}: {{ $message->mensagem }}</p>
-                                        @endforeach
-                                    </div>
-
-                                    <div class="mt-3">
-                                        <input type="text" id="chat-input" class="form-control"
-                                            placeholder="Digite sua mensagem">
-                                        <button id="send-message" class="btn btn-primary mt-2">Enviar</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
     </body>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/laravel-echo/1.11.1/echo.iife.js"></script>
-    <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('content loaded')
-            const sendMessageButton = document.getElementById('send-message');
-            const chatMessages = document.getElementById('chat-messages');
-            const chatInput = document.getElementById('chat-input');
-            const denunciaId = {{ $denuncia->id }}; // ID da denúncia
-            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-            console.log("csrfToken", csrfToken);
-            // Enviar a mensagem via AJAX
-            sendMessageButton.addEventListener('click', function() {
-                console.log(denunciaId)
-                const message = chatInput.value.trim();
-                if (message !== '') {
+            const currentUserId = {{ Auth::id() }};
+            const sendButton = document.getElementById('sendButton');
+            const messageInput = document.getElementById('messageInput');
+            const messagesContainer = document.getElementById('messagesContainer');
+            const denunciaId = document.getElementById('denunciaId').value;
+            const chatPanel = document.getElementById('chat');
+            const toggleChatButton = document.getElementById('toggleChatButton');
+            const closeChatButton = document.getElementById('closeChatButton');
+            let lastChecked = null;
+
+            // Função para enviar mensagem
+            sendButton.addEventListener('click', function() {
+                const mensagem = messageInput.value;
+
+                if (mensagem.trim() !== '') {
                     fetch('/chat/send', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': csrfToken,
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute('content')
                             },
                             body: JSON.stringify({
-                                mensagem: message,
-                                id_denuncia: denunciaId
-                            }),
+                                mensagem: mensagem,
+                                denuncia_id: denunciaId
+                            })
                         })
                         .then(response => {
-                            console.log('Status Code:', response
-                                .status); // Verifique o código de status da resposta
                             if (!response.ok) {
-                                throw new Error(`HTTP error! Status: ${response.status}`);
+                                throw new Error('Erro ao enviar a mensagem.');
                             }
                             return response.json();
                         })
                         .then(data => {
-                            if (data.success) {
-                                chatInput.value = '';
-                                console.log('Mensagem enviada com sucesso:', data);
-                            }
+                            messageInput.value = '';
+                            fetchMessages(); // Atualiza as mensagens após enviar
                         })
                         .catch(error => {
-                            console.error('Erro ao enviar mensagem:', error);
+                            console.error(error);
+                            alert('Erro ao enviar mensagem.');
                         });
                 }
             });
 
-            // Escutar novas mensagens via WebSocket com Laravel Echo
-            // window.Echo = new Echo({
-            //     broadcaster: 'pusher',
-            //     key: '{{ env('MIX_PUSHER_APP_KEY') }}',
-            //     cluster: '{{ env('MIX_PUSHER_APP_CLUSTER') }}',
-            //     forceTLS: true,
-            //     encrypted: true,
-            //     authEndpoint: '/broadcasting/auth', // Endereço padrão para autenticação de canais privados
-            //     auth: {
-            //         headers: {
-            //             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
-            //                 'content')
-            //         }
-            //     }
-            // });
+            // Função para buscar mensagens com long polling
+            function fetchMessages() {
+                fetch(`/chat/fetch/${denunciaId}?last_checked=${lastChecked || ''}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Erro ao buscar mensagens.');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        const messages = data.messages;
+                        lastChecked = data.last_checked;
 
+                        messages.forEach(msg => {
+                            const messageElement = document.createElement('div');
+                            messageElement.classList.add('message', msg.user.id ===
+                                currentUserId ?
+                                'sender' : 'receiver');
+                            messageElement.textContent = `${msg.user.name}: ${msg.mensagem}`;
+                            messagesContainer.appendChild(messageElement);
+                        });
 
-            console.log("denunciaId", denunciaId);
-            console.log("MIX_PUSHER_APP_KEY", '{{ env('MIX_PUSHER_APP_KEY') }}');
-            console.log("MIX_PUSHER_APP_CLUSTER", '{{ env('MIX_PUSHER_APP_CLUSTER') }}');
+                        fetchMessages(); // Chama novamente para manter o long polling ativo
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        setTimeout(fetchMessages, 5000); // Tenta novamente em 5 segundos em caso de erro
+                    });
+            }
 
-            window.Echo = new Echo({
-                broadcaster: 'pusher',
-                key: '{{ env('MIX_PUSHER_APP_KEY') }}', // Use a variável de ambiente correta
-                cluster: '{{ env('MIX_PUSHER_APP_CLUSTER') }}',
-                forceTLS: true,
-                authEndpoint: '/broadcasting/auth', // O endpoint correto para autenticação
-                auth: {
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
-                            'content')
-                    }
-                }
+            // Toggle do chat
+            toggleChatButton.addEventListener('click', () => {
+                chatPanel.classList.toggle('active');
             });
 
+            // Fechar o chat
+            closeChatButton.addEventListener('click', () => {
+                chatPanel.classList.remove('active');
+            });
 
-            // Inscreva-se no canal privado
-            window.Echo.private(`chat.${denunciaId}`)
-                .listen('MessageSent', (e) => {
-                    console.log('Evento MessageSent recebido:', e);
-                    const messageElement = document.createElement('p');
-                    messageElement.textContent = `${e.message.user.name}: ${e.message.mensagem}`;
-                    chatMessages.appendChild(messageElement);
-
-                    // Scroll para a última mensagem
-                    chatMessages.scrollTop = chatMessages.scrollHeight;
-                })
-                .error((error) => {
-                    console.error('Erro ao se inscrever no canal:', error);
-                });
-
-
-            // const pusher = new Pusher('83be7c45c7f8e32c2528', {
-            //     cluster: 'sa1',
-            //     forceTLS: true,
-            // });
-
-            // // Inscreva-se no canal privado
-            // const channel = pusher.subscribe(`chat.${denunciaId}`);
-            // channel.bind('MessageSent', function(data) {
-            //     console.log('Evento MessageSent recebido:', data);
-            //     const messageElement = document.createElement('p');
-            //     messageElement.textContent = `${data.message.user.name}: ${data.message.mensagem}`;
-            //     document.getElementById('chatMessages').appendChild(messageElement);
-
-            //     // Scroll para a última mensagem
-            //     const chatMessages = document.getElementById('chatMessages');
-            //     chatMessages.scrollTop = chatMessages.scrollHeight;
-            // });
-
-
+            // fetchMessages();
         });
     </script>
+
+
 @endsection
