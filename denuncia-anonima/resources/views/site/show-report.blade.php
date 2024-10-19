@@ -68,6 +68,29 @@
                                 </div>
                             </div>
                         </div>
+                            @endforeach
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="descricao" class="form-label">Descrição:</label>
+                        <textarea name="descricao" class="form-control w-100" id="descricao" rows="8" readonly>{{ $denuncia->descricao }}</textarea>
+                    </div>
+
+                    <div class="file-display-container mt-3 mb-4">
+                        @if ($denuncia->anexos->count() > 0) 
+                            @foreach ($denuncia->anexos as $anexo)
+                                <div class="file-display">
+                                    <i class="fa-solid fa-cloud-arrow-down pe-2"></i>
+                                    <a href="{{ asset('storage/' . $anexo->caminho_arquivo) }}" target="_blank" class="text-reset text-decoration-none">
+                                        {{ $anexo->nome_arquivo }}
+                                    </a>
+                                </div>
+                            @endforeach
+                        @else
+                            <p class="no-file">Não há arquivo anexado.</p>
+                        @endif
+                    </div>
 
                         <div class="mb-3">
                             <p>Tipo de denúncia</p>

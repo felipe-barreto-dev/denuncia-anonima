@@ -68,16 +68,16 @@ class ReportController extends Controller
     public function store(Request $request)
     {
         $credentials = null;
-          
+
         $messages = [
-            'arquivo.max' => 'O arquivo não pode ter mais que 2MB.',
-            'arquivo.mimes' => 'O arquivo deve ser um dos seguintes tipos: jpg, jpeg, png, pdf, doc, docx, xls, xlsx, csv, zip, rar.'
+            'arquivos.*.max' => 'Os arquivos não podem ter mais que 2MB.',
+            'arquivos.*.mimes' => 'Os arquivos devem ser um dos seguintes tipos: jpg, jpeg, png, pdf, doc, docx, xls, xlsx, csv, zip, rar.'
         ];
-    
+
         $request->validate([
-            'arquivo' => 'nullable|file|mimes:jpg,jpeg,png,pdf,doc,docx,xls,xlsx,csv,zip,rar|max:2048',
+            'arquivos.*' => 'nullable|file|mimes:jpg,jpeg,png,pdf,doc,docx,xls,xlsx,csv,zip,rar|max:2048',
         ], $messages);
-        
+
         if (!Auth::check()) {
             $credentials = $this->generate_random_credentials();
 
@@ -100,7 +100,7 @@ class ReportController extends Controller
         $data_ocorrido = Carbon::createFromFormat('d/m/Y', $request->input('data_ocorrido'))->format('Y-m-d');
 
         $denuncia = new Denuncia();
-        
+
         $denuncia->protocolo = $this->generate_protocol();
 
         $denuncia->descricao = $request->input('descricao');
@@ -108,36 +108,35 @@ class ReportController extends Controller
         $denuncia->pessoas_afetadas = $request->input('pessoas_afetadas');
         $denuncia->data_ocorrido = $data_ocorrido;
 
-        // Upload do arquivo, se presente
-        if ($request->hasFile('arquivo')) {
-            $arquivo = $request->file('arquivo');
-            $caminhoArquivo = $arquivo->store('arquivos_denuncias', 'public'); // Salva o arquivo com um nome único
-            $nomeOriginal = $arquivo->getClientOriginalName(); // Obtém o nome original do arquivo
-        
-            // Armazene o caminho do arquivo e o nome original no banco de dados
-            $denuncia->arquivo = $caminhoArquivo; // Armazena o caminho
-            $denuncia->nome_arquivo = $nomeOriginal; // Armazena o nome original (adicione essa coluna no banco de dados)
-        }
-
         $denuncia->id_usuario = Auth::id();
 
         $denuncia->save();
 
-        // Tipos de denúncia (array com os IDs das opções selecionadas)
+        if ($request->hasFile('arquivos')) {
+            foreach ($request->file('arquivos') as $arquivo) {
+                $caminhoArquivo = $arquivo->store('arquivos_denuncias', 'public'); 
+                $nomeOriginal = $arquivo->getClientOriginalName(); 
+                
+                $denuncia->anexos()->create([
+                    'id_denuncia' => $denuncia->id,
+                    'caminho_arquivo' => $caminhoArquivo,
+                    'nome_arquivo' => $nomeOriginal,
+                ]);
+            }
+        }
+
         $tiposDenuncia = $request->input('tipos_denuncia');
         $denuncia->tiposDenuncia()->attach($tiposDenuncia);
 
         if ($credentials) {
             $token = $this->generate_unique_token();
 
-            // Salvar os detalhes da denúncia com o token gerado
             Cache::put('denuncia_' . $token, [
                 'login' => $credentials['login'],
                 'password' => $credentials['password'],
                 'protocolo' => $denuncia->protocolo
             ], now()->addHours(1));
 
-            // Redireciona para a rota adequada com o token gerado
             return redirect()->route('confirmacao', ['token' => $token])->with('success', 'Denúncia criada com sucesso!');
         }
 
