@@ -30,34 +30,11 @@ class ChatController extends Controller
     // Método para buscar as mensagens de uma denúncia específica
     public function fetchMessages(Denuncia $denuncia, Request $request)
     {
-        // Pega a última data de verificação para long polling
-        $lastChecked = $request->input('last_checked');
+        // Pega todas as mensagens mais recentes
+        $messages = $denuncia->respostas()->with('user')->get();
 
-        // Loop para long polling
-        $startTime = time();
-        while (time() - $startTime < 30) { // Timeout de 30 segundos
-            $messagesQuery = $denuncia->respostas()->with('user')->latest();
-
-            if ($lastChecked) {
-                $messagesQuery->where('data_envio', '>', $lastChecked);
-            }
-
-            $messages = $messagesQuery->get();
-
-            if ($messages->count() > 0) {
-                return response()->json([
-                    'messages' => $messages,
-                    'last_checked' => now()->toDateTimeString(),
-                ]);
-            }
-
-            usleep(500000); // Pausa de meio segundo antes de tentar novamente
-        }
-
-        // Retorna uma resposta vazia se não houver novas mensagens no intervalo de tempo
         return response()->json([
-            'messages' => [],
-            'last_checked' => now()->toDateTimeString(),
+            'messages' => $messages,
         ]);
     }
 }

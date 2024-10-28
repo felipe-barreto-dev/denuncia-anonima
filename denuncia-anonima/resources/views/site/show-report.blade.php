@@ -335,11 +335,6 @@
                 <h4 class="chat-title">Protocolo: {{ $denuncia->protocolo }}</h4> <!-- Título com o protocolo -->
                 <input type="hidden" id="denunciaId" value="{{ $denuncia->id }}">
                 <div id="messagesContainer">
-                    <div class="message sender">testetestetestetesteteste testetestetesteteste testeteste
-                        testetestetestetesteteste testetesteteste testetestetestetesteteste testetestetesteteste
-                        <span class="message-timestamp">[2024-10-19 12:30]</span>
-                    </div>
-                    <div class="message receiver">teste <span class="message-timestamp">[2024-10-19 12:30]</span></div>
                 </div>
                 <div class="d-flex align-items-center p-3 bg-light rounded shadow-sm">
                     <input id="messageInput" type="text" placeholder="Digite sua mensagem..."
@@ -362,7 +357,9 @@
             const chatPanel = document.getElementById('chat');
             const toggleChatButton = document.getElementById('toggleChatButton');
             const closeChatButton = document.getElementById('closeChatButton');
-            let lastChecked = null;
+
+            // Armazena as IDs das mensagens já exibidas
+            const displayedMessageIds = new Set();
 
             // Função para enviar mensagem
             sendButton.addEventListener('click', function() {
@@ -398,9 +395,9 @@
                 }
             });
 
-            // Função para buscar mensagens com long polling
+            // Função para buscar mensagens com short polling
             function fetchMessages() {
-                fetch(`/chat/fetch/${denunciaId}?last_checked=${lastChecked || ''}`)
+                fetch(`/chat/fetch/${denunciaId}`)
                     .then(response => {
                         if (!response.ok) {
                             throw new Error('Erro ao buscar mensagens.');
@@ -409,24 +406,31 @@
                     })
                     .then(data => {
                         const messages = data.messages;
-                        lastChecked = data.last_checked;
 
                         messages.forEach(msg => {
-                            const messageElement = document.createElement('div');
-                            messageElement.classList.add('message', msg.user.id ===
-                                currentUserId ?
-                                'sender' : 'receiver');
-                            messageElement.textContent = `${msg.user.name}: ${msg.mensagem}`;
-                            messagesContainer.appendChild(messageElement);
+                            // Verifica se a mensagem já foi exibida
+                            if (!displayedMessageIds.has(msg.id)) {
+                                displayedMessageIds.add(msg
+                                    .id); // Adiciona a ID da mensagem ao conjunto
+                                const messageElement = document.createElement('div');
+                                messageElement.classList.add('message', msg.user.id === currentUserId ?
+                                    'sender' : 'receiver');
+                                messageElement.textContent = `${msg.mensagem}`;
+                                const dateElement = document.createElement('span');
+                                dateElement.classList.add('message-timestamp');
+                                dateElement.textContent = `${msg.data_envio}`;
+                                messageElement.appendChild(dateElement);
+                                messagesContainer.appendChild(messageElement);
+                            }
                         });
-
-                        fetchMessages(); // Chama novamente para manter o long polling ativo
                     })
                     .catch(error => {
                         console.error(error);
-                        setTimeout(fetchMessages, 5000); // Tenta novamente em 5 segundos em caso de erro
                     });
             }
+
+            // Chama a função de busca a cada 5 segundos
+            setInterval(fetchMessages, 5000);
 
             // Toggle do chat
             toggleChatButton.addEventListener('click', () => {
@@ -438,9 +442,9 @@
                 chatPanel.classList.remove('active');
             });
 
-            // fetchMessages();
+            // Iniciar o short polling
+            fetchMessages(); // Chama uma vez ao carregar
         });
     </script>
-
 
 @endsection
