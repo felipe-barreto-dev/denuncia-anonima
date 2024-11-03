@@ -1,5 +1,17 @@
 @extends('head')
 
+<head>
+    <style>
+        .hover-effect {
+            transition: background-color 0.3s;
+        }
+
+        .hover-effect:hover {
+            background-color: #f0f0f0;
+            cursor: pointer;
+        }
+    </style>
+</head>
 @section('title', 'Histórico de Denúncias')
 
 @section('content')
@@ -60,41 +72,43 @@
         </header>
 
         <main class="background-padrao">
-            <div class="container-fluid border-radius-index">
+            <div class="container-fluid border-radius-index h-screen">
                 <div class="row">
                     <div class="col-md-9 mx-auto">
-                        <ul class="list-group mt-3">
-                            @foreach ($userReports as $report)
-                                @php
-                                    $status = '';
-                                    if (is_null($report->id_responsavel)) {
-                                        $status = 'pendente';
-                                    } elseif (is_null($report->data_conclusao) && !is_null($report->id_responsavel)) {
-                                        $status = 'andamento';
-                                    } elseif (!is_null($report->data_conclusao)) {
-                                        $status = 'concluida';
-                                    }
-                                @endphp
-                                <li
-                                    class="list-group-item d-flex flex-column flex-md-row justify-content-between align-items-center denuncia">
-                                    <div class="mb-2 mb-md-0">
-                                        <h4>
-                                            <a href="{{ route('denuncia.show', $report->id) }}"
-                                                class="text-decoration-none text-reset">
-                                                {{ $report->titulo }}
-                                            </a>
-                                        </h4>
-                                        <p>{{ $report->descricao }}</p>
-                                        <span class="data">Data da denúncia:
-                                            {{ $report->created_at->format('d/m/Y') }}</span>
-                                    </div>
-                                    <span
-                                        class="badge {{ $status === 'pendente' ? 'bg-warning' : ($status === 'andamento' ? 'bg-primary' : 'bg-success') }} text-light">
-                                        {{ ucfirst($status) }}
-                                    </span>
-                                </li>
-                            @endforeach
-                        </ul>
+                        <div class="list-container" style="height: 80vh; overflow-y: auto;">
+                            <ul class="list-group mt-3">
+                                @foreach ($userReports as $report)
+                                    @php
+                                        $status = '';
+                                        if (is_null($report->id_responsavel)) {
+                                            $status = 'pendente';
+                                        } elseif (
+                                            is_null($report->data_conclusao) &&
+                                            !is_null($report->id_responsavel)
+                                        ) {
+                                            $status = 'andamento';
+                                        } elseif (!is_null($report->data_conclusao)) {
+                                            $status = 'concluida';
+                                        }
+                                    @endphp
+                                    <a href="{{ route('denuncia.show', $report->id) }}" class="text-decoration-none">
+                                        <li
+                                            class="list-group-item d-flex flex-column flex-md-row justify-content-between align-items-center denuncia hover-effect">
+                                            <div class="mb-2 mb-md-0">
+                                                <h4 class="text-reset">{{ $report->titulo }}</h4>
+                                                <p>{{ $report->descricao }}</p>
+                                                <span class="data">Data da denúncia:
+                                                    {{ $report->created_at->format('d/m/Y') }}</span>
+                                            </div>
+                                            <span
+                                                class="badge {{ $status === 'pendente' ? 'bg-warning' : ($status === 'andamento' ? 'bg-primary' : 'bg-success') }} text-light">
+                                                {{ ucfirst($status) }}
+                                            </span>
+                                        </li>
+                                    </a>
+                                @endforeach
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -117,12 +131,18 @@
                 if (button) {
                     button.classList.remove("active", "btn-primary");
                     button.classList.add(
-                    "btn-secondary"); // Garantir que os outros botões sejam 'btn-secondary'
+                        "btn-secondary"); // Garantir que os outros botões sejam 'btn-secondary'
                 }
             });
 
             if (buttons.includes(currentFilter)) {
                 const activeButton = document.getElementById(currentFilter);
+                if (activeButton) {
+                    activeButton.classList.add("active", "btn-primary");
+                    activeButton.classList.remove("btn-secondary"); // Remover 'btn-secondary' do botão ativo
+                }
+            } else {
+                const activeButton = document.getElementById('todas');
                 if (activeButton) {
                     activeButton.classList.add("active", "btn-primary");
                     activeButton.classList.remove("btn-secondary"); // Remover 'btn-secondary' do botão ativo

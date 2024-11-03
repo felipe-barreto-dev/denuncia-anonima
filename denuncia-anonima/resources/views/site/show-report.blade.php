@@ -411,14 +411,30 @@
                             // Verifica se a mensagem já foi exibida
                             if (!displayedMessageIds.has(msg.id)) {
                                 displayedMessageIds.add(msg
-                                    .id); // Adiciona a ID da mensagem ao conjunto
+                                .id); // Adiciona a ID da mensagem ao conjunto
+
+                                // Cria o elemento da mensagem
                                 const messageElement = document.createElement('div');
                                 messageElement.classList.add('message', msg.user.id === currentUserId ?
                                     'sender' : 'receiver');
                                 messageElement.textContent = `${msg.mensagem}`;
+
+                                // Formata a data
+                                const originalDate = new Date(msg.data_envio);
+                                const formattedDate = originalDate.toLocaleString('pt-BR', {
+                                    day: '2-digit',
+                                    month: '2-digit',
+                                    year: 'numeric',
+                                    hour: '2-digit',
+                                    minute: '2-digit'
+                                });
+
+                                // Cria o elemento de data
                                 const dateElement = document.createElement('span');
                                 dateElement.classList.add('message-timestamp');
-                                dateElement.textContent = `${msg.data_envio}`;
+                                dateElement.textContent = formattedDate;
+
+                                // Adiciona a data e a mensagem ao contêiner
                                 messageElement.appendChild(dateElement);
                                 messagesContainer.appendChild(messageElement);
                             }
