@@ -35,7 +35,7 @@
                 </div>
             @endif
 
-            <form method="POST" action="{{ route('fazer-denuncia') }}" id="denunciaForm" enctype="multipart/form-data">
+            <form method="POST" id="denunciaForm" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3">
                     <label class="form-label">Título da denúncia</label>
@@ -242,44 +242,80 @@
 </body>
 
 <script>$(document).ready(function() {
-    let fileCount = 0; 
+    let filesList = []; // Array para armazenar os arquivos
 
-    $('#arquivos').on('change', function(e) {
-        const files = e.target.files;
+    // Atualiza a exibição dos arquivos e o input
+    function updateFileDisplay() {
+        $('#file-name-container').empty();
 
-        Array.from(files).forEach(file => {
-            fileCount++;
-            const fileClass = `imagem_${fileCount}`; 
+        filesList.forEach((file, index) => {
+            const fileClass = `file_${index}`;
             $('#file-name-container').append(`
                 <div class="file-name ${fileClass} file-style d-flex justify-content-between align-items-center mt-3">
                     <div class="file-name-content">${file.name}</div>
-                    <i class="fa-solid fa-trash trash-icon-color me-2 cursor-pointer" data-file-class="${fileClass}"></i>
+                    <i class="fa-solid fa-trash trash-icon-color me-2 cursor-pointer" data-file-index="${index}"></i>
                 </div>
             `);
         });
 
-        $('.trash-icon-color').off('click').on('click', function() { 
-            const fileClassToRemove = $(this).data('file-class');
-            $(`.${fileClassToRemove}`).remove(); 
-            fileCount--; 
-            updateFileInput(); 
+        // Remover arquivos da lista ao clicar no ícone de exclusão
+        $('.trash-icon-color').off('click').on('click', function () {
+            const fileIndex = $(this).data('file-index');
+            filesList.splice(fileIndex, 1); // Remove o arquivo da lista
+            updateFileDisplay(); // Atualiza a exibição
         });
+    }
 
-        updateFileInput();
+    // Quando novos arquivos são adicionados
+    $('#arquivos').on('change', function (e) {
+        const newFiles = Array.from(e.target.files);
+        filesList = [...filesList, ...newFiles]; // Adiciona os novos arquivos à lista
+        updateFileDisplay();
+
+        // Reseta o input para permitir novas seleções de arquivos
+        $('#arquivos').val('');
     });
 
-    $('#upload-container').on('click', function() {
+    // Clique no container para abrir o input de upload
+    $('#upload-container').on('click', function () {
         $('#arquivos').click();
     });
 
-    function updateFileInput() {
-        const fileInputs = [];
-        $('#file-name-container .file-name-content').each(function() {
-            fileInputs.push($(this).text());
+   $('#denunciaForm').on('submit', function (e) {
+        e.preventDefault(); // Previne o envio tradicional do formulário
+
+        const formData = new FormData(this); // Cria um FormData baseado no formulário
+
+        // Adiciona os arquivos do filesList ao FormData
+        filesList.forEach(file => {
+            formData.append('arquivos[]', file);
         });
 
-        $('#arquivos').val(fileInputs.join(','));
-    }
+        // Envia via AJAX
+        $.ajax({
+            url: $(this).attr('action'), // Rota definida no formulário
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if (response.redirect) {
+                    window.location.href = response.redirect; // Redireciona o usuário
+                } else {
+                    alert(response.message || 'Denúncia enviada com sucesso!');
+                }
+            },
+            error: function (xhr) {
+                const errors = xhr.responseJSON.errors || {};
+                const message = xhr.responseJSON.message || 'Erro ao enviar a denúncia.';
+                alert(message);
+
+                // Exibir erros no console ou UI para depuração
+                console.error(errors);
+            }
+        });
+    });
+
 });
 
 function validateForm() {
