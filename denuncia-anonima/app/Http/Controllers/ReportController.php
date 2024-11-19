@@ -50,18 +50,13 @@ class ReportController extends Controller
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $characters_length = strlen($characters);
 
-        $login = '';
-        $password = '';
+        $login = 'user_' . Str::random(8);
+        $password = Str::random(12);
 
-        for ($i = 0; $i < 8; $i++) {
-            $random_index = rand(0, $characters_length - 1);
-            $login .= $characters[$random_index];
-        }
-
-        for ($i = 0; $i < 10; $i++) {
-            $random_index = rand(0, $characters_length - 1);
-            $password .= $characters[$random_index];
-        }
+        // for ($i = 0; $i < 10; $i++) {
+        //     $random_index = rand(0, $characters_length - 1);
+        //     $password .= $characters[$random_index];
+        // }
 
         return ['login' => $login, 'password' => $password];
     }
