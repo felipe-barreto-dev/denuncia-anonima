@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Usuario;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 
 class ReportController extends Controller
@@ -114,6 +115,11 @@ class ReportController extends Controller
 
         if ($request->hasFile('arquivos')) {
             foreach ($request->file('arquivos') as $arquivo) {
+                Log::info([
+                    'original_name' => $arquivo->getClientOriginalName(),
+                    'size' => $arquivo->getSize(),
+                    'mime_type' => $arquivo->getMimeType(),
+                ]);
                 $caminhoArquivo = $arquivo->store('arquivos_denuncias', 'public'); 
                 $nomeOriginal = $arquivo->getClientOriginalName(); 
                 
@@ -136,11 +142,15 @@ class ReportController extends Controller
                 'password' => $credentials['password'],
                 'protocolo' => $denuncia->protocolo
             ], now()->addHours(1));
-
-            return redirect()->route('confirmacao', ['token' => $token])->with('success', 'Denúncia criada com sucesso!');
         }
 
-        return redirect()->route('denuncias.index');
+        return response()->json([
+            'redirect' => $credentials 
+                ? route('confirmacao', ['token' => $token]) 
+                : route('denuncias.index'),
+            'message' => 'Denúncia criada com sucesso!',
+        ], 200);
+        
     }
 
     public function concluir($id)
