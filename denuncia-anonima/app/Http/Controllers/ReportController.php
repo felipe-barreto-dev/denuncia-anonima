@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Usuario;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 
 class ReportController extends Controller
@@ -110,11 +109,6 @@ class ReportController extends Controller
 
         if ($request->hasFile('arquivos')) {
             foreach ($request->file('arquivos') as $arquivo) {
-                Log::info([
-                    'original_name' => $arquivo->getClientOriginalName(),
-                    'size' => $arquivo->getSize(),
-                    'mime_type' => $arquivo->getMimeType(),
-                ]);
                 $caminhoArquivo = $arquivo->store('arquivos_denuncias', 'public'); 
                 $nomeOriginal = $arquivo->getClientOriginalName(); 
                 
