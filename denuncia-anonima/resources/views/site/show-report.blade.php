@@ -228,7 +228,7 @@
                         <div class="file-display-container mt-3 mb-4">
                             @if ($denuncia->anexos->count() > 0)
                                 @foreach ($denuncia->anexos as $anexo)
-                                    <div class="file-display">
+                                    <div class="file-display mb-3">
                                         <i class="fa-solid fa-cloud-arrow-down pe-2"></i>
                                         <a href="{{ asset('storage/' . $anexo->caminho_arquivo) }}" target="_blank"
                                             class="text-reset text-decoration-none">
