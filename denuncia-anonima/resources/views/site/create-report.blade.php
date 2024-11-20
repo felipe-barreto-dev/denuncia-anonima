@@ -241,7 +241,8 @@
 </main>
 </body>
 
-<script>$(document).ready(function() {
+<script>
+$(document).ready(function() {
     let filesList = []; // Array para armazenar os arquivos
 
     // Atualiza a exibição dos arquivos e o input
@@ -309,9 +310,6 @@
                 const errors = xhr.responseJSON.errors || {};
                 const message = xhr.responseJSON.message || 'Erro ao enviar a denúncia.';
                 alert(message);
-
-                // Exibir erros no console ou UI para depuração
-                console.error(errors);
             }
         });
     });
