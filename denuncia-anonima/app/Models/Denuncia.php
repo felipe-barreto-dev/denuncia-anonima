@@ -26,6 +26,10 @@ class Denuncia extends Model
         'data_ocorrido'
     ];
 
+    protected $casts = [
+        'data_ocorrido' => 'datetime',
+    ];
+
     // Relacionamento com tipos de denúncia (muitos para muitos)
     public function tiposDenuncia(): BelongsToMany
     {
