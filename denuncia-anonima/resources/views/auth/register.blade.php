@@ -3,57 +3,93 @@
 @section('title', 'Criar Usuário')
 
 @section('content')
-<body class="background-padrao">
-    <div class="container-fluid d-flex align-items-center justify-content-center">
-        <div class="row w-100">
-            <div class="col-md-6 d-flex align-items-center justify-content-center">
-                <div class="container mt-5">
-                    <h1>Criar Usuário</h1>
-                    @if ($errors->any() || session('success'))
-                        <div class="alert {{ $errors->any() ? 'alert-danger' : 'alert-success' }}">
-                            @if ($errors->any())
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            @else
-                                {{ session('success') }}
-                            @endif
-                        </div>
-                    @endif
 
-                    <form action="{{ route('criar.usuario') }}" method="POST">
-                        @csrf
-                        <div class="mb-3">
-                            <label for="login" class="form-label">Login:</label>
-                            <input type="text" id="login" name="login" class="form-control" required>
+    <body class="background-padrao">
+        <div class="container my-5">
+            <!-- Botão Voltar -->
+            <div class="mb-4">
+                <a href="{{ url()->previous() }}" class="btn btn-outline-secondary align-items-center">
+                    <i class="fa-solid fa-arrow-left me-2"></i> Voltar
+                </a>
+            </div>
+
+            <div class="row">
+                <!-- Formulário de Criação -->
+                <div class="col-lg-5">
+                    <div class="card shadow-sm p-4 border-0 rounded">
+                        <h2 class="mb-4 text-center">Criar Usuário</h2>
+                        @if ($errors->any() || session('success'))
+                            <div class="alert {{ $errors->any() ? 'alert-danger' : 'alert-success' }} rounded">
+                                @if ($errors->any())
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                @else
+                                    {{ session('success') }}
+                                @endif
+                            </div>
+                        @endif
+
+                        <form action="{{ route('criar.usuario') }}" method="POST">
+                            @csrf
+                            <div class="mb-3">
+                                <label for="login" class="form-label">Login:</label>
+                                <input type="text" id="login" name="login" class="form-control"
+                                    placeholder="Digite o login" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Senha:</label>
+                                <input type="password" id="password" name="password" class="form-control"
+                                    placeholder="Digite a senha" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password_confirmation" class="form-label">Confirmar senha:</label>
+                                <input type="password" id="password_confirmation" name="password_confirmation"
+                                    class="form-control" placeholder="Confirme a senha" required>
+                            </div>
+                            <div class="mb-4">
+                                <label for="perfil" class="form-label">Perfil:</label>
+                                <select id="perfil" name="perfil" class="form-select" required>
+                                    <option value="">Selecione um perfil</option>
+                                    @foreach ($perfis as $perfil)
+                                        <option value="{{ $perfil->id }}">{{ $perfil->nome }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="fa-solid fa-user-plus me-2"></i>Criar Usuário
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Lista de Usuários -->
+                <div class="col-lg-7 mt-4 mt-lg-0">
+                    <div class="card shadow-sm p-4 border-0 rounded">
+                        <h2 class="text-center mb-4">Usuários Cadastrados</h2>
+                        <div class="table-responsive" style="max-height: 400px;">
+                            <table class="table table-hover align-middle">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Login</th>
+                                        <th>Perfil</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($usuarios as $usuario)
+                                        <tr>
+                                            <td>{{ $usuario->login }}</td>
+                                            <td>{{ $usuario->perfil->nome }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Senha:</label>
-                            <input type="password" id="password" name="password" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="password_confirmation" class="form-label">Confirmar Senha:</label>
-                            <input type="password" id="password_confirmation" name="password_confirmation" class="form-control" required>
-                        </div>
-                        <div class="mb-5">
-                            <label for="perfil" class="form-label">Perfil:</label>
-                            <select id="perfil" name="perfil" class="form-select" required>
-                                <option value="">Selecione um perfil</option>
-                                @foreach($perfis as $perfil)
-                                    <option value="{{ $perfil->id }}">{{ $perfil->nome }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-secondary">Criar Usuário</button>
-                    </form>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-6 d-flex align-items-center justify-content-center mt-5">
-                <img src="Imagens/criar-usuario.png" alt="Logo" class="img-fluid" style="max-width: 60%;">
-            </div>
         </div>
-    </div>
-</body>
+    </body>
 @endsection

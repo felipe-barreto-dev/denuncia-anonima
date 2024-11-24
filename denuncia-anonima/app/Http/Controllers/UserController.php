@@ -11,7 +11,8 @@ class UserController extends Controller
     public function create()
     {
         $perfis = Perfil::all();
-        return view('auth.register', ['perfis' => $perfis]);
+        $usuarios = Usuario::with('perfil')->get(); // Usuários existentes
+        return view('auth.register', ['perfis' => $perfis, 'usuarios' => $usuarios]);
     }
 
     public function store(Request $request)
