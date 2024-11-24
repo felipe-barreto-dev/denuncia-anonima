@@ -10,13 +10,8 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ConfirmationController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('guest')->group(function () {
-    Route::get('criar-usuario', [UserController::class, 'create'])->name('criar.usuario');
-    Route::post('criar-usuario', [UserController::class, 'store']);
-
-    Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
-    Route::post('login', [AuthenticatedSessionController::class, 'store']);
-});
+Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
+Route::post('login', [AuthenticatedSessionController::class, 'store']);
 
 Route::get('fazer-denuncia', [ReportController::class, 'create']);
 Route::post('fazer-denuncia', [ReportController::class, 'store'])->name('fazer-denuncia');
@@ -39,4 +34,9 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/chat/send', [ChatController::class, 'sendMessage'])->name('chat.send');
     Route::get('/chat/fetch/{denuncia}', [ChatController::class, 'fetchMessages'])->name('chat.fetch');
+
+    Route::get('criar-usuario', [UserController::class, 'create'])->name('criar.usuario');
+    Route::post('criar-usuario', [UserController::class, 'store']);
+    Route::post('editar-usuario', [UserController::class, 'store'])->name('editar.usuario');
+    Route::post('excluir-usuario', [UserController::class, 'store'])->name('excluir.usuario');
 });

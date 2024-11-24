@@ -51,7 +51,43 @@
                         </div>
                     </div>
 
-                    <!-- Action Buttons Section -->
+                    <div class="dropdown col me-3 d-flex flex-column align-items-end order-3">
+                        <button class="btn btn-secondary dropdown-toggle text-capitalize" type="button"
+                            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{ Auth::user()->perfil->nome }}
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <div class="d-flex flex-column align-items-end p-2 w-100">
+                                <a href="{{ route('fazer-denuncia') }}"
+                                    class="btn btn-secondary border-0 p-2 btn-lg mb-2 w-100">
+                                    <span class="fs-6">Nova Denúncia</span>
+                                    <i class="fa-solid fa-bullhorn ms-1"></i>
+                                </a>
+
+                                @if(Auth::user()->perfil->nome === 'administrador' || Auth::user()->perfil->nome === 'admin')
+                                    <!-- Verifica se o usuário é administrador -->
+                                    <a href="{{ route('criar.usuario') }}"
+                                        class="btn btn-primary border-0 p-2 btn-lg mb-2 w-100">
+                                        <span class="fs-6">Criar Usuário</span>
+                                        <i class="fa-solid fa-user-plus ms-1"></i>
+                                    </a>
+                                @endif
+
+                                <button type="button" class="btn btn-danger border-0 btn-lg fs-6 px-4 w-100"
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                                    aria-label="Sair">
+                                    Sair
+                                    <i class="fa-solid fa-right-from-bracket ms-1"></i>
+                                </button>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    {{-- <!-- Action Buttons Section -->
                     <div class="col me-3 d-flex flex-column align-items-end order-3">
                         <a href="{{ route('fazer-denuncia') }}" class="btn btn-secondary border-0 p-2 btn-lg mb-2">
                             <span class="fs-6">Nova Denúncia</span>
@@ -66,7 +102,7 @@
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             @csrf
                         </form>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </header>
