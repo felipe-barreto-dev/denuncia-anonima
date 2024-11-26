@@ -243,6 +243,10 @@ input[type="file"] {
     background-color: white;
 }
 
+.btn-admin{
+    background-color: #0A58CA;
+    color: #fff;
+}
 
 @media (max-width: 768px) {
     .alinhamento-status {

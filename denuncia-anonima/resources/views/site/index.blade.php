@@ -52,7 +52,7 @@
                     </div>
 
                     <div class="dropdown col me-3 d-flex flex-column align-items-end order-3">
-                        <button class="btn btn-secondary dropdown-toggle text-capitalize" type="button"
+                        <button class="btn btn-admin dropdown-toggle text-capitalize" type="button"
                             id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {{ Auth::user()->perfil->nome }}
                         </button>
