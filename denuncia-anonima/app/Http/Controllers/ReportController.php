@@ -92,7 +92,7 @@ class ReportController extends Controller
             Auth::login($usuario);
         }
 
-        //$data_ocorrido = Carbon::createFromFormat('d/m/Y', $request->input('data_ocorrido'))->format('Y-m-d');
+        $data_ocorrido = Carbon::createFromFormat('d/m/Y', $request->input('data_ocorrido'))->format('Y-m-d');
 
         $denuncia = new Denuncia();
 
@@ -101,7 +101,7 @@ class ReportController extends Controller
         $denuncia->descricao = $request->input('descricao');
         $denuncia->titulo = $request->input('titulo');
         $denuncia->pessoas_afetadas = $request->input('pessoas_afetadas');
-        $denuncia->data_ocorrido = $request->input('data_ocorrido');
+        $denuncia->data_ocorrido = $data_ocorrido;
 
         $denuncia->id_usuario = Auth::id();
 

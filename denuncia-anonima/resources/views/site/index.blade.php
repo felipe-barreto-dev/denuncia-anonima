@@ -134,7 +134,7 @@
                                                 <h4 class="text-reset">{{ $report->titulo }}</h4>
                                                 <p>{{ $report->descricao }}</p>
                                                 <span class="data">Data da denúncia:
-                                                    {{ $report->data_ocorrido->format('d/m/Y') }}</span>
+                                                    {{ $report->created_at->format('d/m/Y') }}</span>
                                             </div>
                                             <span
                                                 class="badge {{ $status === 'pendente' ? 'bg-warning' : ($status === 'andamento' ? 'bg-primary' : 'bg-success') }} text-light">
