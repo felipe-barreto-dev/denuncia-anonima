@@ -44,15 +44,12 @@
                 </div>
 
                 <div class="mb-3 position-relative">
-                    <label class="form-label">Data do ocorrido</label>
-                    <div class="input-group">
-                        <input name="data_ocorrido" type="text" class="form-control" id="custom-date">
-                        <span class="input-group-text" role="button">
-                            <i class="fa-solid fa-calendar cursor-pointer"></i>
-                        </span>
-                    </div>
-                    <div class="error-message" id="error-data">Campo obrigatório</div>
+                <label class="form-label">Data do ocorrido</label>
+                <div class="input-group">
+                    <input name="data_ocorrido" type="date" class="form-control" id="datetimepicker" max="">
                 </div>
+                <div class="error-message" id="error-data">Campo obrigatório</div>
+            </div>
 
                 <div class="mb-3">
                     <p>Pessoas afetadas</p>
@@ -120,7 +117,10 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                Deseja confirmar sua denúncia?
+                                <p class="alert-footer fs-7 mt-2" style="font-weight: bold; font-size: 1.0rem;">
+                                    <span style="font-size: 1.5rem; margin-right: 8px;">⚠️</span>Atenção, denunciação caluniosa é crime!
+                                </p>
+                             Deseja confirmar sua denúncia?
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -309,11 +309,21 @@ $(document).ready(function() {
             error: function (xhr) {
                 const errors = xhr.responseJSON.errors || {};
                 const message = xhr.responseJSON.message || 'Erro ao enviar a denúncia.';
+                console.log("string", xhr.responseJSON);
                 alert(message);
             }
         });
     });
 
+});
+
+    // Definir a data máxima como o dia atual
+$(document).ready(function() {
+    const today = new Date().toISOString().split('T')[0];
+    $('#datetimepicker').attr('max', today);
+    document.querySelector('input[name="data_ocorrido"]').addEventListener('click', function() {
+    this.showPicker();
+});
 });
 
 function validateForm() {
