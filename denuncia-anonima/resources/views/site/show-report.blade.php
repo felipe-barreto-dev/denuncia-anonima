@@ -153,7 +153,7 @@
                         <img src="/logo2.png" width="146px" height="96px" alt="Logo" />
                     </div>
                     <div class="col-md-6 font-size-titles text-white margin-top-title-create order-2 order-md-2 col-12">
-                        Detalhes da Denúncia
+                        Detalhes da denúncia
                     </div>
                     <div class="col-md-3 margin-top-button-back-create order-3 order-md-1 col-12">
                         <a href="{{ route('denuncias.index') }}" class="btn btn-secondary btn-lg py-2 px-4 ms-3">

@@ -17,7 +17,7 @@
                 <!-- Formulário de Criação -->
                 <div class="col-lg-5">
                     <div class="card shadow-sm p-4 border-0 rounded">
-                        <h2 class="mb-4 text-center">Criar Usuário</h2>
+                        <h2 class="mb-4 text-center">Criar usuário</h2>
                         @if ($errors->any() || session('success'))
                             <div class="alert {{ $errors->any() ? 'alert-danger' : 'alert-success' }} rounded">
                                 @if ($errors->any())
@@ -59,7 +59,7 @@
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-primary w-100">
-                                <i class="fa-solid fa-user-plus me-2"></i>Criar Usuário
+                                <i class="fa-solid fa-user-plus me-2"></i>Criar usuário
                             </button>
                         </form>
                     </div>
@@ -68,7 +68,7 @@
                 <!-- Lista de Usuários -->
                 <div class="col-lg-7 mt-4 mt-lg-0">
                     <div class="card shadow-sm p-4 border-0 rounded">
-                        <h2 class="text-center mb-4">Usuários Cadastrados</h2>
+                        <h2 class="text-center mb-4">Usuários cadastrados</h2>
                         <div class="table-responsive" style="max-height: 400px;">
                             <table class="table table-hover align-middle">
                                 <thead class="table-light">

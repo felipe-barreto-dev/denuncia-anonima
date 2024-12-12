@@ -10,7 +10,7 @@
                 <img src="{{ asset('Imagens/logo.png') }}" alt="" style="width: 8rem; height: 7rem;">
             </div>
             <div class="text-center mb-2">
-                <h4>Muito Obrigado!</h4>
+                <h4>Muito obrigado!</h4>
             <h6>O protocolo da sua denúncia é:</h6>
             </div>
             <!-- Numero do protocolo -->

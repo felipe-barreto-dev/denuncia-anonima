@@ -11,7 +11,7 @@
                 <img src="/logo2.png" width="146px" height="96px" alt="Logo" />
             </div>
             <div class="col-md-6 font-size-titles text-white margin-top-title-create order-2 order-md-2 col-12">
-                Nova Denúncia
+                Nova denúncia
             </div>
             <div class="col-md-3 margin-top-button-back-create order-3 order-md-1 col-12">
                 <a href="{{ route('denuncias.index') }}" class="btn btn-secondary btn-lg py-2 px-4 ms-3">
@@ -89,7 +89,7 @@
                     <div class="error-message" id="error-descricao">Campo obrigatório</div>
                 </div>
                 
-                <label for="anexo" class="form-label">Anexe Fotos ou Vídeos</label>
+                <label for="anexo" class="form-label">Anexe fotos ou vídeos</label>
                 <div id="upload-container" class="d-flex justify-content-center align-items-center border rounded w-100 cursor-pointer">
                     <i class="fa-solid fa-cloud-arrow-up fs-3 p-3"></i>
                 </div>

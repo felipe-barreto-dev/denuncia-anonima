@@ -10,7 +10,7 @@
                 <img src="{{ asset('Imagens/logo.png') }}" alt="" style="width: 8rem; height: 7rem;">
             </div>
             <div class="text-center mb-2">
-                <h3>Muito Obrigado!</h3>
+                <h3>Muito obrigado!</h3>
                 <p>
                     <h6 style="font-size: 0.9rem;"> <!-- Ajustando o tamanho do texto -->
                         Sua coragem é o primeiro passo para um ambiente acadêmico mais justo e seguro.

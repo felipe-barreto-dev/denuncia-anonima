@@ -60,7 +60,7 @@
                             <div class="d-flex flex-column align-items-end p-2 w-100">
                                 <a href="{{ route('fazer-denuncia') }}"
                                     class="btn btn-secondary border-0 p-2 btn-lg mb-2 w-100">
-                                    <span class="fs-6">Nova Denúncia</span>
+                                    <span class="fs-6">Nova denúncia</span>
                                     <i class="fa-solid fa-bullhorn ms-1"></i>
                                 </a>
 
@@ -68,7 +68,7 @@
                                     <!-- Verifica se o usuário é administrador -->
                                     <a href="{{ route('criar.usuario') }}"
                                         class="btn btn-primary border-0 p-2 btn-lg mb-2 w-100">
-                                        <span class="fs-6">Criar Usuário</span>
+                                        <span class="fs-6">Criar usuário</span>
                                         <i class="fa-solid fa-user-plus ms-1"></i>
                                     </a>
                                 @endif
@@ -90,7 +90,7 @@
                     {{-- <!-- Action Buttons Section -->
                     <div class="col me-3 d-flex flex-column align-items-end order-3">
                         <a href="{{ route('fazer-denuncia') }}" class="btn btn-secondary border-0 p-2 btn-lg mb-2">
-                            <span class="fs-6">Nova Denúncia</span>
+                            <span class="fs-6">Nova denúncia</span>
                             <i class="fa-solid fa-bullhorn ms-1"></i>
                         </a>
                         <button type="button" class="btn btn-danger border-0 btn-lg fs-6 px-4"
