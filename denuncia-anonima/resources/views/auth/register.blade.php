@@ -8,7 +8,7 @@
         <div class="container my-5">
             <!-- Botão Voltar -->
             <div class="mb-4">
-                <a href="{{ url()->previous() }}" class="btn btn-outline-secondary align-items-center">
+                <a href="{{ route('denuncias.index') }}" class="btn btn-outline-secondary align-items-center">
                     <i class="fa-solid fa-arrow-left me-2"></i> Voltar
                 </a>
             </div>
